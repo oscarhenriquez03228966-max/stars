@@ -1,0 +1,712 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111225">
+<title>Stars ✦</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap');
+
+:root {
+--bg:#101124;
+--panel:rgba(255,255,255,.085);
+--panel2:rgba(255,255,255,.12);
+--text:#f7f4ff;
+--muted:#b9b4d2;
+--accent:#c5a6ff;
+--accent2:#86d9ff;
+--line:rgba(255,255,255,.13);
+--shadow:0 18px 60px rgba(0,0,0,.25);
+}
+
+* {box-sizing:border-box}
+
+body {
+margin:0;
+min-height:100vh;
+background:
+radial-gradient(ellipse at 15% 10%,#393064 0,transparent 36%),
+radial-gradient(ellipse at 90% 35%,#173a59 0,transparent 32%),
+var(--bg);
+color:var(--text);
+font-family:'Quicksand',sans-serif;
+overflow-x:hidden;
+}
+
+body:before {
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+opacity:.45;
+background-image:
+radial-gradient(2px 2px at 20px 30px,#fff,transparent),
+radial-gradient(1px 1px at 90px 110px,#fff,transparent),
+radial-gradient(1.5px 1.5px at 160px 70px,#fff,transparent);
+background-size:220px 180px;
+z-index:-1;
+}
+
+body.no-stars:before {display:none}
+
+header {
+max-width:1100px;
+margin:auto;
+padding:25px 24px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+}
+
+.logo {
+font:32px 'Pacifico',cursive;
+color:#e7d8ff;
+text-shadow:0 0 25px #ad8cff;
+letter-spacing:1px;
+cursor:pointer;
+background:none;
+border:0;
+padding:0;
+}
+
+.nav {display:flex;gap:9px}
+
+button,.nav a {
+font:600 14px 'Quicksand';
+color:var(--text);
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:14px;
+padding:10px 15px;
+cursor:pointer;
+text-decoration:none;
+transition:.2s;
+}
+
+button:hover,.nav a:hover {
+background:var(--panel2);
+transform:translateY(-2px);
+border-color:#c5a6ff;
+}
+
+main {
+max-width:900px;
+margin:7vh auto 50px;
+padding:0 22px;
+position:relative;
+text-align:center;
+}
+
+h1 {
+font:clamp(48px,9vw,78px) 'Pacifico',cursive;
+margin:0 0 8px;
+color:#f0e8ff;
+text-shadow:0 0 35px #9b77ef;
+}
+
+.subtitle {
+color:var(--muted);
+margin:0 0 34px;
+font-size:15px;
+}
+
+.search-wrap {
+max-width:690px;
+margin:auto;
+padding:9px;
+border:1px solid var(--line);
+border-radius:22px;
+background:rgba(255,255,255,.09);
+box-shadow:var(--shadow);
+display:flex;
+gap:8px;
+backdrop-filter:blur(18px);
+}
+
+.search-wrap input {
+flex:1;
+min-width:0;
+background:transparent;
+border:0;
+outline:0;
+color:var(--text);
+font:500 16px 'Quicksand';
+padding:13px 15px;
+}
+
+.search-wrap input::placeholder {color:#aaa4c3}
+
+.search-wrap button {
+background:linear-gradient(120deg,#9e7be8,#6c9fe7);
+border:0;
+padding:0 23px;
+}
+
+.hint {
+color:#aaa4c3;
+font-size:12px;
+margin:12px 0 38px;
+}
+
+.section-title {
+font:25px 'Pacifico',cursive;
+margin:32px 0 15px;
+color:#e8dcff;
+}
+
+.tiles {
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:13px;
+max-width:690px;
+margin:auto;
+}
+
+.tile {
+padding:18px 12px;
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:18px;
+text-decoration:none;
+color:var(--text);
+transition:.2s;
+cursor:pointer;
+}
+
+.tile:hover {
+transform:translateY(-4px);
+background:var(--panel2);
+border-color:#b99bff;
+}
+
+.tile .emoji {
+font-size:26px;
+display:block;
+margin-bottom:8px;
+}
+
+.tile strong {font-size:14px}
+
+.tile small {
+display:block;
+color:var(--muted);
+font-size:11px;
+margin-top:4px;
+}
+
+footer {
+color:#8f8aa9;
+font-size:11px;
+padding:28px;
+}
+
+/* browser area */
+
+.browser {
+display:none;
+max-width:1100px;
+margin:15px auto 45px;
+padding:0 18px;
+position:relative;
+}
+
+.browser.active {display:block}
+
+.browser-toolbar {
+display:flex;
+align-items:center;
+gap:9px;
+padding:10px;
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:17px 17px 0 0;
+}
+
+.browser-toolbar button {
+padding:9px 13px;
+}
+
+.address {
+flex:1;
+min-width:0;
+background:rgba(0,0,0,.17);
+border:1px solid var(--line);
+border-radius:12px;
+padding:11px 13px;
+color:var(--text);
+font:13px 'Quicksand';
+outline:none;
+}
+
+.address:focus {border-color:var(--accent)}
+
+.browser-screen {
+width:100%;
+height:75vh;
+min-height:450px;
+border:1px solid var(--line);
+border-top:0;
+border-radius:0 0 17px 17px;
+background:white;
+display:block;
+}
+
+.browser-note {
+text-align:center;
+font-size:11px;
+color:var(--muted);
+margin:10px 0;
+}
+
+.modal {
+position:fixed;
+inset:0;
+background:rgba(4,5,18,.72);
+display:none;
+align-items:center;
+justify-content:center;
+padding:18px;
+z-index:5;
+backdrop-filter:blur(8px);
+}
+
+.modal.open {display:flex}
+
+.dialog {
+width:min(520px,100%);
+max-height:85vh;
+overflow:auto;
+background:#1c1b36;
+border:1px solid var(--line);
+border-radius:23px;
+padding:24px;
+box-shadow:var(--shadow);
+text-align:left;
+}
+
+.dialog h2 {
+font:26px 'Pacifico';
+margin:0 0 14px;
+color:#e7d8ff;
+}
+
+.dialog p {
+color:var(--muted);
+font-size:13px;
+line-height:1.6;
+}
+
+.close {float:right}
+
+.setting-row {
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+border-bottom:1px solid var(--line);
+gap:15px;
+}
+
+select {
+background:#302d50;
+color:white;
+border:1px solid var(--line);
+padding:8px;
+border-radius:10px;
+}
+
+body.light {
+--bg:#eeeafa;
+--text:#28223e;
+--muted:#665e80;
+--panel:rgba(80,61,130,.09);
+--panel2:rgba(80,61,130,.15);
+--line:rgba(70,50,110,.18);
+background:
+radial-gradient(ellipse at 15% 10%,#d9c9ff,transparent 38%),
+radial-gradient(ellipse at 90% 35%,#c8edff,transparent 32%),
+var(--bg);
+}
+
+body.light h1,
+body.light .logo,
+body.light .section-title {
+color:#57427e;
+text-shadow:none;
+}
+
+body.light .dialog {
+background:#f5f0ff;
+color:#28223e;
+}
+
+body.light .dialog h2 {color:#57427e}
+body.light .dialog p {color:#665e80}
+body.light select {background:white;color:#28223e}
+
+@media(max-width:560px) {
+header {padding:18px}
+.logo {font-size:27px}
+.nav button {padding:9px 11px}
+main {margin-top:6vh}
+.tiles {grid-template-columns:repeat(2,1fr)}
+.search-wrap {border-radius:17px}
+.search-wrap input {font-size:14px;padding:11px 8px}
+.search-wrap button {padding:0 15px}
+.browser-screen {height:70vh;min-height:350px}
+.browser-toolbar {gap:5px;padding:7px}
+.browser-toolbar button {padding:9px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<button class="logo" onclick="goHome()">✦ stars</button>
+
+<nav class="nav">
+<button id="settingsBtn">⚙ settings</button>
+</nav>
+</header>
+
+<main id="homePage">
+
+<h1>find your orbit</h1>
+
+<p class="subtitle">
+a little corner of the internet, made of stardust
+</p>
+
+<form class="search-wrap" id="searchForm">
+<input
+id="query"
+type="search"
+placeholder="search the web or enter a website..."
+autocomplete="off"
+aria-label="Search the web"
+>
+<button type="submit">search ✦</button>
+</form>
+
+<div class="hint">
+press enter to search · websites open inside stars
+</div>
+
+<div class="section-title">quick launch</div>
+
+<div class="tiles">
+
+<div class="tile" onclick="navigate('https://www.youtube.com/')">
+<span class="emoji">▶️</span>
+<strong>YouTube</strong>
+<small>videos & music</small>
+</div>
+
+<div class="tile" onclick="navigate('https://wikipedia.org/')">
+<span class="emoji">📚</span>
+<strong>Wikipedia</strong>
+<small>learn something</small>
+</div>
+
+<div class="tile" onclick="navigate('https://www.coolmathgames.com/')">
+<span class="emoji">🧩</span>
+<strong>Coolmath Games</strong>
+<small>puzzles & play</small>
+</div>
+
+<div class="tile" onclick="navigate('https://www.google.com/')">
+<span class="emoji">🌐</span>
+<strong>Google</strong>
+<small>explore the web</small>
+</div>
+
+<div class="tile" onclick="navigate('https://www.pinterest.com/')">
+<span class="emoji">📌</span>
+<strong>Pinterest</strong>
+<small>ideas & inspiration</small>
+</div>
+
+<div class="tile" onclick="navigate('https://www.reddit.com/')">
+<span class="emoji">💬</span>
+<strong>Reddit</strong>
+<small>communities & stories</small>
+</div>
+
+</div>
+
+<footer>✦ stars portal · stay curious</footer>
+
+</main>
+
+<!-- browser -->
+
+<section class="browser" id="browser">
+
+<div class="browser-toolbar">
+
+<button onclick="goHome()" title="Home">⌂</button>
+
+<button onclick="reloadPage()" title="Reload">↻</button>
+
+<input
+class="address"
+id="addressBar"
+placeholder="enter a website or search..."
+>
+
+<button onclick="goAddress()">go ✦</button>
+
+</div>
+
+<iframe
+class="browser-screen"
+id="browserFrame"
+title="Stars browser"
+allow="fullscreen; autoplay; clipboard-read; clipboard-write"
+referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+
+<div class="browser-note">
+✦ browsing inside stars · some websites may block embedded viewing
+</div>
+
+</section>
+
+<!-- settings -->
+
+<div class="modal" id="settingsModal">
+
+<div class="dialog">
+
+<button class="close" onclick="closeModal()">✕</button>
+
+<h2>settings</h2>
+
+<p>make your little corner feel right</p>
+
+<div class="setting-row">
+<span>appearance</span>
+<select id="themeSelect">
+<option value="dark">midnight sky</option>
+<option value="light">soft daylight</option>
+</select>
+</div>
+
+<div class="setting-row">
+<span>search engine</span>
+<select id="engineSelect">
+<option value="duck">DuckDuckGo</option>
+<option value="google">Google</option>
+<option value="bing">Bing</option>
+</select>
+</div>
+
+<div class="setting-row">
+<span>show starry background</span>
+<input id="starsToggle" type="checkbox" checked>
+</div>
+
+<p>settings are saved in this browser on this device.</p>
+
+</div>
+</div>
+
+<script>
+
+const $ = id => document.getElementById(id);
+
+// SEARCH AND BROWSER
+
+function isWebsite(value) {
+return /^(https?:\/\/)?(localhost|(\w[\w-]*\.)+[a-z]{2,})(:\d+)?(\/.*)?$/i.test(value);
+}
+
+function normalizeUrl(value) {
+value = value.trim();
+
+if (!/^https?:\/\//i.test(value)) {
+value = 'https://' + value;
+}
+
+return value;
+}
+
+function searchUrl(q) {
+
+const engine = $('engineSelect').value;
+
+const urls = {
+duck:'https://duckduckgo.com/?q=',
+google:'https://www.google.com/search?q=',
+bing:'https://www.bing.com/search?q='
+};
+
+return urls[engine] + encodeURIComponent(q);
+
+}
+
+function navigate(value) {
+
+value = value.trim();
+
+if (!value) return;
+
+let destination;
+
+if (isWebsite(value)) {
+destination = normalizeUrl(value);
+} else {
+destination = searchUrl(value);
+}
+
+openBrowser(destination);
+
+}
+
+function openBrowser(url) {
+
+$('homePage').style.display = 'none';
+$('browser').classList.add('active');
+
+$('addressBar').value = url;
+$('browserFrame').src = url;
+
+window.scrollTo({top:0,behavior:'smooth'});
+
+}
+
+function goAddress() {
+navigate($('addressBar').value);
+}
+
+function reloadPage() {
+
+const frame = $('browserFrame');
+
+try {
+frame.contentWindow.location.reload();
+} catch(e) {
+frame.src = frame.src;
+}
+
+}
+
+function goHome() {
+
+$('browserFrame').src = 'about:blank';
+$('browser').classList.remove('active');
+$('homePage').style.display = 'block';
+
+$('query').value = '';
+
+window.scrollTo({top:0,behavior:'smooth'});
+
+}
+
+// SEARCH FORM
+
+$('searchForm').addEventListener('submit',e => {
+
+e.preventDefault();
+
+navigate($('query').value);
+
+});
+
+$('addressBar').addEventListener('keydown',e => {
+
+if (e.key === 'Enter') {
+goAddress();
+}
+
+});
+
+// SETTINGS
+
+function showModal() {
+$('settingsModal').classList.add('open');
+}
+
+function closeModal() {
+$('settingsModal').classList.remove('open');
+}
+
+$('settingsBtn').onclick = showModal;
+
+$('settingsModal').addEventListener('click',e => {
+
+if (e.target === $('settingsModal')) {
+closeModal();
+}
+
+});
+
+function saveSettings() {
+
+localStorage.setItem('starsSettings',JSON.stringify({
+
+theme:$('themeSelect').value,
+engine:$('engineSelect').value,
+stars:$('starsToggle').checked
+
+}));
+
+}
+
+function loadSettings() {
+
+try {
+
+const settings = JSON.parse(
+localStorage.getItem('starsSettings') || '{}'
+);
+
+$('themeSelect').value = settings.theme || 'dark';
+$('engineSelect').value = settings.engine || 'duck';
+$('starsToggle').checked = settings.stars !== false;
+
+document.body.classList.toggle(
+'light',
+settings.theme === 'light'
+);
+
+document.body.classList.toggle(
+'no-stars',
+settings.stars === false
+);
+
+} catch(e) {}
+
+}
+
+['themeSelect','engineSelect','starsToggle'].forEach(id => {
+
+$(id).addEventListener('change',() => {
+
+document.body.classList.toggle(
+'light',
+$('themeSelect').value === 'light'
+);
+
+document.body.classList.toggle(
+'no-stars',
+!$('starsToggle').checked
+);
+
+saveSettings();
+
+});
+
+});
+
+loadSettings();
+
+</script>
+
+</body>
+</html>
