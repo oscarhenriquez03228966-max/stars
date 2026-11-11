@@ -283,6 +283,137 @@ background:white;
 display:block;
 }
 
+/* custom new tab homepage */
+
+.newtab-page {
+display:none;
+min-height:70vh;
+padding:65px 18px 45px;
+text-align:center;
+border:1px solid var(--line);
+border-top:0;
+border-radius:0 0 17px 17px;
+background:
+radial-gradient(ellipse at 50% 20%,rgba(151,112,231,.19),transparent 55%),
+rgba(13,13,32,.55);
+animation:pageAppear .35s ease both;
+}
+
+.newtab-page.active {display:block}
+
+@keyframes pageAppear {
+from {opacity:0;transform:translateY(12px)}
+to {opacity:1;transform:translateY(0)}
+}
+
+.newtab-logo {
+font:clamp(65px,13vw,105px) 'Pacifico',cursive;
+color:#eee2ff;
+text-shadow:0 0 18px #ad8cff,0 0 45px #815bc9;
+margin:0 0 8px;
+}
+
+.newtab-subtitle {
+color:var(--muted);
+font-size:14px;
+margin:0 0 34px;
+}
+
+.newtab-form {
+width:min(620px,100%);
+margin:0 auto 15px;
+display:flex;
+gap:8px;
+padding:9px;
+border:1px solid var(--line);
+border-radius:20px;
+background:rgba(255,255,255,.08);
+box-shadow:var(--shadow);
+backdrop-filter:blur(18px);
+}
+
+.newtab-form input {
+flex:1;
+min-width:0;
+border:0;
+outline:0;
+background:transparent;
+color:var(--text);
+font:500 15px 'Quicksand';
+padding:12px;
+}
+
+.newtab-form input::placeholder {color:#aaa4c3}
+
+.newtab-form button {
+background:linear-gradient(120deg,#9e7be8,#6c9fe7);
+border:0;
+padding:0 18px;
+}
+
+.url-form button {
+background:rgba(255,255,255,.1);
+border:1px solid var(--line);
+}
+
+.quick-title {
+color:var(--muted);
+font-size:12px;
+margin:35px 0 16px;
+}
+
+.quick-links {
+display:flex;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
+gap:13px;
+max-width:600px;
+margin:auto;
+}
+
+.quick-link {
+width:95px;
+min-height:90px;
+padding:13px 7px;
+border:1px solid var(--line);
+border-radius:16px;
+background:rgba(255,255,255,.055);
+color:var(--text);
+text-decoration:none;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:9px;
+font-size:12px;
+transition:.2s;
+}
+
+.quick-link:hover {
+transform:translateY(-4px);
+background:rgba(197,166,255,.15);
+border-color:var(--accent);
+}
+
+.quick-icon {
+width:34px;
+height:34px;
+display:grid;
+place-items:center;
+border-radius:11px;
+background:rgba(197,166,255,.15);
+font-size:17px;
+}
+
+.newtab-footer {
+margin-top:48px;
+color:#8f8aa9;
+font-size:11px;
+}
+
+/* browser note */
+
 .browser-note {
 text-align:center;
 font-size:11px;
@@ -304,9 +435,7 @@ padding:0;
 background:var(--bg);
 }
 
-body.browser-fullscreen {
-overflow:hidden;
-}
+body.browser-fullscreen {overflow:hidden}
 
 body.browser-fullscreen header,
 body.browser-fullscreen #homePage,
@@ -328,13 +457,19 @@ body.browser-fullscreen .browser-toolbar button {
 padding:10px 13px;
 }
 
-body.browser-fullscreen .address {
-height:43px;
-}
+body.browser-fullscreen .address {height:43px}
 
 body.browser-fullscreen .browser-screen {
 height:calc(100dvh - 62px);
 min-height:0;
+border:0;
+border-radius:0;
+}
+
+body.browser-fullscreen .newtab-page {
+height:calc(100dvh - 62px);
+min-height:0;
+overflow:auto;
 border:0;
 border-radius:0;
 }
@@ -417,6 +552,11 @@ color:#57427e;
 text-shadow:none;
 }
 
+body.light .newtab-logo {
+color:#57427e;
+text-shadow:0 0 25px #c4a9f3;
+}
+
 body.light .dialog {
 background:#f5f0ff;
 color:#28223e;
@@ -439,6 +579,12 @@ main {margin-top:6vh}
 .browser-toolbar button {padding:9px}
 .tabbar {padding:7px}
 .tab {min-width:95px;padding:8px}
+.newtab-page {padding:55px 12px 35px}
+.newtab-form {gap:4px;padding:6px}
+.newtab-form input {font-size:13px;padding:11px 7px}
+.newtab-form button {padding:0 12px;font-size:12px}
+.quick-links {gap:8px}
+.quick-link {width:82px;min-height:82px}
 }
 </style>
 </head>
@@ -461,13 +607,9 @@ a little corner of the internet, made of stardust
 </p>
 
 <form class="search-wrap" id="searchForm">
-<input
-id="query"
-type="search"
+<input id="query" type="search"
 placeholder="search the web or enter a website..."
-autocomplete="off"
-aria-label="Search the web"
->
+autocomplete="off" aria-label="Search the web">
 <button type="submit">search ✦</button>
 </form>
 
@@ -481,26 +623,70 @@ press enter to search · websites open inside stars
 
 <section class="browser" id="browser">
 
-<div class="tabbar" id="tabbar">
-<button class="new-tab" onclick="newTab()" title="New tab">+</button>
-</div>
+<div class="tabbar" id="tabbar"></div>
 
 <div class="browser-toolbar">
-
 <button onclick="goHome()" title="Home">⌂</button>
-
 <button onclick="reloadPage()" title="Refresh">↻</button>
 
-<input
-class="address"
-id="addressBar"
+<input class="address" id="addressBar"
 placeholder="enter a website or search..."
-autocomplete="off"
->
+autocomplete="off">
 
 <button id="fullscreenBtn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
-
 </div>
+
+<!-- custom new tab homepage -->
+<section class="newtab-page" id="newTabPage">
+
+<h1 class="newtab-logo">stars</h1>
+<p class="newtab-subtitle">your universe starts here ✦</p>
+
+<form class="newtab-form" id="newTabSearchForm">
+<input id="newTabSearch"
+type="search"
+placeholder="search the web..."
+autocomplete="off"
+aria-label="Search the web">
+<button type="submit">search ✦</button>
+</form>
+
+<form class="newtab-form url-form" id="newTabUrlForm">
+<input id="newTabUrl"
+type="text"
+placeholder="enter a website address..."
+autocomplete="off"
+aria-label="Website address">
+<button type="submit">open ↗</button>
+</form>
+
+<p class="quick-title">your quick links</p>
+
+<div class="quick-links">
+<a class="quick-link" href="https://www.google.com" data-url="https://www.google.com">
+<span class="quick-icon">G</span>
+<span>Google</span>
+</a>
+
+<a class="quick-link" href="https://www.youtube.com" data-url="https://www.youtube.com">
+<span class="quick-icon">▶</span>
+<span>YouTube</span>
+</a>
+
+<a class="quick-link" href="https://www.wikipedia.org" data-url="https://www.wikipedia.org">
+<span class="quick-icon">W</span>
+<span>Wikipedia</span>
+</a>
+
+<a class="quick-link" href="https://github.com" data-url="https://github.com">
+<span class="quick-icon">⌘</span>
+<span>GitHub</span>
+</a>
+</div>
+
+<div class="newtab-footer">✦ made of stardust · stars</div>
+
+</section>
 
 <iframe
 class="browser-screen"
@@ -642,7 +828,14 @@ $('homePage').style.display = 'none';
 $('addressBar').value =
 tab.url === 'about:blank' ? '' : tab.url;
 
+const isNewTab = tab.url === 'about:blank';
+
+$('newTabPage').classList.toggle('active',isNewTab);
+$('browserFrame').style.display = isNewTab ? 'none' : 'block';
+
+if (!isNewTab) {
 $('browserFrame').src = tab.url;
+}
 
 renderTabs();
 }
@@ -710,6 +903,16 @@ navigate($('addressBar').value);
 }
 
 function reloadPage() {
+const tab = tabs.find(t => t.id === activeTab);
+if (!tab) return;
+
+if (tab.url === 'about:blank') {
+$('newTabPage').classList.remove('active');
+void $('newTabPage').offsetWidth;
+$('newTabPage').classList.add('active');
+return;
+}
+
 const frame = $('browserFrame');
 
 try {
@@ -722,6 +925,8 @@ frame.src = frame.src;
 function goHome() {
 $('browserFrame').src = 'about:blank';
 $('browser').classList.remove('active','fullscreen');
+$('newTabPage').classList.remove('active');
+$('browserFrame').style.display = 'block';
 document.body.classList.remove('browser-fullscreen');
 $('homePage').style.display = 'block';
 
@@ -768,9 +973,29 @@ goAddress();
 }
 });
 
+$('newTabSearchForm').addEventListener('submit',event => {
+event.preventDefault();
+navigate($('newTabSearch').value);
+});
+
+$('newTabUrlForm').addEventListener('submit',event => {
+event.preventDefault();
+const value = $('newTabUrl').value.trim();
+if (!value) return;
+
+navigate(value);
+});
+
+document.querySelectorAll('.quick-link').forEach(link => {
+link.addEventListener('click',event => {
+event.preventDefault();
+navigate(link.dataset.url);
+});
+});
+
 $('browserFrame').addEventListener('load',() => {
 const tab = tabs.find(t => t.id === activeTab);
-if (tab) {
+if (tab && tab.url !== 'about:blank') {
 tab.title = getTitle(tab.url);
 renderTabs();
 }
