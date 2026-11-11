@@ -396,11 +396,6 @@ padding:12px;
 
 .newtab-form input::placeholder {color:#aaa4c3}
 
-.url-form button {
-background:rgba(255,255,255,.1);
-border:1px solid var(--line);
-}
-
 .quick-title {
 color:var(--muted);
 font-size:12px;
@@ -570,6 +565,12 @@ border-bottom:1px solid var(--line);
 gap:15px;
 }
 
+.setting-actions {
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
 select {
 background:#302d50;
 color:white;
@@ -637,6 +638,7 @@ main {margin-top:6vh}
 .newtab-form button {padding:0 12px;font-size:12px}
 .quick-links {gap:8px}
 .quick-link {width:82px;min-height:82px}
+.setting-row {align-items:flex-start;flex-direction:column}
 }
 </style>
 </head>
@@ -702,13 +704,6 @@ autocomplete="off">
 placeholder="search the web..."
 autocomplete="off">
 <button type="submit">search ✦</button>
-</form>
-
-<form class="newtab-form url-form" id="newTabUrlForm">
-<input id="newTabUrl" type="text"
-placeholder="enter a website address..."
-autocomplete="off">
-<button type="submit">open ↗</button>
 </form>
 
 <p class="quick-title">your quick links</p>
@@ -783,10 +778,15 @@ referrerpolicy="no-referrer-when-downgrade">
 </div>
 
 <div class="setting-row">
-<span>download your website</span>
+<span>your website</span>
+<div class="setting-actions">
 <button id="downloadStarsBtn" type="button">
 download stars ↓
 </button>
+<button id="copyStarsBtn" type="button">
+copy html code
+</button>
+</div>
 </div>
 
 <p>settings are saved in this browser on this device.</p>
@@ -873,7 +873,7 @@ add.onclick = () => newTab();
 bar.appendChild(add);
 }
 
-/* fixed tab switching */
+/* tab switching */
 
 function activateTab(id) {
 const tab = tabs.find(t => t.id === id);
@@ -900,11 +900,13 @@ $('browserFrame').src = tab.url;
 renderTabs();
 }
 
-function newTab() {
+/* new tab supports a starting URL */
+
+function newTab(url = 'about:blank') {
 const tab = {
 id:nextTabId++,
-url:'about:blank',
-title:'new tab'
+url:url,
+title:getTitle(url)
 };
 
 tabs.push(tab);
@@ -936,7 +938,9 @@ renderTabs();
 },180);
 }
 
-function navigate(value, openNew = false) {
+/* navigation */
+
+function navigate(value) {
 value = value.trim();
 if (!value) return;
 
@@ -944,13 +948,16 @@ const destination = isWebsite(value)
 ? normalizeUrl(value)
 : searchUrl(value);
 
-if (openNew || !activeTab) {
+if (!activeTab) {
 newTab(destination);
 return;
 }
 
 const tab = tabs.find(t => t.id === activeTab);
-if (!tab) return;
+if (!tab) {
+newTab(destination);
+return;
+}
 
 tab.url = destination;
 tab.title = getTitle(destination);
@@ -1021,10 +1028,14 @@ document.body.classList.remove('browser-fullscreen');
 }
 });
 
+/* homepage search */
+
 $('searchForm').addEventListener('submit',event => {
 event.preventDefault();
-navigate($('query').value,true);
+navigate($('query').value);
 });
+
+/* address bar search */
 
 $('addressBar').addEventListener('keydown',event => {
 if (event.key === 'Enter') {
@@ -1033,15 +1044,14 @@ goAddress();
 }
 });
 
+/* new tab search */
+
 $('newTabSearchForm').addEventListener('submit',event => {
 event.preventDefault();
 navigate($('newTabSearch').value);
 });
 
-$('newTabUrlForm').addEventListener('submit',event => {
-event.preventDefault();
-navigate($('newTabUrl').value);
-});
+/* quick links */
 
 document.querySelectorAll('.quick-link').forEach(link => {
 link.addEventListener('click',event => {
@@ -1049,6 +1059,8 @@ event.preventDefault();
 navigate(link.dataset.url);
 });
 });
+
+/* update tab titles */
 
 $('browserFrame').addEventListener('load',() => {
 const tab = tabs.find(t => t.id === activeTab);
@@ -1097,10 +1109,16 @@ document.body.classList.toggle('no-stars',settings.stars === false);
 } catch(e) {}
 }
 
+/* get complete html */
+
+function getStarsHTML() {
+return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+}
+
 /* download stars */
 
 $('downloadStarsBtn').addEventListener('click',() => {
-const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+const html = getStarsHTML();
 
 const blob = new Blob([html], {
 type:'text/html;charset=utf-8'
@@ -1118,6 +1136,50 @@ link.remove();
 
 setTimeout(() => URL.revokeObjectURL(url),1000);
 });
+
+/* copy stars html */
+
+$('copyStarsBtn').addEventListener('click',async () => {
+const html = getStarsHTML();
+const button = $('copyStarsBtn');
+
+try {
+if (navigator.clipboard && window.isSecureContext) {
+await navigator.clipboard.writeText(html);
+} else {
+throw new Error('Clipboard unavailable');
+}
+} catch(error) {
+try {
+const textarea = document.createElement('textarea');
+
+textarea.value = html;
+textarea.style.position = 'fixed';
+textarea.style.opacity = '0';
+textarea.style.pointerEvents = 'none';
+
+document.body.appendChild(textarea);
+textarea.focus();
+textarea.select();
+
+const copied = document.execCommand('copy');
+textarea.remove();
+
+if (!copied) throw new Error('Copy failed');
+} catch(copyError) {
+alert('Could not copy the HTML. Try the download button instead.');
+return;
+}
+}
+
+button.textContent = 'copied!';
+
+setTimeout(() => {
+button.textContent = 'copy html code';
+},2000);
+});
+
+/* settings changes */
 
 ['themeSelect','engineSelect','starsToggle'].forEach(id => {
 $(id).addEventListener('change',() => {
