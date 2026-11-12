@@ -92,7 +92,7 @@ body:before {
 
 body.no-stars:before {display:none}
 
-header, main, .browser {
+header, main, .browser, .games-section {
   position:relative;
   z-index:1;
 }
@@ -210,7 +210,7 @@ footer {
 .browser {
   display:none;
   max-width:1100px;
-  margin:15px auto 45px;
+  margin:15px auto 25px;
   padding:0 18px;
 }
 
@@ -460,6 +460,51 @@ footer {
   margin:10px 0;
 }
 
+/* games section */
+
+.games-section {
+  max-width:1064px;
+  margin:0 auto 55px;
+  padding:0 18px;
+}
+
+.games-toggle {
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px 20px;
+  border-radius:16px;
+  background:rgba(255,255,255,.075);
+  font-size:15px;
+  text-align:left;
+}
+
+.games-content {
+  display:none;
+  margin-top:10px;
+  padding:30px 20px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:rgba(255,255,255,.055);
+  text-align:center;
+  animation:pageAppear .25s ease both;
+}
+
+.games-content.open {display:block}
+
+.games-content h2 {
+  font:26px 'Pacifico',cursive;
+  color:#e7d8ff;
+  margin:0 0 8px;
+}
+
+.games-content p {
+  color:var(--muted);
+  font-size:13px;
+  margin:0;
+}
+
 /* fullscreen */
 
 .browser.fullscreen {
@@ -478,6 +523,7 @@ body.browser-fullscreen {overflow:hidden}
 
 body.browser-fullscreen header,
 body.browser-fullscreen #homePage,
+body.browser-fullscreen .games-section,
 body.browser-fullscreen .browser-note,
 body.browser-fullscreen #fullscreenBtn {
   display:none !important;
@@ -614,18 +660,7 @@ select {
   max-width:100%;
 }
 
-.update-picker {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:16px 0;
-  flex-wrap:wrap;
-}
-
-.update-picker label {
-  color:var(--muted);
-  font-size:13px;
-}
+/* update log */
 
 #updateDot {
   display:inline-block;
@@ -643,16 +678,52 @@ select {
   to {opacity:1}
 }
 
-.update-entry {
-  padding:15px;
+.update-layout {
+  display:grid;
+  grid-template-columns:minmax(150px, .9fr) minmax(0, 1.5fr);
+  gap:14px;
+  margin-top:18px;
+  align-items:stretch;
+}
+
+.update-list {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:280px;
+  overflow-y:auto;
+  padding-right:4px;
+}
+
+.update-choice {
+  width:100%;
+  padding:12px;
+  text-align:left;
+  font-size:12px;
+  line-height:1.4;
+  border-radius:12px;
+  background:rgba(255,255,255,.045);
+}
+
+.update-choice.selected {
+  background:rgba(197,166,255,.2);
+  border-color:var(--accent);
+}
+
+.update-display {
+  min-height:170px;
+  padding:16px;
   border:1px solid var(--line);
   border-radius:15px;
   background:rgba(255,255,255,.045);
-  margin-top:12px;
+}
+
+.update-entry {
+  padding:0;
 }
 
 .update-entry h3 {
-  margin:0 0 8px;
+  margin:0 0 10px;
 }
 
 .update-entry p {
@@ -696,7 +767,8 @@ body.light .dialog {
 }
 
 body.light .dialog h2,
-body.light .dialog h3 {color:#57427e}
+body.light .dialog h3,
+body.light .games-content h2 {color:#57427e}
 
 body.light .dialog p {color:#665e80}
 body.light select {background:white;color:#28223e}
@@ -723,6 +795,20 @@ body.light select {background:white;color:#28223e}
   .quick-links {gap:8px}
   .quick-link {width:82px;min-height:82px}
   .setting-row {align-items:flex-start;flex-direction:column}
+  .update-layout {grid-template-columns:1fr}
+  .update-list {
+    max-height:150px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .update-display {min-height:130px}
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *, *:before, *:after {
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
 }
 </style>
 </head>
@@ -741,7 +827,7 @@ body.light select {background:white;color:#28223e}
     <button id="updateLogBtn" type="button">
       Update Log <span id="updateDot">●</span>
     </button>
-    <button id="settingsBtn">⚙ settings</button>
+    <button id="settingsBtn" type="button">⚙ settings</button>
   </nav>
 </header>
 
@@ -764,7 +850,6 @@ body.light select {background:white;color:#28223e}
 </main>
 
 <section class="browser" id="browser">
-
   <div class="tabbar" id="tabbar"></div>
 
   <div class="browser-toolbar">
@@ -829,6 +914,20 @@ body.light select {background:white;color:#28223e}
   </div>
 </section>
 
+<!-- games section -->
+
+<section class="games-section" id="gamesSection">
+  <button class="games-toggle" id="gamesToggle" type="button" aria-expanded="false">
+    <span>✦ Games</span>
+    <span id="gamesArrow">⌄</span>
+  </button>
+
+  <div class="games-content" id="gamesContent">
+    <h2>Games</h2>
+    <p>0/0 Games, come back soon!</p>
+  </div>
+</section>
+
 <div class="fullscreen-toast" id="fullscreenToast">
   Double tap escape to exit fullscreen.
 </div>
@@ -872,12 +971,8 @@ body.light select {background:white;color:#28223e}
     <div class="setting-row">
       <span>your website</span>
       <div class="setting-actions">
-        <button id="downloadStarsBtn" type="button">
-          download stars ↓
-        </button>
-        <button id="copyStarsBtn" type="button">
-          copy html code
-        </button>
+        <button id="downloadStarsBtn" type="button">download stars ↓</button>
+        <button id="copyStarsBtn" type="button">copy html code</button>
       </div>
     </div>
 
@@ -892,17 +987,12 @@ body.light select {background:white;color:#28223e}
     <button class="close" onclick="closeUpdateLog()">✕</button>
 
     <h2>Update Log</h2>
-    <p>choose an update to see what changed in Stars</p>
+    <p>select an update on the left to see what changed</p>
 
-    <div class="update-picker">
-      <label for="updateVersionSelect">Choose update</label>
-      <select id="updateVersionSelect">
-        <option value="1.10">V1.10, Button shifting</option>
-        <option value="1.00">V1.00, Release!</option>
-      </select>
+    <div class="update-layout">
+      <div class="update-list" id="updateList"></div>
+      <div class="update-display" id="updateContent" aria-live="polite"></div>
     </div>
-
-    <div id="updateContent" aria-live="polite"></div>
   </div>
 </div>
 
@@ -921,11 +1011,16 @@ const $ = id => document.getElementById(id);
 
 /* current update version */
 
-const CURRENT_UPDATE_VERSION = '1.10';
+const CURRENT_UPDATE_VERSION = '1.11';
 
-/* add future updates here */
+/* update history */
 
 const updates = {
+  '1.11': {
+    title:'V1.11, Games tab',
+    description:'We added a games tab at the bottom of the website, games will be added soon!'
+  },
+
   '1.10': {
     title:'V1.10, Button shifting',
     description:'We move some buttons around and optimized stars.'
@@ -976,6 +1071,8 @@ function getTitle(url) {
   }
 }
 
+/* tabs */
+
 function renderTabs() {
   const bar = $('tabbar');
   bar.innerHTML = '';
@@ -1013,8 +1110,6 @@ function renderTabs() {
 
   bar.appendChild(add);
 }
-
-/* tab switching */
 
 function activateTab(id) {
   const tab = tabs.find(t => t.id === id);
@@ -1279,14 +1374,20 @@ $('infoModal').addEventListener('click',event => {
 
 /* update log */
 
-function showSelectedUpdate() {
-  const version = $('updateVersionSelect').value;
-  const update = updates[version];
+let selectedUpdate = CURRENT_UPDATE_VERSION;
 
-  if (!update) {
-    $('updateContent').textContent = 'Update not found.';
-    return;
-  }
+function showSelectedUpdate(version) {
+  const update = updates[version];
+  if (!update) return;
+
+  selectedUpdate = version;
+
+  document.querySelectorAll('.update-choice').forEach(button => {
+    button.classList.toggle(
+      'selected',
+      button.dataset.version === version
+    );
+  });
 
   const entry = document.createElement('div');
   entry.className = 'update-entry';
@@ -1298,8 +1399,29 @@ function showSelectedUpdate() {
   description.textContent = update.description;
 
   entry.append(title,description);
-
   $('updateContent').replaceChildren(entry);
+}
+
+function renderUpdateList() {
+  const list = $('updateList');
+  list.replaceChildren();
+
+  Object.keys(updates).forEach(version => {
+    const button = document.createElement('button');
+
+    button.type = 'button';
+    button.className = 'update-choice';
+    button.dataset.version = version;
+    button.textContent = updates[version].title;
+
+    button.addEventListener('click',() => {
+      showSelectedUpdate(version);
+    });
+
+    list.appendChild(button);
+  });
+
+  showSelectedUpdate(CURRENT_UPDATE_VERSION);
 }
 
 function refreshUpdateDot() {
@@ -1313,9 +1435,7 @@ function refreshUpdateDot() {
 
 function openUpdateLog() {
   $('updateLogModal').classList.add('open');
-
-  $('updateVersionSelect').value = CURRENT_UPDATE_VERSION;
-  showSelectedUpdate();
+  renderUpdateList();
 
   localStorage.setItem(
     'starsSeenUpdateVersion',
@@ -1331,12 +1451,20 @@ function closeUpdateLog() {
 
 $('updateLogBtn').addEventListener('click',openUpdateLog);
 
-$('updateVersionSelect').addEventListener('change',showSelectedUpdate);
-
 $('updateLogModal').addEventListener('click',event => {
   if (event.target === $('updateLogModal')) {
     closeUpdateLog();
   }
+});
+
+/* games section */
+
+$('gamesToggle').addEventListener('click',() => {
+  const content = $('gamesContent');
+  const isOpen = content.classList.toggle('open');
+
+  $('gamesArrow').textContent = isOpen ? '⌃' : '⌄';
+  $('gamesToggle').setAttribute('aria-expanded',String(isOpen));
 });
 
 /* settings storage */
@@ -1463,7 +1591,6 @@ $('copyStarsBtn').addEventListener('click',async () => {
 
 loadSettings();
 refreshUpdateDot();
-showSelectedUpdate();
 </script>
 
 </body>
