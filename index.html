@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +41,8 @@ body {
   overflow:hidden;
   filter:blur(75px);
   opacity:.65;
+  transform:translateZ(0);
+  will-change:opacity;
 }
 
 .aurora {
@@ -47,7 +50,9 @@ body {
   width:65%;
   height:55%;
   border-radius:50%;
-  animation:auroraMove 24s ease-in-out infinite alternate;
+  animation:auroraMove 32s ease-in-out infinite alternate;
+  will-change:transform;
+  backface-visibility:hidden;
 }
 
 .aurora.one {
@@ -60,20 +65,20 @@ body {
   top:25%;
   right:0;
   background:radial-gradient(ellipse,rgba(35,120,170,.45),transparent 68%);
-  animation-delay:-8s;
+  animation-delay:-10s;
 }
 
 .aurora.three {
   bottom:0;
   left:20%;
   background:radial-gradient(ellipse,rgba(155,75,190,.35),transparent 68%);
-  animation-delay:-14s;
+  animation-delay:-20s;
 }
 
 @keyframes auroraMove {
-  0% {transform:translate(0,0) rotate(0deg) scale(1)}
-  50% {transform:translate(12%,8%) rotate(15deg) scale(1.15)}
-  100% {transform:translate(-10%,15%) rotate(-12deg) scale(.9)}
+  0% {transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  50% {transform:translate3d(8%,6%,0) rotate(8deg) scale(1.08)}
+  100% {transform:translate3d(-7%,10%,0) rotate(-7deg) scale(1)}
 }
 
 body:before {
@@ -718,17 +723,11 @@ select {
   background:rgba(255,255,255,.045);
 }
 
-.update-entry {
-  padding:0;
-}
+.update-entry {padding:0}
+.update-entry h3 {margin:0 0 10px}
+.update-entry p {margin:0}
 
-.update-entry h3 {
-  margin:0 0 10px;
-}
-
-.update-entry p {
-  margin:0;
-}
+/* daylight theme */
 
 body.light {
   --bg:#eeeafa;
@@ -773,6 +772,104 @@ body.light .games-content h2 {color:#57427e}
 body.light .dialog p {color:#665e80}
 body.light select {background:white;color:#28223e}
 
+/* halloween theme */
+
+body.halloween {
+  --bg:#080808;
+  --panel:rgba(255,120,0,.09);
+  --panel2:rgba(255,140,0,.16);
+  --text:#fff3e6;
+  --muted:#c4a58d;
+  --accent:#ff861a;
+  --line:rgba(255,140,40,.2);
+  background:#080808;
+}
+
+body.halloween .aurora-bg {opacity:.8}
+
+body.halloween .aurora.one {
+  background:radial-gradient(ellipse,rgba(255,85,0,.65),transparent 68%);
+}
+
+body.halloween .aurora.two {
+  background:radial-gradient(ellipse,rgba(255,145,0,.55),transparent 68%);
+}
+
+body.halloween .aurora.three {
+  background:radial-gradient(ellipse,rgba(180,55,0,.5),transparent 68%);
+}
+
+body.halloween h1,
+body.halloween .logo {
+  color:#ffb15c;
+  text-shadow:0 0 25px rgba(255,105,0,.65);
+}
+
+body.halloween .newtab-logo {
+  color:#ffb15c;
+  text-shadow:0 0 25px rgba(255,105,0,.7);
+}
+
+body.halloween .newtab-page {
+  background:
+    radial-gradient(ellipse at 50% 20%,rgba(255,105,0,.16),transparent 55%),
+    rgba(13,10,8,.75);
+}
+
+body.halloween .search-wrap button,
+body.halloween .newtab-form button {
+  background:linear-gradient(120deg,#ff9a32,#d94b00);
+}
+
+body.halloween .quick-link:hover {
+  background:rgba(255,120,0,.15);
+  border-color:var(--accent);
+}
+
+body.halloween .quick-icon {
+  background:rgba(255,120,0,.17);
+}
+
+body.halloween .tab.active {
+  background:rgba(255,135,35,.18);
+  border-color:rgba(255,135,35,.45);
+}
+
+body.halloween .dialog {
+  background:#1c120c;
+}
+
+body.halloween .dialog h2,
+body.halloween .dialog h3,
+body.halloween .games-content h2 {
+  color:#ffad58;
+}
+
+body.halloween select {
+  background:#28170d;
+  color:#fff3e6;
+  border-color:rgba(255,140,40,.3);
+}
+
+body.halloween .update-choice.selected {
+  background:rgba(255,135,35,.2);
+  border-color:#ff861a;
+}
+
+body.halloween .update-display {
+  background:rgba(255,120,0,.045);
+}
+
+body.halloween .games-content,
+body.halloween .games-toggle {
+  border-color:rgba(255,140,40,.2);
+}
+
+body.halloween .fullscreen-toast {
+  background:#241308;
+  border-color:rgba(255,140,40,.35);
+}
+
 @media(max-width:560px) {
   header {padding:18px}
   .logo {font-size:27px}
@@ -805,8 +902,11 @@ body.light select {background:white;color:#28223e}
 }
 
 @media(prefers-reduced-motion:reduce) {
+  .aurora {
+    animation:none !important;
+  }
+
   *, *:before, *:after {
-    animation-duration:.01ms !important;
     transition-duration:.01ms !important;
   }
 }
@@ -914,8 +1014,6 @@ body.light select {background:white;color:#28223e}
   </div>
 </section>
 
-<!-- games section -->
-
 <section class="games-section" id="gamesSection">
   <button class="games-toggle" id="gamesToggle" type="button" aria-expanded="false">
     <span>✦ Games</span>
@@ -946,6 +1044,7 @@ body.light select {background:white;color:#28223e}
       <select id="themeSelect">
         <option value="dark">midnight sky</option>
         <option value="light">soft daylight</option>
+        <option value="halloween">halloween</option>
       </select>
     </div>
 
@@ -1011,11 +1110,16 @@ const $ = id => document.getElementById(id);
 
 /* current update version */
 
-const CURRENT_UPDATE_VERSION = '1.11';
+const CURRENT_UPDATE_VERSION = '1.20';
 
 /* update history */
 
 const updates = {
+  '1.20': {
+    title:'V1.20, Halloween!',
+    description:"Halloween's here, and I wanted to add a new appearance to fit in! So, it's here, go check it out!"
+  },
+
   '1.11': {
     title:'V1.11, Games tab',
     description:'We added a games tab at the bottom of the website, games will be added soon!'
@@ -1374,13 +1478,9 @@ $('infoModal').addEventListener('click',event => {
 
 /* update log */
 
-let selectedUpdate = CURRENT_UPDATE_VERSION;
-
 function showSelectedUpdate(version) {
   const update = updates[version];
   if (!update) return;
-
-  selectedUpdate = version;
 
   document.querySelectorAll('.update-choice').forEach(button => {
     button.classList.toggle(
@@ -1467,6 +1567,20 @@ $('gamesToggle').addEventListener('click',() => {
   $('gamesToggle').setAttribute('aria-expanded',String(isOpen));
 });
 
+/* theme handling */
+
+function applyTheme(theme) {
+  document.body.classList.remove('light','halloween');
+
+  if (theme === 'light') {
+    document.body.classList.add('light');
+  }
+
+  if (theme === 'halloween') {
+    document.body.classList.add('halloween');
+  }
+}
+
 /* settings storage */
 
 function saveSettings() {
@@ -1483,20 +1597,24 @@ function loadSettings() {
       localStorage.getItem('starsSettings') || '{}'
     );
 
-    $('themeSelect').value = settings.theme || 'dark';
+    const allowedThemes = ['dark','light','halloween'];
+
+    $('themeSelect').value = allowedThemes.includes(settings.theme)
+      ? settings.theme
+      : 'dark';
+
     $('engineSelect').value = settings.engine || 'duck';
     $('starsToggle').checked = settings.stars !== false;
 
-    document.body.classList.toggle(
-      'light',
-      settings.theme === 'light'
-    );
+    applyTheme($('themeSelect').value);
 
     document.body.classList.toggle(
       'no-stars',
       settings.stars === false
     );
-  } catch(e) {}
+  } catch(e) {
+    applyTheme('dark');
+  }
 }
 
 /* get complete HTML */
@@ -1571,20 +1689,20 @@ $('copyStarsBtn').addEventListener('click',async () => {
 
 /* settings changes */
 
-['themeSelect','engineSelect','starsToggle'].forEach(id => {
-  $(id).addEventListener('change',() => {
-    document.body.classList.toggle(
-      'light',
-      $('themeSelect').value === 'light'
-    );
+$('themeSelect').addEventListener('change',() => {
+  applyTheme($('themeSelect').value);
+  saveSettings();
+});
 
-    document.body.classList.toggle(
-      'no-stars',
-      !$('starsToggle').checked
-    );
+$('engineSelect').addEventListener('change',saveSettings);
 
-    saveSettings();
-  });
+$('starsToggle').addEventListener('change',() => {
+  document.body.classList.toggle(
+    'no-stars',
+    !$('starsToggle').checked
+  );
+
+  saveSettings();
 });
 
 /* initialize */
