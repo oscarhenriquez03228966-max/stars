@@ -18,7 +18,6 @@
   --accent:#c5a6ff;
   --line:rgba(255,255,255,.13);
   --shadow:0 18px 60px rgba(0,0,0,.25);
-  --custom-aurora:#7546d2;
 }
 
 * {box-sizing:border-box}
@@ -54,20 +53,20 @@ body {
 .aurora.one {
   top:5%;
   left:0;
-  background:radial-gradient(ellipse,var(--custom-aurora),transparent 68%);
+  background:radial-gradient(ellipse,rgba(117,70,210,.55),transparent 68%);
 }
 
 .aurora.two {
   top:25%;
   right:0;
-  background:radial-gradient(ellipse,color-mix(in srgb,var(--custom-aurora) 60%,#2378aa),transparent 68%);
+  background:radial-gradient(ellipse,rgba(35,120,170,.45),transparent 68%);
   animation-delay:-10s;
 }
 
 .aurora.three {
   bottom:0;
   left:20%;
-  background:radial-gradient(ellipse,color-mix(in srgb,var(--custom-aurora) 80%,#9b4bbe),transparent 68%);
+  background:radial-gradient(ellipse,rgba(155,75,190,.35),transparent 68%);
   animation-delay:-20s;
 }
 
@@ -968,7 +967,7 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
 
-  <div class="browser-note">if sites says access denied, then try reloading.</div>
+  <div class="browser-note">✦ browsing inside stars · some websites block embedded viewing</div>
 </section>
 
 <section class="games-section" id="gamesSection">
@@ -1241,17 +1240,6 @@ function renderTabs() {
   bar.appendChild(add);
 }
 
-function updateBookmarkButtonState() {
-  const tab = tabs.find(t => t.id === activeTab);
-  if (!tab || !tab.url || tab.url === 'about:blank' || !isSafeUrl(tab.url)) {
-    $('saveBookmarkBtn').textContent = '☆';
-    return;
-  }
-  const bookmarks = getBookmarks();
-  const isBookmarked = bookmarks.some(item => item.url === tab.url);
-  $('saveBookmarkBtn').textContent = isBookmarked ? '★' : '☆';
-}
-
 function activateTab(id) {
   const tab = tabs.find(t => t.id === id);
   if (!tab) return;
@@ -1273,7 +1261,6 @@ function activateTab(id) {
   }
 
   renderTabs();
-  updateBookmarkButtonState();
 }
 
 function newTab(url = 'about:blank') {
@@ -1369,9 +1356,6 @@ function reloadPage() {
 }
 
 function goHome() {
-  if (document.fullscreenElement) {
-    document.exitFullscreen().catch(() => {});
-  }
   $('browserFrame').src = 'about:blank';
   $('browser').classList.remove('active','fullscreen');
   $('newTabPage').classList.remove('active');
@@ -1388,9 +1372,11 @@ let escapeCount = 0;
 let escapeTimer = null;
 let toastTimer = null;
 
-function setFullscreenUI(enabled) {
+function toggleFullscreen() {
   const browser = $('browser');
-  browser.classList.toggle('fullscreen',enabled);
+  if (!browser.classList.contains('active')) return;
+
+  const enabled = browser.classList.toggle('fullscreen');
   document.body.classList.toggle('browser-fullscreen',enabled);
 
   if (enabled) {
@@ -1407,31 +1393,6 @@ function setFullscreenUI(enabled) {
   }
 }
 
-function toggleFullscreen() {
-  const browser = $('browser');
-  if (!browser.classList.contains('active')) return;
-
-  const isCurrentlyFullscreen = browser.classList.contains('fullscreen') || Boolean(document.fullscreenElement);
-
-  if (!isCurrentlyFullscreen) {
-    setFullscreenUI(true);
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    }
-  } else {
-    setFullscreenUI(false);
-    if (document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(() => {});
-    }
-  }
-}
-
-document.addEventListener('fullscreenchange',() => {
-  if (!document.fullscreenElement && $('browser').classList.contains('fullscreen')) {
-    setFullscreenUI(false);
-  }
-});
-
 document.addEventListener('keydown',event => {
   if (event.key !== 'Escape') return;
   if (!$('browser').classList.contains('fullscreen')) return;
@@ -1441,10 +1402,11 @@ document.addEventListener('keydown',event => {
   clearTimeout(escapeTimer);
 
   if (escapeCount >= 2) {
-    setFullscreenUI(false);
-    if (document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(() => {});
-    }
+    $('browser').classList.remove('fullscreen');
+    document.body.classList.remove('browser-fullscreen');
+    $('fullscreenToast').classList.remove('show');
+    escapeCount = 0;
+    clearTimeout(toastTimer);
   } else {
     escapeTimer = setTimeout(() => escapeCount = 0,1000);
   }
@@ -1547,22 +1509,23 @@ function saveCurrentBookmark() {
   }
 
   const bookmarks = getBookmarks();
-  const existingIndex = bookmarks.findIndex(item => item.url === tab.url);
 
-  if (existingIndex > -1) {
-    bookmarks.splice(existingIndex, 1);
-    saveBookmarks(bookmarks);
-    $('saveBookmarkBtn').textContent = '☆';
-  } else {
-    bookmarks.push({
-      title:tab.title || getTitle(tab.url),
-      url:tab.url
-    });
-    saveBookmarks(bookmarks);
-    $('saveBookmarkBtn').textContent = '★';
+  if (bookmarks.some(item => item.url === tab.url)) {
+    alert('this page is already bookmarked!');
+    return;
   }
 
-  renderBookmarks();
+  bookmarks.push({
+    title:tab.title || getTitle(tab.url),
+    url:tab.url
+  });
+
+  saveBookmarks(bookmarks);
+  $('saveBookmarkBtn').textContent = '★';
+
+  setTimeout(() => {
+    $('saveBookmarkBtn').textContent = '☆';
+  },1200);
 }
 
 function openBookmarks() {
@@ -1585,7 +1548,6 @@ function renderBookmarks() {
     empty.className = 'empty-bookmarks';
     empty.textContent = 'no bookmarks yet. save a page using the ☆ button!';
     list.appendChild(empty);
-    updateBookmarkButtonState();
     return;
   }
 
@@ -1621,15 +1583,12 @@ function renderBookmarks() {
       current.splice(index,1);
       saveBookmarks(current);
       renderBookmarks();
-      updateBookmarkButtonState();
     });
 
     actions.append(open,remove);
     item.append(info,actions);
     list.appendChild(item);
   });
-
-  updateBookmarkButtonState();
 }
 
 $('bookmarksBtn').addEventListener('click',openBookmarks);
@@ -1845,9 +1804,6 @@ $('themeSelect').addEventListener('change',() => {
 
 ['customBg','customAccent','customAurora'].forEach(id => {
   $(id).addEventListener('input',() => {
-    if (id === 'customAurora') {
-      document.body.style.setProperty('--custom-aurora', $('customAurora').value);
-    }
     if ($('themeSelect').value === 'custom') applyTheme('custom');
     saveSettings();
   });
@@ -1918,4 +1874,3 @@ renderBookmarks();
 
 </body>
 </html>
-
