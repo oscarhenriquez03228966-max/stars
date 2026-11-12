@@ -11,206 +11,202 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap');
 
 :root {
---bg:#101124;
---panel:rgba(255,255,255,.085);
---panel2:rgba(255,255,255,.12);
---text:#f7f4ff;
---muted:#b9b4d2;
---accent:#c5a6ff;
---line:rgba(255,255,255,.13);
---shadow:0 18px 60px rgba(0,0,0,.25);
+  --bg:#101124;
+  --panel:rgba(255,255,255,.085);
+  --panel2:rgba(255,255,255,.12);
+  --text:#f7f4ff;
+  --muted:#b9b4d2;
+  --accent:#c5a6ff;
+  --line:rgba(255,255,255,.13);
+  --shadow:0 18px 60px rgba(0,0,0,.25);
 }
 
 * {box-sizing:border-box}
 
 body {
-margin:0;
-min-height:100vh;
-background:#101124;
-color:var(--text);
-font-family:'Quicksand',sans-serif;
-overflow-x:hidden;
-isolation:isolate;
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Quicksand',sans-serif;
+  overflow-x:hidden;
+  isolation:isolate;
 }
 
-/* animated aurora */
-
 .aurora-bg {
-position:fixed;
-inset:-45%;
-z-index:0;
-pointer-events:none;
-overflow:hidden;
-filter:blur(75px);
-opacity:.65;
+  position:fixed;
+  inset:-45%;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+  filter:blur(75px);
+  opacity:.65;
 }
 
 .aurora {
-position:absolute;
-width:65%;
-height:55%;
-border-radius:50%;
-animation:auroraMove 24s ease-in-out infinite alternate;
+  position:absolute;
+  width:65%;
+  height:55%;
+  border-radius:50%;
+  animation:auroraMove 24s ease-in-out infinite alternate;
 }
 
 .aurora.one {
-top:5%;
-left:0;
-background:radial-gradient(ellipse,rgba(117,70,210,.55),transparent 68%);
+  top:5%;
+  left:0;
+  background:radial-gradient(ellipse,rgba(117,70,210,.55),transparent 68%);
 }
 
 .aurora.two {
-top:25%;
-right:0;
-background:radial-gradient(ellipse,rgba(35,120,170,.45),transparent 68%);
-animation-delay:-8s;
+  top:25%;
+  right:0;
+  background:radial-gradient(ellipse,rgba(35,120,170,.45),transparent 68%);
+  animation-delay:-8s;
 }
 
 .aurora.three {
-bottom:0;
-left:20%;
-background:radial-gradient(ellipse,rgba(155,75,190,.35),transparent 68%);
-animation-delay:-14s;
+  bottom:0;
+  left:20%;
+  background:radial-gradient(ellipse,rgba(155,75,190,.35),transparent 68%);
+  animation-delay:-14s;
 }
 
 @keyframes auroraMove {
-0% {transform:translate(0,0) rotate(0deg) scale(1)}
-50% {transform:translate(12%,8%) rotate(15deg) scale(1.15)}
-100% {transform:translate(-10%,15%) rotate(-12deg) scale(.9)}
+  0% {transform:translate(0,0) rotate(0deg) scale(1)}
+  50% {transform:translate(12%,8%) rotate(15deg) scale(1.15)}
+  100% {transform:translate(-10%,15%) rotate(-12deg) scale(.9)}
 }
 
-/* stars */
-
 body:before {
-content:"";
-position:fixed;
-inset:0;
-pointer-events:none;
-opacity:.5;
-background-image:
-radial-gradient(2px 2px at 20px 30px,#fff,transparent),
-radial-gradient(1px 1px at 90px 110px,#fff,transparent),
-radial-gradient(1.5px 1.5px at 160px 70px,#fff,transparent);
-background-size:220px 180px;
-z-index:0;
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.5;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px,#fff,transparent),
+    radial-gradient(1px 1px at 90px 110px,#fff,transparent),
+    radial-gradient(1.5px 1.5px at 160px 70px,#fff,transparent);
+  background-size:220px 180px;
+  z-index:0;
 }
 
 body.no-stars:before {display:none}
 
 header, main, .browser {
-position:relative;
-z-index:1;
+  position:relative;
+  z-index:1;
 }
 
 button {
-font:600 14px 'Quicksand';
-color:var(--text);
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:14px;
-padding:10px 15px;
-cursor:pointer;
-transition:.2s;
+  font:600 14px 'Quicksand';
+  color:var(--text);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:10px 15px;
+  cursor:pointer;
+  transition:.2s;
 }
 
 button:hover {
-background:var(--panel2);
-border-color:var(--accent);
+  background:var(--panel2);
+  border-color:var(--accent);
 }
 
 header {
-max-width:1100px;
-margin:auto;
-padding:25px 24px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:16px;
+  max-width:1100px;
+  margin:auto;
+  padding:25px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
 }
 
 .logo {
-font:32px 'Pacifico',cursive;
-color:#e7d8ff;
-text-shadow:0 0 25px #ad8cff;
-letter-spacing:1px;
-cursor:pointer;
-background:none;
-border:0;
-padding:0;
+  font:32px 'Pacifico',cursive;
+  color:#e7d8ff;
+  text-shadow:0 0 25px #ad8cff;
+  letter-spacing:1px;
+  cursor:pointer;
+  background:none;
+  border:0;
+  padding:0;
 }
 
 main {
-max-width:900px;
-margin:7vh auto 50px;
-padding:0 22px;
-text-align:center;
+  max-width:900px;
+  margin:7vh auto 50px;
+  padding:0 22px;
+  text-align:center;
 }
 
 h1 {
-font:clamp(48px,9vw,78px) 'Pacifico',cursive;
-margin:0 0 8px;
-color:#f0e8ff;
-text-shadow:0 0 35px #9b77ef;
+  font:clamp(48px,9vw,78px) 'Pacifico',cursive;
+  margin:0 0 8px;
+  color:#f0e8ff;
+  text-shadow:0 0 35px #9b77ef;
 }
 
 .subtitle {
-color:var(--muted);
-margin:0 0 34px;
-font-size:15px;
+  color:var(--muted);
+  margin:0 0 34px;
+  font-size:15px;
 }
 
 .search-wrap {
-max-width:690px;
-margin:auto;
-padding:9px;
-border:1px solid var(--line);
-border-radius:22px;
-background:rgba(255,255,255,.09);
-box-shadow:var(--shadow);
-display:flex;
-gap:8px;
-backdrop-filter:blur(18px);
+  max-width:690px;
+  margin:auto;
+  padding:9px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.09);
+  box-shadow:var(--shadow);
+  display:flex;
+  gap:8px;
+  backdrop-filter:blur(18px);
 }
 
 .search-wrap input {
-flex:1;
-min-width:0;
-background:transparent;
-border:0;
-outline:0;
-color:var(--text);
-font:500 16px 'Quicksand';
-padding:13px 15px;
+  flex:1;
+  min-width:0;
+  background:transparent;
+  border:0;
+  outline:0;
+  color:var(--text);
+  font:500 16px 'Quicksand';
+  padding:13px 15px;
 }
 
 .search-wrap input::placeholder {color:#aaa4c3}
 
 .search-wrap button,
 .newtab-form button {
-background:linear-gradient(120deg,#9e7be8,#6c9fe7);
-border:0;
-padding:0 23px;
+  background:linear-gradient(120deg,#9e7be8,#6c9fe7);
+  border:0;
+  padding:0 23px;
 }
 
 .hint {
-color:#aaa4c3;
-font-size:12px;
-margin:12px 0 38px;
+  color:#aaa4c3;
+  font-size:12px;
+  margin:12px 0 38px;
 }
 
 footer {
-color:#8f8aa9;
-font-size:11px;
-padding:28px;
+  color:#8f8aa9;
+  font-size:11px;
+  padding:28px;
 }
 
 /* browser */
 
 .browser {
-display:none;
-max-width:1100px;
-margin:15px auto 45px;
-padding:0 18px;
+  display:none;
+  max-width:1100px;
+  margin:15px auto 45px;
+  padding:0 18px;
 }
 
 .browser.active {display:block}
@@ -218,427 +214,476 @@ padding:0 18px;
 /* tabs */
 
 .tabbar {
-display:flex;
-align-items:center;
-gap:8px;
-padding:9px 10px;
-background:rgba(15,15,35,.75);
-border:1px solid var(--line);
-border-radius:17px 17px 0 0;
-overflow-x:auto;
-scrollbar-width:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 10px;
+  background:rgba(15,15,35,.75);
+  border:1px solid var(--line);
+  border-radius:17px 17px 0 0;
+  overflow-x:auto;
+  scrollbar-width:none;
 }
 
 .tabbar::-webkit-scrollbar {display:none}
 
 .tab {
-display:flex;
-align-items:center;
-gap:9px;
-min-width:110px;
-max-width:190px;
-padding:9px 11px;
-border:1px solid transparent;
-border-radius:11px;
-background:rgba(255,255,255,.045);
-font-size:12px;
-animation:tabOpen .22s ease both;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:110px;
+  max-width:190px;
+  padding:9px 11px;
+  border:1px solid transparent;
+  border-radius:11px;
+  background:rgba(255,255,255,.045);
+  font-size:12px;
+  animation:tabOpen .22s ease both;
 }
 
 .tab.active {
-background:rgba(197,166,255,.19);
-border-color:rgba(197,166,255,.45);
+  background:rgba(197,166,255,.19);
+  border-color:rgba(197,166,255,.45);
 }
 
 .tab.closing {
-animation:tabClose .18s ease forwards;
+  animation:tabClose .18s ease forwards;
 }
 
 .tab-name {
-overflow:hidden;
-text-overflow:ellipsis;
-white-space:nowrap;
-flex:1;
-text-align:left;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  flex:1;
+  text-align:left;
 }
 
 .tab-close {
-border:0;
-background:transparent;
-padding:2px 5px;
-font-size:15px;
-opacity:.7;
+  border:0;
+  background:transparent;
+  padding:2px 5px;
+  font-size:15px;
+  opacity:.7;
 }
 
 .tab-close:hover {
-opacity:1;
-background:rgba(255,255,255,.15);
+  opacity:1;
+  background:rgba(255,255,255,.15);
 }
 
 .new-tab {
-flex-shrink:0;
-width:35px;
-height:35px;
-padding:0;
-border-radius:11px;
-font-size:21px;
+  flex-shrink:0;
+  width:35px;
+  height:35px;
+  padding:0;
+  border-radius:11px;
+  font-size:21px;
 }
 
 @keyframes tabOpen {
-from {opacity:0;transform:translateY(8px) scale(.94)}
-to {opacity:1;transform:translateY(0) scale(1)}
+  from {opacity:0;transform:translateY(8px) scale(.94)}
+  to {opacity:1;transform:translateY(0) scale(1)}
 }
 
 @keyframes tabClose {
-to {opacity:0;transform:scale(.7);max-width:0;min-width:0;padding:0;margin:0}
+  to {opacity:0;transform:scale(.7);max-width:0;min-width:0;padding:0;margin:0}
 }
 
 /* toolbar */
 
 .browser-toolbar {
-display:flex;
-align-items:center;
-gap:9px;
-padding:10px;
-background:var(--panel);
-border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:10px;
+  background:var(--panel);
+  border:1px solid var(--line);
 }
 
 .browser-toolbar button {
-padding:9px 13px;
-flex-shrink:0;
+  padding:9px 13px;
+  flex-shrink:0;
 }
 
 .address {
-flex:1;
-min-width:0;
-background:rgba(0,0,0,.17);
-border:1px solid var(--line);
-border-radius:12px;
-padding:11px 13px;
-color:var(--text);
-font:13px 'Quicksand';
-outline:none;
+  flex:1;
+  min-width:0;
+  background:rgba(0,0,0,.17);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 13px;
+  color:var(--text);
+  font:13px 'Quicksand';
+  outline:none;
 }
 
 .address:focus {border-color:var(--accent)}
 
 .browser-screen {
-width:100%;
-height:75vh;
-min-height:450px;
-border:1px solid var(--line);
-border-top:0;
-border-radius:0 0 17px 17px;
-background:white;
-display:block;
+  width:100%;
+  height:75vh;
+  min-height:450px;
+  border:1px solid var(--line);
+  border-top:0;
+  border-radius:0 0 17px 17px;
+  background:white;
+  display:block;
 }
 
-/* custom new tab */
+/* new tab */
 
 .newtab-page {
-display:none;
-min-height:70vh;
-padding:65px 18px 45px;
-text-align:center;
-border:1px solid var(--line);
-border-top:0;
-border-radius:0 0 17px 17px;
-background:
-radial-gradient(ellipse at 50% 20%,rgba(151,112,231,.19),transparent 55%),
-rgba(13,13,32,.55);
-animation:pageAppear .35s ease both;
+  display:none;
+  min-height:70vh;
+  padding:65px 18px 45px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-top:0;
+  border-radius:0 0 17px 17px;
+  background:
+    radial-gradient(ellipse at 50% 20%,rgba(151,112,231,.19),transparent 55%),
+    rgba(13,13,32,.55);
+  animation:pageAppear .35s ease both;
 }
 
 .newtab-page.active {display:block}
 
 @keyframes pageAppear {
-from {opacity:0;transform:translateY(12px)}
-to {opacity:1;transform:translateY(0)}
+  from {opacity:0;transform:translateY(12px)}
+  to {opacity:1;transform:translateY(0)}
 }
 
 .newtab-logo {
-font:clamp(65px,13vw,105px) 'Pacifico',cursive;
-color:#eee2ff;
-text-shadow:0 0 18px #ad8cff,0 0 45px #815bc9;
-margin:0 0 8px;
+  font:clamp(65px,13vw,105px) 'Pacifico',cursive;
+  color:#eee2ff;
+  text-shadow:0 0 18px #ad8cff,0 0 45px #815bc9;
+  margin:0 0 8px;
 }
 
 .newtab-subtitle {
-color:var(--muted);
-font-size:14px;
-margin:0 0 34px;
+  color:var(--muted);
+  font-size:14px;
+  margin:0 0 34px;
 }
 
 .newtab-form {
-width:min(620px,100%);
-margin:0 auto 15px;
-display:flex;
-gap:8px;
-padding:9px;
-border:1px solid var(--line);
-border-radius:20px;
-background:rgba(255,255,255,.08);
-box-shadow:var(--shadow);
-backdrop-filter:blur(18px);
+  width:min(620px,100%);
+  margin:0 auto 15px;
+  display:flex;
+  gap:8px;
+  padding:9px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.08);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
 }
 
 .newtab-form input {
-flex:1;
-min-width:0;
-border:0;
-outline:0;
-background:transparent;
-color:var(--text);
-font:500 15px 'Quicksand';
-padding:12px;
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  font:500 15px 'Quicksand';
+  padding:12px;
 }
 
 .newtab-form input::placeholder {color:#aaa4c3}
 
 .quick-title {
-color:var(--muted);
-font-size:12px;
-margin:35px 0 16px;
+  color:var(--muted);
+  font-size:12px;
+  margin:35px 0 16px;
 }
 
 .quick-links {
-display:flex;
-justify-content:center;
-align-items:center;
-flex-wrap:wrap;
-gap:13px;
-max-width:600px;
-margin:auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:13px;
+  max-width:600px;
+  margin:auto;
 }
 
 .quick-link {
-width:95px;
-min-height:90px;
-padding:13px 7px;
-border:1px solid var(--line);
-border-radius:16px;
-background:rgba(255,255,255,.055);
-color:var(--text);
-text-decoration:none;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:9px;
-font-size:12px;
-transition:.2s;
+  width:95px;
+  min-height:90px;
+  padding:13px 7px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.055);
+  color:var(--text);
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  font-size:12px;
+  transition:.2s;
 }
 
 .quick-link:hover {
-transform:translateY(-4px);
-background:rgba(197,166,255,.15);
-border-color:var(--accent);
+  transform:translateY(-4px);
+  background:rgba(197,166,255,.15);
+  border-color:var(--accent);
 }
 
 .quick-icon {
-width:34px;
-height:34px;
-display:grid;
-place-items:center;
-border-radius:11px;
-background:rgba(197,166,255,.15);
-font-size:17px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:rgba(197,166,255,.15);
+  font-size:17px;
 }
 
 .newtab-footer {
-margin-top:48px;
-color:#8f8aa9;
-font-size:11px;
+  margin-top:48px;
+  color:#8f8aa9;
+  font-size:11px;
 }
 
-/* note */
-
 .browser-note {
-text-align:center;
-font-size:11px;
-color:var(--muted);
-margin:10px 0;
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  margin:10px 0;
 }
 
 /* fullscreen */
 
 .browser.fullscreen {
-position:fixed;
-inset:0;
-z-index:10;
-width:100%;
-max-width:none;
-height:100dvh;
-margin:0;
-padding:0;
-background:var(--bg);
+  position:fixed;
+  inset:0;
+  z-index:10;
+  width:100%;
+  max-width:none;
+  height:100dvh;
+  margin:0;
+  padding:0;
+  background:var(--bg);
 }
 
 body.browser-fullscreen {overflow:hidden}
 
 body.browser-fullscreen header,
 body.browser-fullscreen #homePage,
-body.browser-fullscreen .tabbar,
 body.browser-fullscreen .browser-note,
 body.browser-fullscreen #fullscreenBtn {
-display:none !important;
+  display:none !important;
 }
 
 body.browser-fullscreen .browser-toolbar {
-height:62px;
-padding:8px;
-border:0;
-border-radius:0;
-gap:7px;
+  height:62px;
+  padding:8px;
+  border:0;
+  border-radius:0;
+  gap:7px;
 }
 
 body.browser-fullscreen .browser-toolbar button {
-padding:10px 13px;
+  padding:10px 13px;
 }
 
 body.browser-fullscreen .address {height:43px}
 
 body.browser-fullscreen .browser-screen {
-height:calc(100dvh - 62px);
-min-height:0;
-border:0;
-border-radius:0;
+  height:calc(100dvh - 117px);
+  min-height:0;
+  border:0;
+  border-radius:0;
 }
 
 body.browser-fullscreen .newtab-page {
-height:calc(100dvh - 62px);
-min-height:0;
-overflow:auto;
-border:0;
-border-radius:0;
+  height:calc(100dvh - 117px);
+  min-height:0;
+  overflow:auto;
+  border:0;
+  border-radius:0;
+}
+
+/* fullscreen toast */
+
+.fullscreen-toast {
+  position:fixed;
+  top:80px;
+  left:50%;
+  transform:translateX(-50%) translateY(-10px);
+  background:rgba(25,23,48,.95);
+  color:white;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;
+  padding:13px 20px;
+  z-index:50;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .5s,transform .5s;
+  width:max-content;
+  max-width:90%;
+  text-align:center;
+  font-size:13px;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+
+.fullscreen-toast.show {
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
 /* settings */
 
 .modal {
-position:fixed;
-inset:0;
-background:rgba(4,5,18,.72);
-display:none;
-align-items:center;
-justify-content:center;
-padding:18px;
-z-index:20;
-backdrop-filter:blur(8px);
+  position:fixed;
+  inset:0;
+  background:rgba(4,5,18,.72);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:20;
+  backdrop-filter:blur(8px);
 }
 
 .modal.open {display:flex}
 
 .dialog {
-width:min(520px,100%);
-max-height:85vh;
-overflow:auto;
-background:#1c1b36;
-border:1px solid var(--line);
-border-radius:23px;
-padding:24px;
-box-shadow:var(--shadow);
-text-align:left;
+  width:min(520px,100%);
+  max-height:85vh;
+  overflow:auto;
+  background:#1c1b36;
+  border:1px solid var(--line);
+  border-radius:23px;
+  padding:24px;
+  box-shadow:var(--shadow);
+  text-align:left;
 }
 
 .dialog h2 {
-font:26px 'Pacifico';
-margin:0 0 14px;
-color:#e7d8ff;
+  font:26px 'Pacifico';
+  margin:0 0 14px;
+  color:#e7d8ff;
+}
+
+.dialog h3 {
+  color:#eee2ff;
+  font-size:17px;
+  margin:18px 0 5px;
 }
 
 .dialog p {
-color:var(--muted);
-font-size:13px;
-line-height:1.6;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
 }
 
 .close {float:right}
 
 .setting-row {
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 0;
-border-bottom:1px solid var(--line);
-gap:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  gap:15px;
 }
 
 .setting-actions {
-display:flex;
-gap:8px;
-flex-wrap:wrap;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
 select {
-background:#302d50;
-color:white;
-border:1px solid var(--line);
-padding:8px;
-border-radius:10px;
+  background:#302d50;
+  color:white;
+  border:1px solid var(--line);
+  padding:8px;
+  border-radius:10px;
+}
+
+#updateDot {
+  display:inline-block;
+  color:white;
+  margin-left:5px;
+  font-size:13px;
+  text-shadow:0 0 5px white,0 0 12px white,0 0 20px white;
+  animation:dotGlow 1.5s ease-in-out infinite alternate;
+}
+
+#updateDot.hidden {display:none}
+
+@keyframes dotGlow {
+  from {opacity:.55}
+  to {opacity:1}
 }
 
 body.light {
---bg:#eeeafa;
---text:#28223e;
---muted:#665e80;
---panel:rgba(80,61,130,.09);
---panel2:rgba(80,61,130,.15);
---line:rgba(70,50,110,.18);
-background:#eeeafa;
+  --bg:#eeeafa;
+  --text:#28223e;
+  --muted:#665e80;
+  --panel:rgba(80,61,130,.09);
+  --panel2:rgba(80,61,130,.15);
+  --line:rgba(70,50,110,.18);
+  background:#eeeafa;
 }
 
 body.light .aurora-bg {opacity:.5}
 
 body.light .aurora.one {
-background:radial-gradient(ellipse,rgba(175,135,235,.65),transparent 68%);
+  background:radial-gradient(ellipse,rgba(175,135,235,.65),transparent 68%);
 }
 
 body.light .aurora.two {
-background:radial-gradient(ellipse,rgba(105,185,220,.55),transparent 68%);
+  background:radial-gradient(ellipse,rgba(105,185,220,.55),transparent 68%);
 }
 
 body.light h1,
 body.light .logo {
-color:#57427e;
-text-shadow:none;
+  color:#57427e;
+  text-shadow:none;
 }
 
 body.light .newtab-logo {
-color:#57427e;
-text-shadow:0 0 25px #c4a9f3;
+  color:#57427e;
+  text-shadow:0 0 25px #c4a9f3;
 }
 
 body.light .dialog {
-background:#f5f0ff;
-color:#28223e;
+  background:#f5f0ff;
+  color:#28223e;
 }
 
-body.light .dialog h2 {color:#57427e}
+body.light .dialog h2,
+body.light .dialog h3 {color:#57427e}
+
 body.light .dialog p {color:#665e80}
 body.light select {background:white;color:#28223e}
 
 @media(max-width:560px) {
-header {padding:18px}
-.logo {font-size:27px}
-main {margin-top:6vh}
-.search-wrap {border-radius:17px}
-.search-wrap input {font-size:14px;padding:11px 8px}
-.search-wrap button {padding:0 15px}
-.browser {padding:0 8px}
-.browser-screen {height:70vh;min-height:350px}
-.browser-toolbar {gap:5px;padding:7px}
-.browser-toolbar button {padding:9px}
-.tabbar {padding:7px}
-.tab {min-width:95px;padding:8px}
-.newtab-page {padding:55px 12px 35px}
-.newtab-form {gap:4px;padding:6px}
-.newtab-form input {font-size:13px;padding:11px 7px}
-.newtab-form button {padding:0 12px;font-size:12px}
-.quick-links {gap:8px}
-.quick-link {width:82px;min-height:82px}
-.setting-row {align-items:flex-start;flex-direction:column}
+  header {padding:18px}
+  .logo {font-size:27px}
+  main {margin-top:6vh}
+  .search-wrap {border-radius:17px}
+  .search-wrap input {font-size:14px;padding:11px 8px}
+  .search-wrap button {padding:0 15px}
+  .browser {padding:0 8px}
+  .browser-screen {height:70vh;min-height:350px}
+  .browser-toolbar {gap:5px;padding:7px}
+  .browser-toolbar button {padding:9px}
+  .tabbar {padding:7px}
+  .tab {min-width:95px;padding:8px}
+  .newtab-page {padding:55px 12px 35px}
+  .newtab-form {gap:4px;padding:6px}
+  .newtab-form input {font-size:13px;padding:11px 7px}
+  .newtab-form button {padding:0 12px;font-size:12px}
+  .quick-links {gap:8px}
+  .quick-link {width:82px;min-height:82px}
+  .setting-row {align-items:flex-start;flex-direction:column}
 }
 </style>
 </head>
@@ -646,558 +691,675 @@ main {margin-top:6vh}
 <body>
 
 <div class="aurora-bg">
-<div class="aurora one"></div>
-<div class="aurora two"></div>
-<div class="aurora three"></div>
+  <div class="aurora one"></div>
+  <div class="aurora two"></div>
+  <div class="aurora three"></div>
 </div>
 
 <header>
-<button class="logo" onclick="goHome()">✦ stars</button>
-<nav>
-<button id="settingsBtn">⚙ settings</button>
-</nav>
+  <button class="logo" onclick="goHome()">✦ stars</button>
+  <nav>
+    <button id="settingsBtn">⚙ settings</button>
+  </nav>
 </header>
 
 <main id="homePage">
-<h1>find your orbit</h1>
+  <h1>find your orbit</h1>
+  <p class="subtitle">a little corner of the internet, made of stardust</p>
 
-<p class="subtitle">
-a little corner of the internet, made of stardust
-</p>
+  <form class="search-wrap" id="searchForm">
+    <input id="query" type="search"
+      placeholder="search the web or enter a website..."
+      autocomplete="off" aria-label="Search the web">
+    <button type="submit">search ✦</button>
+  </form>
 
-<form class="search-wrap" id="searchForm">
-<input id="query" type="search"
-placeholder="search the web or enter a website..."
-autocomplete="off" aria-label="Search the web">
-<button type="submit">search ✦</button>
-</form>
+  <div class="hint">
+    press enter to search · websites open inside stars
+  </div>
 
-<div class="hint">
-press enter to search · websites open inside stars
-</div>
-
-<footer>✦ stars portal · stay curious</footer>
+  <footer>✦ stars portal · stay curious</footer>
 </main>
 
 <section class="browser" id="browser">
 
-<div class="tabbar" id="tabbar"></div>
+  <div class="tabbar" id="tabbar"></div>
 
-<div class="browser-toolbar">
-<button onclick="goHome()" title="Home">⌂</button>
-<button onclick="reloadPage()" title="Refresh">↻</button>
+  <div class="browser-toolbar">
+    <button onclick="goHome()" title="Home">⌂</button>
+    <button onclick="reloadPage()" title="Refresh">↻</button>
 
-<input class="address" id="addressBar"
-placeholder="enter a website or search..."
-autocomplete="off">
+    <input class="address" id="addressBar"
+      placeholder="enter a website or search..."
+      autocomplete="off">
 
-<button id="fullscreenBtn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
-</div>
+    <button id="fullscreenBtn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+  </div>
 
-<section class="newtab-page" id="newTabPage">
+  <section class="newtab-page" id="newTabPage">
+    <h1 class="newtab-logo">stars</h1>
+    <p class="newtab-subtitle">your universe starts here ✦</p>
 
-<h1 class="newtab-logo">stars</h1>
-<p class="newtab-subtitle">your universe starts here ✦</p>
+    <form class="newtab-form" id="newTabSearchForm">
+      <input id="newTabSearch" type="search"
+        placeholder="search the web..."
+        autocomplete="off">
+      <button type="submit">search ✦</button>
+    </form>
 
-<form class="newtab-form" id="newTabSearchForm">
-<input id="newTabSearch" type="search"
-placeholder="search the web..."
-autocomplete="off">
-<button type="submit">search ✦</button>
-</form>
+    <p class="quick-title">your quick links</p>
 
-<p class="quick-title">your quick links</p>
+    <div class="quick-links">
+      <a class="quick-link" href="https://www.google.com" data-url="https://www.google.com">
+        <span class="quick-icon">G</span>
+        <span>Google</span>
+      </a>
 
-<div class="quick-links">
-<a class="quick-link" href="https://www.google.com" data-url="https://www.google.com">
-<span class="quick-icon">G</span>
-<span>Google</span>
-</a>
+      <a class="quick-link" href="https://www.youtube.com" data-url="https://www.youtube.com">
+        <span class="quick-icon">▶</span>
+        <span>YouTube</span>
+      </a>
 
-<a class="quick-link" href="https://www.youtube.com" data-url="https://www.youtube.com">
-<span class="quick-icon">▶</span>
-<span>YouTube</span>
-</a>
+      <a class="quick-link" href="https://www.wikipedia.org" data-url="https://www.wikipedia.org">
+        <span class="quick-icon">W</span>
+        <span>Wikipedia</span>
+      </a>
 
-<a class="quick-link" href="https://www.wikipedia.org" data-url="https://www.wikipedia.org">
-<span class="quick-icon">W</span>
-<span>Wikipedia</span>
-</a>
+      <a class="quick-link" href="https://github.com" data-url="https://github.com">
+        <span class="quick-icon">⌘</span>
+        <span>GitHub</span>
+      </a>
+    </div>
 
-<a class="quick-link" href="https://github.com" data-url="https://github.com">
-<span class="quick-icon">⌘</span>
-<span>GitHub</span>
-</a>
-</div>
+    <div class="newtab-footer">✦ made of stardust · stars</div>
+  </section>
 
-<div class="newtab-footer">✦ made of stardust · stars</div>
+  <iframe
+    class="browser-screen"
+    id="browserFrame"
+    title="Stars browser"
+    allow="fullscreen; autoplay"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+
+  <div class="browser-note">
+    ✦ browsing inside stars · some websites block embedded viewing
+  </div>
 </section>
 
-<iframe
-class="browser-screen"
-id="browserFrame"
-title="Stars browser"
-allow="fullscreen; autoplay"
-referrerpolicy="no-referrer-when-downgrade">
-</iframe>
-
-<div class="browser-note">
-✦ browsing inside stars · some websites block embedded viewing
+<div class="fullscreen-toast" id="fullscreenToast">
+  Double tap escape to exit fullscreen.
 </div>
 
-</section>
+<!-- settings modal -->
 
 <div class="modal" id="settingsModal">
-<div class="dialog">
+  <div class="dialog">
+    <button class="close" onclick="closeModal()">✕</button>
 
-<button class="close" onclick="closeModal()">✕</button>
+    <h2>settings</h2>
+    <p>make your little corner feel right</p>
 
-<h2>settings</h2>
-<p>make your little corner feel right</p>
+    <div class="setting-row">
+      <span>appearance</span>
+      <select id="themeSelect">
+        <option value="dark">midnight sky</option>
+        <option value="light">soft daylight</option>
+      </select>
+    </div>
 
-<div class="setting-row">
-<span>appearance</span>
-<select id="themeSelect">
-<option value="dark">midnight sky</option>
-<option value="light">soft daylight</option>
-</select>
+    <div class="setting-row">
+      <span>search engine</span>
+      <select id="engineSelect">
+        <option value="duck">DuckDuckGo</option>
+        <option value="google">Google</option>
+        <option value="bing">Bing</option>
+      </select>
+    </div>
+
+    <div class="setting-row">
+      <span>show starry background</span>
+      <input id="starsToggle" type="checkbox" checked>
+    </div>
+
+    <div class="setting-row">
+      <span>information</span>
+      <button id="infoBtn" type="button">info</button>
+    </div>
+
+    <div class="setting-row">
+      <span>updates</span>
+      <button id="updateLogBtn" type="button">
+        Update Log <span id="updateDot">●</span>
+      </button>
+    </div>
+
+    <div class="setting-row">
+      <span>your website</span>
+      <div class="setting-actions">
+        <button id="downloadStarsBtn" type="button">
+          download stars ↓
+        </button>
+        <button id="copyStarsBtn" type="button">
+          copy html code
+        </button>
+      </div>
+    </div>
+
+    <p>settings are saved in this browser on this device.</p>
+  </div>
 </div>
 
-<div class="setting-row">
-<span>search engine</span>
-<select id="engineSelect">
-<option value="duck">DuckDuckGo</option>
-<option value="google">Google</option>
-<option value="bing">Bing</option>
-</select>
-</div>
+<!-- update log modal -->
 
-<div class="setting-row">
-<span>show starry background</span>
-<input id="starsToggle" type="checkbox" checked>
-</div>
+<div class="modal" id="updateLogModal">
+  <div class="dialog">
+    <button class="close" onclick="closeUpdateLog()">✕</button>
 
-<div class="setting-row">
-<span>your website</span>
-<div class="setting-actions">
-<button id="downloadStarsBtn" type="button">
-download stars ↓
-</button>
-<button id="copyStarsBtn" type="button">
-copy html code
-</button>
-</div>
-</div>
+    <h2>Update Log</h2>
 
-<p>settings are saved in this browser on this device.</p>
-</div>
+    <h3>V1.00, Release!</h3>
+    <p>Stars' out now, and is useable! Look out for new updates soon!</p>
+  </div>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
+
+/* update version
+   change this whenever a new update is released */
+
+const CURRENT_UPDATE_VERSION = '1.00';
 
 let tabs = [];
 let activeTab = null;
 let nextTabId = 1;
 
 function isWebsite(value) {
-return /^(https?:\/\/)?(localhost|(\w[\w-]*\.)+[a-z]{2,})(:\d+)?(\/.*)?$/i.test(value);
+  return /^(https?:\/\/)?(localhost|(\w[\w-]*\.)+[a-z]{2,})(:\d+)?(\/.*)?$/i.test(value);
 }
 
 function normalizeUrl(value) {
-value = value.trim();
+  value = value.trim();
 
-if (!/^https?:\/\//i.test(value)) {
-value = 'https://' + value;
-}
+  if (!/^https?:\/\//i.test(value)) {
+    value = 'https://' + value;
+  }
 
-return value;
+  return value;
 }
 
 function searchUrl(q) {
-const engine = $('engineSelect').value;
+  const engine = $('engineSelect').value;
 
-const urls = {
-duck:'https://duckduckgo.com/?q=',
-google:'https://www.google.com/search?q=',
-bing:'https://www.bing.com/search?q='
-};
+  const urls = {
+    duck:'https://duckduckgo.com/?q=',
+    google:'https://www.google.com/search?q=',
+    bing:'https://www.bing.com/search?q='
+  };
 
-return urls[engine] + encodeURIComponent(q);
+  return urls[engine] + encodeURIComponent(q);
 }
 
 function getTitle(url) {
-try {
-if (!url || url === 'about:blank') return 'new tab';
-return new URL(url).hostname.replace(/^www\./,'');
-} catch(e) {
-return 'new tab';
-}
+  try {
+    if (!url || url === 'about:blank') return 'new tab';
+    return new URL(url).hostname.replace(/^www\./,'');
+  } catch(e) {
+    return 'new tab';
+  }
 }
 
 function renderTabs() {
-const bar = $('tabbar');
-bar.innerHTML = '';
+  const bar = $('tabbar');
+  bar.innerHTML = '';
 
-tabs.forEach(tab => {
-const button = document.createElement('div');
-button.className = 'tab' +
-(tab.id === activeTab ? ' active' : '');
+  tabs.forEach(tab => {
+    const button = document.createElement('div');
+    button.className = 'tab' +
+      (tab.id === activeTab ? ' active' : '');
 
-const name = document.createElement('span');
-name.className = 'tab-name';
-name.textContent = tab.title;
+    const name = document.createElement('span');
+    name.className = 'tab-name';
+    name.textContent = tab.title;
 
-const close = document.createElement('button');
-close.className = 'tab-close';
-close.textContent = '×';
-close.title = 'Close tab';
+    const close = document.createElement('button');
+    close.className = 'tab-close';
+    close.textContent = '×';
+    close.title = 'Close tab';
 
-button.onclick = () => activateTab(tab.id);
+    button.onclick = () => activateTab(tab.id);
 
-close.onclick = event => {
-event.stopPropagation();
-closeTab(tab.id, button);
-};
+    close.onclick = event => {
+      event.stopPropagation();
+      closeTab(tab.id, button);
+    };
 
-button.append(name,close);
-bar.appendChild(button);
-});
+    button.append(name,close);
+    bar.appendChild(button);
+  });
 
-const add = document.createElement('button');
-add.className = 'new-tab';
-add.textContent = '+';
-add.title = 'New tab';
-add.onclick = () => newTab();
+  const add = document.createElement('button');
+  add.className = 'new-tab';
+  add.textContent = '+';
+  add.title = 'New tab';
+  add.onclick = () => newTab();
 
-bar.appendChild(add);
+  bar.appendChild(add);
 }
 
 /* tab switching */
 
 function activateTab(id) {
-const tab = tabs.find(t => t.id === id);
-if (!tab) return;
+  const tab = tabs.find(t => t.id === id);
+  if (!tab) return;
 
-activeTab = id;
+  activeTab = id;
 
-$('browser').classList.add('active');
-$('homePage').style.display = 'none';
+  $('browser').classList.add('active');
+  $('homePage').style.display = 'none';
 
-const isNewTab = !tab.url || tab.url === 'about:blank';
+  const isNewTab = !tab.url || tab.url === 'about:blank';
 
-$('addressBar').value = isNewTab ? '' : tab.url;
+  $('addressBar').value = isNewTab ? '' : tab.url;
 
-$('newTabPage').classList.toggle('active',isNewTab);
-$('browserFrame').style.display = isNewTab ? 'none' : 'block';
+  $('newTabPage').classList.toggle('active',isNewTab);
+  $('browserFrame').style.display = isNewTab ? 'none' : 'block';
 
-if (isNewTab) {
-$('browserFrame').src = 'about:blank';
-} else {
-$('browserFrame').src = tab.url;
+  if (isNewTab) {
+    $('browserFrame').src = 'about:blank';
+  } else {
+    $('browserFrame').src = tab.url;
+  }
+
+  renderTabs();
 }
-
-renderTabs();
-}
-
-/* new tab supports a starting URL */
 
 function newTab(url = 'about:blank') {
-const tab = {
-id:nextTabId++,
-url:url,
-title:getTitle(url)
-};
+  const tab = {
+    id:nextTabId++,
+    url:url,
+    title:getTitle(url)
+  };
 
-tabs.push(tab);
-activateTab(tab.id);
+  tabs.push(tab);
+  activateTab(tab.id);
 }
 
 function closeTab(id, element) {
-if (element) element.classList.add('closing');
+  if (element) element.classList.add('closing');
 
-setTimeout(() => {
-const index = tabs.findIndex(t => t.id === id);
-if (index === -1) return;
+  setTimeout(() => {
+    const index = tabs.findIndex(t => t.id === id);
+    if (index === -1) return;
 
-const wasActive = activeTab === id;
-tabs.splice(index,1);
+    const wasActive = activeTab === id;
+    tabs.splice(index,1);
 
-if (tabs.length === 0) {
-activeTab = null;
-goHome();
-return;
-}
+    if (tabs.length === 0) {
+      activeTab = null;
+      goHome();
+      return;
+    }
 
-if (wasActive) {
-const next = tabs[Math.min(index,tabs.length - 1)];
-activateTab(next.id);
-} else {
-renderTabs();
-}
-},180);
+    if (wasActive) {
+      const next = tabs[Math.min(index,tabs.length - 1)];
+      activateTab(next.id);
+    } else {
+      renderTabs();
+    }
+  },180);
 }
 
 /* navigation */
 
 function navigate(value) {
-value = value.trim();
-if (!value) return;
+  value = value.trim();
+  if (!value) return;
 
-const destination = isWebsite(value)
-? normalizeUrl(value)
-: searchUrl(value);
+  const destination = isWebsite(value)
+    ? normalizeUrl(value)
+    : searchUrl(value);
 
-if (!activeTab) {
-newTab(destination);
-return;
-}
+  if (!activeTab) {
+    newTab(destination);
+    return;
+  }
 
-const tab = tabs.find(t => t.id === activeTab);
-if (!tab) {
-newTab(destination);
-return;
-}
+  const tab = tabs.find(t => t.id === activeTab);
 
-tab.url = destination;
-tab.title = getTitle(destination);
+  if (!tab) {
+    newTab(destination);
+    return;
+  }
 
-activateTab(tab.id);
+  tab.url = destination;
+  tab.title = getTitle(destination);
+
+  activateTab(tab.id);
 }
 
 function goAddress() {
-navigate($('addressBar').value);
+  navigate($('addressBar').value);
 }
 
 function reloadPage() {
-const tab = tabs.find(t => t.id === activeTab);
-if (!tab) return;
+  const tab = tabs.find(t => t.id === activeTab);
+  if (!tab) return;
 
-if (tab.url === 'about:blank') {
-$('newTabPage').classList.remove('active');
-void $('newTabPage').offsetWidth;
-$('newTabPage').classList.add('active');
-return;
-}
+  if (tab.url === 'about:blank') {
+    $('newTabPage').classList.remove('active');
+    void $('newTabPage').offsetWidth;
+    $('newTabPage').classList.add('active');
+    return;
+  }
 
-const frame = $('browserFrame');
+  const frame = $('browserFrame');
 
-try {
-frame.contentWindow.location.reload();
-} catch(e) {
-frame.src = frame.src;
-}
+  try {
+    frame.contentWindow.location.reload();
+  } catch(e) {
+    frame.src = frame.src;
+  }
 }
 
 function goHome() {
-$('browserFrame').src = 'about:blank';
-$('browser').classList.remove('active','fullscreen');
-$('newTabPage').classList.remove('active');
-$('browserFrame').style.display = 'block';
-document.body.classList.remove('browser-fullscreen');
-$('homePage').style.display = 'block';
+  $('browserFrame').src = 'about:blank';
+  $('browser').classList.remove('active','fullscreen');
+  $('newTabPage').classList.remove('active');
+  $('browserFrame').style.display = 'block';
 
-window.scrollTo({top:0,behavior:'smooth'});
+  document.body.classList.remove('browser-fullscreen');
+  $('fullscreenToast').classList.remove('show');
+  $('homePage').style.display = 'block';
+
+  escapeCount = 0;
+  clearTimeout(escapeTimer);
+
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+
+/* fullscreen */
+
+let escapeCount = 0;
+let escapeTimer = null;
+let toastTimer = null;
 
 function toggleFullscreen() {
-const browser = $('browser');
+  const browser = $('browser');
 
-const enabled = browser.classList.toggle('fullscreen');
-document.body.classList.toggle('browser-fullscreen',enabled);
+  if (!browser.classList.contains('active')) return;
 
-if (enabled) {
-document.documentElement.requestFullscreen?.().catch(() => {});
-} else if (document.fullscreenElement) {
-document.exitFullscreen?.();
-}
+  const enabled = browser.classList.toggle('fullscreen');
+  document.body.classList.toggle('browser-fullscreen',enabled);
+
+  if (enabled) {
+    escapeCount = 0;
+
+    const toast = $('fullscreenToast');
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    },3000);
+  } else {
+    $('fullscreenToast').classList.remove('show');
+    clearTimeout(toastTimer);
+    escapeCount = 0;
+  }
 }
 
-document.addEventListener('fullscreenchange',() => {
-if (!document.fullscreenElement &&
-$('browser').classList.contains('fullscreen')) {
-$('browser').classList.remove('fullscreen');
-document.body.classList.remove('browser-fullscreen');
-}
-});
+/* double Escape to exit fullscreen */
 
 document.addEventListener('keydown',event => {
-if (event.key === 'Escape') {
-$('browser').classList.remove('fullscreen');
-document.body.classList.remove('browser-fullscreen');
-}
+  if (event.key !== 'Escape') return;
+  if (!$('browser').classList.contains('fullscreen')) return;
+
+  event.preventDefault();
+
+  escapeCount++;
+  clearTimeout(escapeTimer);
+
+  if (escapeCount >= 2) {
+    $('browser').classList.remove('fullscreen');
+    document.body.classList.remove('browser-fullscreen');
+    $('fullscreenToast').classList.remove('show');
+
+    escapeCount = 0;
+    clearTimeout(toastTimer);
+  } else {
+    escapeTimer = setTimeout(() => {
+      escapeCount = 0;
+    },1000);
+  }
 });
 
 /* homepage search */
 
 $('searchForm').addEventListener('submit',event => {
-event.preventDefault();
-navigate($('query').value);
+  event.preventDefault();
+  navigate($('query').value);
 });
 
-/* address bar search */
+/* address bar */
 
 $('addressBar').addEventListener('keydown',event => {
-if (event.key === 'Enter') {
-event.preventDefault();
-goAddress();
-}
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    goAddress();
+  }
 });
 
 /* new tab search */
 
 $('newTabSearchForm').addEventListener('submit',event => {
-event.preventDefault();
-navigate($('newTabSearch').value);
+  event.preventDefault();
+  navigate($('newTabSearch').value);
 });
 
 /* quick links */
 
 document.querySelectorAll('.quick-link').forEach(link => {
-link.addEventListener('click',event => {
-event.preventDefault();
-navigate(link.dataset.url);
-});
+  link.addEventListener('click',event => {
+    event.preventDefault();
+    navigate(link.dataset.url);
+  });
 });
 
 /* update tab titles */
 
 $('browserFrame').addEventListener('load',() => {
-const tab = tabs.find(t => t.id === activeTab);
-if (tab && tab.url !== 'about:blank') {
-tab.title = getTitle(tab.url);
-renderTabs();
-}
+  const tab = tabs.find(t => t.id === activeTab);
+
+  if (tab && tab.url !== 'about:blank') {
+    tab.title = getTitle(tab.url);
+    renderTabs();
+  }
 });
 
 /* settings */
 
 function showModal() {
-$('settingsModal').classList.add('open');
+  $('settingsModal').classList.add('open');
 }
 
 function closeModal() {
-$('settingsModal').classList.remove('open');
+  $('settingsModal').classList.remove('open');
 }
 
 $('settingsBtn').onclick = showModal;
 
 $('settingsModal').addEventListener('click',event => {
-if (event.target === $('settingsModal')) closeModal();
+  if (event.target === $('settingsModal')) closeModal();
 });
 
+/* info button */
+
+$('infoBtn').addEventListener('click',() => {
+  alert("Stars' unfortunately underconstruction and will probably only function when opened in a proxy.");
+});
+
+/* update log and notification */
+
+function refreshUpdateDot() {
+  const seenVersion = localStorage.getItem('starsSeenUpdateVersion');
+
+  $('updateDot').classList.toggle(
+    'hidden',
+    seenVersion === CURRENT_UPDATE_VERSION
+  );
+}
+
+function openUpdateLog() {
+  $('updateLogModal').classList.add('open');
+
+  /* remember the exact version the user has seen */
+  localStorage.setItem(
+    'starsSeenUpdateVersion',
+    CURRENT_UPDATE_VERSION
+  );
+
+  refreshUpdateDot();
+}
+
+function closeUpdateLog() {
+  $('updateLogModal').classList.remove('open');
+}
+
+$('updateLogBtn').addEventListener('click',openUpdateLog);
+
+$('updateLogModal').addEventListener('click',event => {
+  if (event.target === $('updateLogModal')) {
+    closeUpdateLog();
+  }
+});
+
+/* settings storage */
+
 function saveSettings() {
-localStorage.setItem('starsSettings',JSON.stringify({
-theme:$('themeSelect').value,
-engine:$('engineSelect').value,
-stars:$('starsToggle').checked
-}));
+  localStorage.setItem('starsSettings',JSON.stringify({
+    theme:$('themeSelect').value,
+    engine:$('engineSelect').value,
+    stars:$('starsToggle').checked
+  }));
 }
 
 function loadSettings() {
-try {
-const settings = JSON.parse(
-localStorage.getItem('starsSettings') || '{}'
-);
+  try {
+    const settings = JSON.parse(
+      localStorage.getItem('starsSettings') || '{}'
+    );
 
-$('themeSelect').value = settings.theme || 'dark';
-$('engineSelect').value = settings.engine || 'duck';
-$('starsToggle').checked = settings.stars !== false;
+    $('themeSelect').value = settings.theme || 'dark';
+    $('engineSelect').value = settings.engine || 'duck';
+    $('starsToggle').checked = settings.stars !== false;
 
-document.body.classList.toggle('light',settings.theme === 'light');
-document.body.classList.toggle('no-stars',settings.stars === false);
-} catch(e) {}
+    document.body.classList.toggle(
+      'light',
+      settings.theme === 'light'
+    );
+
+    document.body.classList.toggle(
+      'no-stars',
+      settings.stars === false
+    );
+  } catch(e) {}
 }
 
-/* get complete html */
+/* get complete HTML */
 
 function getStarsHTML() {
-return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
 }
 
 /* download stars */
 
 $('downloadStarsBtn').addEventListener('click',() => {
-const html = getStarsHTML();
+  const html = getStarsHTML();
 
-const blob = new Blob([html], {
-type:'text/html;charset=utf-8'
+  const blob = new Blob([html], {
+    type:'text/html;charset=utf-8'
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = 'stars.html';
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url),1000);
 });
 
-const url = URL.createObjectURL(blob);
-const link = document.createElement('a');
-
-link.href = url;
-link.download = 'stars.html';
-
-document.body.appendChild(link);
-link.click();
-link.remove();
-
-setTimeout(() => URL.revokeObjectURL(url),1000);
-});
-
-/* copy stars html */
+/* copy HTML */
 
 $('copyStarsBtn').addEventListener('click',async () => {
-const html = getStarsHTML();
-const button = $('copyStarsBtn');
+  const html = getStarsHTML();
+  const button = $('copyStarsBtn');
 
-try {
-if (navigator.clipboard && window.isSecureContext) {
-await navigator.clipboard.writeText(html);
-} else {
-throw new Error('Clipboard unavailable');
-}
-} catch(error) {
-try {
-const textarea = document.createElement('textarea');
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(html);
+    } else {
+      throw new Error('Clipboard unavailable');
+    }
+  } catch(error) {
+    try {
+      const textarea = document.createElement('textarea');
 
-textarea.value = html;
-textarea.style.position = 'fixed';
-textarea.style.opacity = '0';
-textarea.style.pointerEvents = 'none';
+      textarea.value = html;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      textarea.style.pointerEvents = 'none';
 
-document.body.appendChild(textarea);
-textarea.focus();
-textarea.select();
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
 
-const copied = document.execCommand('copy');
-textarea.remove();
+      const copied = document.execCommand('copy');
+      textarea.remove();
 
-if (!copied) throw new Error('Copy failed');
-} catch(copyError) {
-alert('Could not copy the HTML. Try the download button instead.');
-return;
-}
-}
+      if (!copied) throw new Error('Copy failed');
+    } catch(copyError) {
+      alert('Could not copy the HTML. Try the download button instead.');
+      return;
+    }
+  }
 
-button.textContent = 'copied!';
+  button.textContent = 'copied!';
 
-setTimeout(() => {
-button.textContent = 'copy html code';
-},2000);
+  setTimeout(() => {
+    button.textContent = 'copy html code';
+  },2000);
 });
 
 /* settings changes */
 
 ['themeSelect','engineSelect','starsToggle'].forEach(id => {
-$(id).addEventListener('change',() => {
-document.body.classList.toggle(
-'light',
-$('themeSelect').value === 'light'
-);
+  $(id).addEventListener('change',() => {
+    document.body.classList.toggle(
+      'light',
+      $('themeSelect').value === 'light'
+    );
 
-document.body.classList.toggle(
-'no-stars',
-!$('starsToggle').checked
-);
+    document.body.classList.toggle(
+      'no-stars',
+      !$('starsToggle').checked
+    );
 
-saveSettings();
+    saveSettings();
+  });
 });
-});
+
+/* initialize */
 
 loadSettings();
+refreshUpdateDot();
 </script>
 
 </body>
