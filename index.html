@@ -41,8 +41,6 @@ body {
   overflow:hidden;
   filter:blur(75px);
   opacity:.65;
-  transform:translateZ(0);
-  will-change:opacity;
 }
 
 .aurora {
@@ -51,8 +49,6 @@ body {
   height:55%;
   border-radius:50%;
   animation:auroraMove 32s ease-in-out infinite alternate;
-  will-change:transform;
-  backface-visibility:hidden;
 }
 
 .aurora.one {
@@ -76,9 +72,9 @@ body {
 }
 
 @keyframes auroraMove {
-  0% {transform:translate3d(0,0,0) rotate(0deg) scale(1)}
-  50% {transform:translate3d(8%,6%,0) rotate(8deg) scale(1.08)}
-  100% {transform:translate3d(-7%,10%,0) rotate(-7deg) scale(1)}
+  0% {transform:translate(0,0) rotate(0deg) scale(1)}
+  50% {transform:translate(8%,6%) rotate(8deg) scale(1.08)}
+  100% {transform:translate(-7%,10%) rotate(-7deg) scale(1)}
 }
 
 body:before {
@@ -97,7 +93,7 @@ body:before {
 
 body.no-stars:before {display:none}
 
-header, main, .browser, .games-section {
+header,main,.browser,.games-section {
   position:relative;
   z-index:1;
 }
@@ -167,7 +163,7 @@ h1 {
   font-size:15px;
 }
 
-.search-wrap {
+.search-wrap,.newtab-form {
   max-width:690px;
   margin:auto;
   padding:9px;
@@ -180,7 +176,7 @@ h1 {
   backdrop-filter:blur(18px);
 }
 
-.search-wrap input {
+.search-wrap input,.newtab-form input {
   flex:1;
   min-width:0;
   background:transparent;
@@ -191,10 +187,9 @@ h1 {
   padding:13px 15px;
 }
 
-.search-wrap input::placeholder {color:#aaa4c3}
+input::placeholder {color:#aaa4c3}
 
-.search-wrap button,
-.newtab-form button {
+.search-wrap button,.newtab-form button {
   background:linear-gradient(120deg,#9e7be8,#6c9fe7);
   border:0;
   padding:0 23px;
@@ -223,8 +218,6 @@ footer {
 
 .browser.active {display:block}
 
-/* tabs */
-
 .tabbar {
   display:flex;
   align-items:center;
@@ -237,8 +230,6 @@ footer {
   scrollbar-width:none;
 }
 
-.tabbar::-webkit-scrollbar {display:none}
-
 .tab {
   display:flex;
   align-items:center;
@@ -250,16 +241,11 @@ footer {
   border-radius:11px;
   background:rgba(255,255,255,.045);
   font-size:12px;
-  animation:tabOpen .22s ease both;
 }
 
 .tab.active {
   background:rgba(197,166,255,.19);
   border-color:rgba(197,166,255,.45);
-}
-
-.tab.closing {
-  animation:tabClose .18s ease forwards;
 }
 
 .tab-name {
@@ -275,12 +261,6 @@ footer {
   background:transparent;
   padding:2px 5px;
   font-size:15px;
-  opacity:.7;
-}
-
-.tab-close:hover {
-  opacity:1;
-  background:rgba(255,255,255,.15);
 }
 
 .new-tab {
@@ -288,20 +268,8 @@ footer {
   width:35px;
   height:35px;
   padding:0;
-  border-radius:11px;
   font-size:21px;
 }
-
-@keyframes tabOpen {
-  from {opacity:0;transform:translateY(8px) scale(.94)}
-  to {opacity:1;transform:translateY(0) scale(1)}
-}
-
-@keyframes tabClose {
-  to {opacity:0;transform:scale(.7);max-width:0;min-width:0;padding:0;margin:0}
-}
-
-/* toolbar */
 
 .browser-toolbar {
   display:flex;
@@ -329,8 +297,6 @@ footer {
   outline:none;
 }
 
-.address:focus {border-color:var(--accent)}
-
 .browser-screen {
   width:100%;
   height:75vh;
@@ -341,8 +307,6 @@ footer {
   background:white;
   display:block;
 }
-
-/* new tab */
 
 .newtab-page {
   display:none;
@@ -355,15 +319,9 @@ footer {
   background:
     radial-gradient(ellipse at 50% 20%,rgba(151,112,231,.19),transparent 55%),
     rgba(13,13,32,.55);
-  animation:pageAppear .35s ease both;
 }
 
 .newtab-page.active {display:block}
-
-@keyframes pageAppear {
-  from {opacity:0;transform:translateY(12px)}
-  to {opacity:1;transform:translateY(0)}
-}
 
 .newtab-logo {
   font:clamp(65px,13vw,105px) 'Pacifico',cursive;
@@ -381,28 +339,7 @@ footer {
 .newtab-form {
   width:min(620px,100%);
   margin:0 auto 15px;
-  display:flex;
-  gap:8px;
-  padding:9px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(255,255,255,.08);
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(18px);
 }
-
-.newtab-form input {
-  flex:1;
-  min-width:0;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:var(--text);
-  font:500 15px 'Quicksand';
-  padding:12px;
-}
-
-.newtab-form input::placeholder {color:#aaa4c3}
 
 .quick-title {
   color:var(--muted);
@@ -413,7 +350,6 @@ footer {
 .quick-links {
   display:flex;
   justify-content:center;
-  align-items:center;
   flex-wrap:wrap;
   gap:13px;
   max-width:600px;
@@ -435,13 +371,6 @@ footer {
   justify-content:center;
   gap:9px;
   font-size:12px;
-  transition:.2s;
-}
-
-.quick-link:hover {
-  transform:translateY(-4px);
-  background:rgba(197,166,255,.15);
-  border-color:var(--accent);
 }
 
 .quick-icon {
@@ -454,12 +383,6 @@ footer {
   font-size:17px;
 }
 
-.newtab-footer {
-  margin-top:48px;
-  color:#8f8aa9;
-  font-size:11px;
-}
-
 .browser-note {
   text-align:center;
   font-size:11px;
@@ -467,7 +390,7 @@ footer {
   margin:10px 0;
 }
 
-/* games library */
+/* games */
 
 .games-section {
   max-width:1064px;
@@ -494,7 +417,6 @@ footer {
   border:1px solid var(--line);
   border-radius:17px;
   background:rgba(255,255,255,.055);
-  animation:pageAppear .25s ease both;
 }
 
 .games-content.open {display:block}
@@ -531,8 +453,6 @@ footer {
   outline:none;
 }
 
-.game-tools input:focus {border-color:var(--accent)}
-
 .game-tools select {
   min-width:120px;
 }
@@ -554,14 +474,34 @@ footer {
   gap:9px;
 }
 
-.game-card .game-icon {
-  width:42px;
-  height:42px;
+.game-icon {
+  width:48px;
+  height:48px;
   display:grid;
   place-items:center;
   border-radius:13px;
   background:rgba(197,166,255,.15);
-  font-size:22px;
+  font-size:25px;
+}
+
+.game-icon.roblox {
+  background:transparent;
+}
+
+.roblox-mark {
+  width:31px;
+  height:31px;
+  background:#e2231a;
+  transform:rotate(15deg);
+  display:grid;
+  place-items:center;
+}
+
+.roblox-mark:after {
+  content:"";
+  width:11px;
+  height:11px;
+  background:#101124;
 }
 
 .game-card h3 {
@@ -589,14 +529,6 @@ footer {
   margin-top:5px;
 }
 
-.no-games {
-  grid-column:1/-1;
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  padding:25px;
-}
-
 /* fullscreen */
 
 .browser.fullscreen {
@@ -616,8 +548,7 @@ body.browser-fullscreen {overflow:hidden}
 body.browser-fullscreen header,
 body.browser-fullscreen #homePage,
 body.browser-fullscreen .games-section,
-body.browser-fullscreen .browser-note,
-body.browser-fullscreen #fullscreenBtn {
+body.browser-fullscreen .browser-note {
   display:none !important;
 }
 
@@ -625,15 +556,7 @@ body.browser-fullscreen .browser-toolbar {
   height:62px;
   padding:8px;
   border:0;
-  border-radius:0;
-  gap:7px;
 }
-
-body.browser-fullscreen .browser-toolbar button {
-  padding:10px 13px;
-}
-
-body.browser-fullscreen .address {height:43px}
 
 body.browser-fullscreen .browser-screen {
   height:calc(100dvh - 117px);
@@ -642,21 +565,11 @@ body.browser-fullscreen .browser-screen {
   border-radius:0;
 }
 
-body.browser-fullscreen .newtab-page {
-  height:calc(100dvh - 117px);
-  min-height:0;
-  overflow:auto;
-  border:0;
-  border-radius:0;
-}
-
-/* fullscreen toast */
-
 .fullscreen-toast {
   position:fixed;
   top:80px;
   left:50%;
-  transform:translateX(-50%) translateY(-10px);
+  transform:translateX(-50%);
   background:rgba(25,23,48,.95);
   color:white;
   border:1px solid rgba(255,255,255,.2);
@@ -665,18 +578,10 @@ body.browser-fullscreen .newtab-page {
   z-index:50;
   opacity:0;
   pointer-events:none;
-  transition:opacity .5s,transform .5s;
-  width:max-content;
-  max-width:90%;
-  text-align:center;
-  font-size:13px;
-  box-shadow:0 8px 30px rgba(0,0,0,.3);
+  transition:opacity .3s;
 }
 
-.fullscreen-toast.show {
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
+.fullscreen-toast.show {opacity:1}
 
 /* modals */
 
@@ -704,19 +609,12 @@ body.browser-fullscreen .newtab-page {
   padding:24px;
   box-shadow:var(--shadow);
   text-align:left;
-  animation:pageAppear .2s ease both;
 }
 
 .dialog h2 {
   font:26px 'Pacifico';
   margin:0 0 14px;
   color:#e7d8ff;
-}
-
-.dialog h3 {
-  color:#eee2ff;
-  font-size:17px;
-  margin:18px 0 5px;
 }
 
 .dialog p {
@@ -736,12 +634,6 @@ body.browser-fullscreen .newtab-page {
   gap:15px;
 }
 
-.setting-actions {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
 select {
   background:#302d50;
   color:white;
@@ -752,17 +644,11 @@ select {
   max-width:100%;
 }
 
-/* custom theme controls */
-
-.custom-theme-controls {
-  display:none;
-  flex-direction:column;
-  gap:12px;
-  padding:15px 0;
-  border-bottom:1px solid var(--line);
+.setting-actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
-
-.custom-theme-controls.show {display:flex}
 
 .color-row {
   display:flex;
@@ -771,16 +657,24 @@ select {
   gap:12px;
   color:var(--muted);
   font-size:13px;
+  padding:7px 0;
 }
 
-.color-row input[type="color"] {
+.custom-theme-controls {
+  display:none;
+  flex-direction:column;
+  padding:12px 0;
+}
+
+.custom-theme-controls.show {display:flex}
+
+.color-row input {
   width:48px;
   height:34px;
   padding:2px;
   border:1px solid var(--line);
   border-radius:9px;
   background:transparent;
-  cursor:pointer;
 }
 
 /* bookmarks */
@@ -807,28 +701,24 @@ select {
   min-width:0;
 }
 
-.bookmark-info strong {
+.bookmark-info strong,.bookmark-info span {
   display:block;
-  font-size:13px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
+.bookmark-info strong {font-size:13px}
+
 .bookmark-info span {
-  display:block;
   color:var(--muted);
   font-size:10px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
   margin-top:4px;
 }
 
 .bookmark-actions {
   display:flex;
   gap:6px;
-  flex-shrink:0;
 }
 
 .bookmark-actions button {
@@ -843,30 +733,23 @@ select {
   font-size:13px;
 }
 
-/* update log */
+/* updates */
 
 #updateDot {
   display:inline-block;
   color:white;
   margin-left:5px;
   font-size:13px;
-  text-shadow:0 0 5px white,0 0 12px white,0 0 20px white;
-  animation:dotGlow 1.5s ease-in-out infinite alternate;
+  text-shadow:0 0 5px white,0 0 12px white;
 }
 
 #updateDot.hidden {display:none}
 
-@keyframes dotGlow {
-  from {opacity:.55}
-  to {opacity:1}
-}
-
 .update-layout {
   display:grid;
-  grid-template-columns:minmax(150px, .9fr) minmax(0, 1.5fr);
+  grid-template-columns:minmax(150px,.9fr) minmax(0,1.5fr);
   gap:14px;
   margin-top:18px;
-  align-items:stretch;
 }
 
 .update-list {
@@ -875,7 +758,6 @@ select {
   gap:8px;
   max-height:280px;
   overflow-y:auto;
-  padding-right:4px;
 }
 
 .update-choice {
@@ -883,7 +765,6 @@ select {
   padding:12px;
   text-align:left;
   font-size:12px;
-  line-height:1.4;
   border-radius:12px;
   background:rgba(255,255,255,.045);
 }
@@ -901,11 +782,15 @@ select {
   background:rgba(255,255,255,.045);
 }
 
-.update-entry {padding:0}
-.update-entry h3 {margin:0 0 10px}
-.update-entry p {margin:0}
+.update-display h3 {
+  color:#eee2ff;
+  font-size:17px;
+  margin:0 0 10px;
+}
 
-/* daylight theme */
+.update-display p {margin:0}
+
+/* themes */
 
 body.light {
   --bg:#eeeafa;
@@ -917,41 +802,13 @@ body.light {
   background:#eeeafa;
 }
 
-body.light .aurora-bg {opacity:.5}
-
-body.light .aurora.one {
-  background:radial-gradient(ellipse,rgba(175,135,235,.65),transparent 68%);
-}
-
-body.light .aurora.two {
-  background:radial-gradient(ellipse,rgba(105,185,220,.55),transparent 68%);
-}
-
-body.light h1,
-body.light .logo {
-  color:#57427e;
-  text-shadow:none;
-}
-
-body.light .newtab-logo {
-  color:#57427e;
-  text-shadow:0 0 25px #c4a9f3;
-}
-
-body.light .dialog {
-  background:#f5f0ff;
-  color:#28223e;
-}
-
-body.light .dialog h2,
-body.light .dialog h3,
-body.light .games-content h2 {color:#57427e}
-
-body.light .dialog p {color:#665e80}
+body.light h1,body.light .logo {color:#57427e;text-shadow:none}
+body.light .newtab-logo {color:#57427e}
+body.light .dialog {background:#f5f0ff}
+body.light .dialog h2,body.light .games-content h2 {color:#57427e}
+body.light .update-display h3 {color:#57427e}
 body.light select {background:white;color:#28223e}
-body.light .game-tools input {background:rgba(255,255,255,.7);color:#28223e}
-
-/* halloween theme */
+body.light .game-tools input {background:white;color:#28223e}
 
 body.halloween {
   --bg:#080808;
@@ -964,94 +821,18 @@ body.halloween {
   background:#080808;
 }
 
-body.halloween .aurora-bg {opacity:.8}
-
-body.halloween .aurora.one {
-  background:radial-gradient(ellipse,rgba(255,85,0,.65),transparent 68%);
-}
-
-body.halloween .aurora.two {
-  background:radial-gradient(ellipse,rgba(255,145,0,.55),transparent 68%);
-}
-
-body.halloween .aurora.three {
-  background:radial-gradient(ellipse,rgba(180,55,0,.5),transparent 68%);
-}
-
-body.halloween h1,
-body.halloween .logo {
+body.halloween h1,body.halloween .logo,body.halloween .newtab-logo {
   color:#ffb15c;
   text-shadow:0 0 25px rgba(255,105,0,.65);
 }
 
-body.halloween .newtab-logo {
-  color:#ffb15c;
-  text-shadow:0 0 25px rgba(255,105,0,.7);
-}
-
-body.halloween .newtab-page {
-  background:
-    radial-gradient(ellipse at 50% 20%,rgba(255,105,0,.16),transparent 55%),
-    rgba(13,10,8,.75);
-}
-
-body.halloween .search-wrap button,
-body.halloween .newtab-form button {
-  background:linear-gradient(120deg,#ff9a32,#d94b00);
-}
-
-body.halloween .quick-link:hover {
-  background:rgba(255,120,0,.15);
-  border-color:var(--accent);
-}
-
-body.halloween .quick-icon,
-body.halloween .game-card .game-icon {
-  background:rgba(255,120,0,.17);
-}
-
-body.halloween .tab.active {
-  background:rgba(255,135,35,.18);
-  border-color:rgba(255,135,35,.45);
-}
-
-body.halloween .dialog {
-  background:#1c120c;
-}
-
-body.halloween .dialog h2,
-body.halloween .dialog h3,
-body.halloween .games-content h2 {
+body.halloween .games-content h2,body.halloween .dialog h2 {
   color:#ffad58;
 }
 
-body.halloween select,
-body.halloween .game-tools input {
-  background:#28170d;
-  color:#fff3e6;
-  border-color:rgba(255,140,40,.3);
+body.halloween .search-wrap button,body.halloween .newtab-form button {
+  background:linear-gradient(120deg,#ff9a32,#d94b00);
 }
-
-body.halloween .update-choice.selected {
-  background:rgba(255,135,35,.2);
-  border-color:#ff861a;
-}
-
-body.halloween .update-display {
-  background:rgba(255,120,0,.045);
-}
-
-body.halloween .games-content,
-body.halloween .games-toggle {
-  border-color:rgba(255,140,40,.2);
-}
-
-body.halloween .fullscreen-toast {
-  background:#241308;
-  border-color:rgba(255,140,40,.35);
-}
-
-/* custom theme */
 
 body.custom {
   background:var(--custom-bg);
@@ -1062,52 +843,12 @@ body.custom {
   --panel2:color-mix(in srgb,var(--custom-accent) 18%,transparent);
 }
 
-body.custom .aurora-bg {opacity:.7}
-
-body.custom .aurora.one,
-body.custom .aurora.two,
-body.custom .aurora.three {
-  background:radial-gradient(ellipse,var(--custom-aurora),transparent 68%);
-}
-
-body.custom h1,
-body.custom .logo,
-body.custom .newtab-logo {
-  color:var(--custom-accent);
-  text-shadow:0 0 25px color-mix(in srgb,var(--custom-accent) 60%,transparent);
-}
-
-body.custom .dialog {
-  background:color-mix(in srgb,var(--custom-bg) 90%,white 10%);
-}
-
-body.custom .dialog h2,
-body.custom .dialog h3,
-body.custom .games-content h2 {
+body.custom h1,body.custom .logo,body.custom .newtab-logo {
   color:var(--custom-accent);
 }
 
-body.custom select {
-  background:var(--custom-bg);
-  color:var(--text);
-}
-
-body.custom .search-wrap button,
-body.custom .newtab-form button {
-  background:var(--custom-accent);
-  color:#fff;
-}
-
-body.custom .tab.active,
-body.custom .update-choice.selected {
-  background:color-mix(in srgb,var(--custom-accent) 20%,transparent);
-  border-color:var(--custom-accent);
-}
-
-body.custom .quick-icon,
-body.custom .game-card .game-icon {
-  background:color-mix(in srgb,var(--custom-accent) 20%,transparent);
-}
+body.custom .dialog {background:var(--custom-bg)}
+body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)}
 
 @media(max-width:560px) {
   header {padding:18px}
@@ -1137,7 +878,6 @@ body.custom .game-card .game-icon {
     display:grid;
     grid-template-columns:1fr 1fr;
   }
-  .update-display {min-height:130px}
   .game-tools {flex-direction:column}
   .game-tools select {width:100%}
   .bookmark-item {align-items:flex-start;flex-wrap:wrap}
@@ -1146,10 +886,8 @@ body.custom .game-card .game-icon {
 }
 
 @media(prefers-reduced-motion:reduce) {
-  .aurora {animation:none !important}
-  *, *:before, *:after {
-    transition-duration:.01ms !important;
-  }
+  .aurora {animation:none}
+  *,*:before,*:after {transition-duration:.01ms}
 }
 </style>
 </head>
@@ -1165,11 +903,9 @@ body.custom .game-card .game-icon {
 <header>
   <button class="logo" onclick="goHome()">✦ stars</button>
   <nav>
-    <button id="bookmarksBtn" type="button">☆ bookmarks</button>
-    <button id="updateLogBtn" type="button">
-      Update Log <span id="updateDot">●</span>
-    </button>
-    <button id="settingsBtn" type="button">⚙ settings</button>
+    <button id="bookmarksBtn">☆ bookmarks</button>
+    <button id="updateLogBtn">Update Log <span id="updateDot">●</span></button>
+    <button id="settingsBtn">⚙ settings</button>
   </nav>
 </header>
 
@@ -1178,16 +914,11 @@ body.custom .game-card .game-icon {
   <p class="subtitle">a little corner of the internet, made of stardust</p>
 
   <form class="search-wrap" id="searchForm">
-    <input id="query" type="search"
-      placeholder="search the web or enter a website..."
-      autocomplete="off" aria-label="Search the web">
+    <input id="query" type="search" placeholder="search the web or enter a website..." autocomplete="off">
     <button type="submit">search ✦</button>
   </form>
 
-  <div class="hint">
-    press enter to search · websites open inside stars
-  </div>
-
+  <div class="hint">press enter to search · websites open inside stars</div>
   <footer>✦ stars portal · stay curious</footer>
 </main>
 
@@ -1197,12 +928,8 @@ body.custom .game-card .game-icon {
   <div class="browser-toolbar">
     <button onclick="goHome()" title="Home">⌂</button>
     <button onclick="reloadPage()" title="Refresh">↻</button>
-    <button id="saveBookmarkBtn" onclick="saveCurrentBookmark()" title="Bookmark this page">☆</button>
-
-    <input class="address" id="addressBar"
-      placeholder="enter a website or search..."
-      autocomplete="off">
-
+    <button id="saveBookmarkBtn" onclick="saveCurrentBookmark()" title="Bookmark">☆</button>
+    <input class="address" id="addressBar" placeholder="enter a website or search..." autocomplete="off">
     <button id="fullscreenBtn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
   </div>
 
@@ -1211,36 +938,25 @@ body.custom .game-card .game-icon {
     <p class="newtab-subtitle">your universe starts here ✦</p>
 
     <form class="newtab-form" id="newTabSearchForm">
-      <input id="newTabSearch" type="search"
-        placeholder="search the web..."
-        autocomplete="off">
+      <input id="newTabSearch" type="search" placeholder="search the web..." autocomplete="off">
       <button type="submit">search ✦</button>
     </form>
 
     <p class="quick-title">your quick links</p>
-
     <div class="quick-links">
       <a class="quick-link" href="https://www.google.com" data-url="https://www.google.com">
-        <span class="quick-icon">G</span>
-        <span>Google</span>
+        <span class="quick-icon">G</span><span>Google</span>
       </a>
-
       <a class="quick-link" href="https://www.youtube.com" data-url="https://www.youtube.com">
-        <span class="quick-icon">▶</span>
-        <span>YouTube</span>
+        <span class="quick-icon">▶</span><span>YouTube</span>
       </a>
-
       <a class="quick-link" href="https://www.wikipedia.org" data-url="https://www.wikipedia.org">
-        <span class="quick-icon">W</span>
-        <span>Wikipedia</span>
+        <span class="quick-icon">W</span><span>Wikipedia</span>
       </a>
-
       <a class="quick-link" href="https://github.com" data-url="https://github.com">
-        <span class="quick-icon">⌘</span>
-        <span>GitHub</span>
+        <span class="quick-icon">⌘</span><span>GitHub</span>
       </a>
     </div>
-
     <div class="newtab-footer">✦ made of stardust · stars</div>
   </section>
 
@@ -1252,17 +968,12 @@ body.custom .game-card .game-icon {
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
 
-  <div class="browser-note">
-    ✦ browsing inside stars · some websites block embedded viewing
-  </div>
+  <div class="browser-note">✦ browsing inside stars · some websites block embedded viewing</div>
 </section>
 
-<!-- games library -->
-
 <section class="games-section" id="gamesSection">
-  <button class="games-toggle" id="gamesToggle" type="button" aria-expanded="false">
-    <span>✦ Games</span>
-    <span id="gamesArrow">⌄</span>
+  <button class="games-toggle" id="gamesToggle" aria-expanded="false">
+    <span>✦ Games</span><span id="gamesArrow">⌄</span>
   </button>
 
   <div class="games-content" id="gamesContent">
@@ -1273,7 +984,6 @@ body.custom .game-card .game-icon {
       <input id="gameSearch" type="search" placeholder="search games...">
       <select id="gameCategory" aria-label="Filter games">
         <option value="all">all categories</option>
-        <option value="puzzle">puzzle</option>
         <option value="strategy">strategy</option>
         <option value="classic">classic</option>
       </select>
@@ -1283,16 +993,13 @@ body.custom .game-card .game-icon {
   </div>
 </section>
 
-<div class="fullscreen-toast" id="fullscreenToast">
-  Double tap escape to exit fullscreen.
-</div>
+<div class="fullscreen-toast" id="fullscreenToast">Double tap escape to exit fullscreen.</div>
 
-<!-- settings modal -->
+<!-- settings -->
 
 <div class="modal" id="settingsModal">
   <div class="dialog">
     <button class="close" onclick="closeModal()">✕</button>
-
     <h2>settings</h2>
     <p>make your little corner feel right</p>
 
@@ -1311,12 +1018,10 @@ body.custom .game-card .game-icon {
         <label for="customBg">background color</label>
         <input id="customBg" type="color" value="#101124">
       </div>
-
       <div class="color-row">
         <label for="customAccent">accent color</label>
         <input id="customAccent" type="color" value="#c5a6ff">
       </div>
-
       <div class="color-row">
         <label for="customAurora">aurora color</label>
         <input id="customAurora" type="color" value="#7546d2">
@@ -1339,14 +1044,14 @@ body.custom .game-card .game-icon {
 
     <div class="setting-row">
       <span>information</span>
-      <button id="infoBtn" type="button">info</button>
+      <button id="infoBtn">info</button>
     </div>
 
     <div class="setting-row">
       <span>your website</span>
       <div class="setting-actions">
-        <button id="downloadStarsBtn" type="button">download stars ↓</button>
-        <button id="copyStarsBtn" type="button">copy html code</button>
+        <button id="downloadStarsBtn">download stars ↓</button>
+        <button id="copyStarsBtn">copy html code</button>
       </div>
     </div>
 
@@ -1354,7 +1059,7 @@ body.custom .game-card .game-icon {
   </div>
 </div>
 
-<!-- bookmarks modal -->
+<!-- bookmarks -->
 
 <div class="modal" id="bookmarksModal">
   <div class="dialog">
@@ -1365,15 +1070,13 @@ body.custom .game-card .game-icon {
   </div>
 </div>
 
-<!-- update log modal -->
+<!-- update log -->
 
 <div class="modal" id="updateLogModal">
   <div class="dialog">
     <button class="close" onclick="closeUpdateLog()">✕</button>
-
     <h2>Update Log</h2>
-    <p>select an update on the left to see what changed</p>
-
+    <p>select an update to see what changed</p>
     <div class="update-layout">
       <div class="update-list" id="updateList"></div>
       <div class="update-display" id="updateContent" aria-live="polite"></div>
@@ -1381,46 +1084,44 @@ body.custom .game-card .game-icon {
   </div>
 </div>
 
-<!-- information modal -->
+<!-- information -->
 
 <div class="modal" id="infoModal">
   <div class="dialog">
     <button class="close" onclick="closeInfo()">✕</button>
     <h2>information</h2>
-    <p>Stars' unfortunately underconstruction and will probably only function when opened in a proxy.</p>
+    <p>Stars is a browser-style portal. Some websites may not work inside the embedded browser because they restrict iframe viewing.</p>
   </div>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
 
-/* current update version */
+/* version */
 
-const CURRENT_UPDATE_VERSION = '1.30';
-
-/* update history */
+const CURRENT_UPDATE_VERSION = '1.31';
 
 const updates = {
+  '1.31': {
+    title:'V1.31, Game addition',
+    description:'We added and removed some games but they at least work!'
+  },
   '1.30': {
     title:'V1.30, Additional buttons',
     description:'There are now bookmarks, a games library, and custom themes to stars! your settings and saved bookmarks are stored locally.'
   },
-
   '1.20': {
     title:'V1.20, Halloween!',
     description:"Halloween's here, and I wanted to add a new appearance to fit in! So, it's here, go check it out!"
   },
-
   '1.11': {
     title:'V1.11, Games tab',
     description:'We added a games tab at the bottom of the website, games will be added soon!'
   },
-
   '1.10': {
     title:'V1.10, Button shifting',
     description:'We move some buttons around and optimized stars.'
   },
-
   '1.00': {
     title:'V1.00, Release!',
     description:"Stars' out now, and is useable! Look out for new updates soon!"
@@ -1431,36 +1132,22 @@ let tabs = [];
 let activeTab = null;
 let nextTabId = 1;
 
-/* games data */
+/* games */
 
 const games = [
   {
-    name:'2048',
-    category:'puzzle',
-    icon:'🔢',
-    description:'combine matching numbers and reach the 2048 tile.',
-    url:'https://play2048.co/'
-  },
-  {
-    name:'Sudoku',
-    category:'puzzle',
-    icon:'🧩',
-    description:'fill the grid using logic and number patterns.',
-    url:'https://sudoku.com/'
-  },
-  {
-    name:'Minesweeper',
-    category:'classic',
-    icon:'💣',
-    description:'use clues to find the safe squares.',
-    url:'https://minesweeper.online/'
-  },
-  {
     name:'Chess',
     category:'strategy',
-    icon:'♟️',
+    icon:'♟',
     description:'play chess and practice your strategy.',
-    url:'https://lichess.org/'
+    url:'https://chess.com'
+  },
+  {
+    name:'Roblox',
+    category:'classic',
+    icon:'roblox',
+    description:'jump into Roblox and explore experiences.',
+    url:'https://98.ip.nowgg.fun/apps/a/19900/b.html'
   }
 ];
 
@@ -1472,11 +1159,7 @@ function isWebsite(value) {
 
 function normalizeUrl(value) {
   value = value.trim();
-
-  if (!/^https?:\/\//i.test(value)) {
-    value = 'https://' + value;
-  }
-
+  if (!/^https?:\/\//i.test(value)) value = 'https://' + value;
   return value;
 }
 
@@ -1491,13 +1174,11 @@ function isSafeUrl(value) {
 
 function searchUrl(q) {
   const engine = $('engineSelect').value;
-
   const urls = {
     duck:'https://duckduckgo.com/?q=',
     google:'https://www.google.com/search?q=',
     bing:'https://www.bing.com/search?q='
   };
-
   return urls[engine] + encodeURIComponent(q);
 }
 
@@ -1510,16 +1191,15 @@ function getTitle(url) {
   }
 }
 
-/* tabs */
+/* browser tabs */
 
 function renderTabs() {
   const bar = $('tabbar');
-  bar.innerHTML = '';
+  bar.replaceChildren();
 
   tabs.forEach(tab => {
     const button = document.createElement('div');
-    button.className = 'tab' +
-      (tab.id === activeTab ? ' active' : '');
+    button.className = 'tab' + (tab.id === activeTab ? ' active' : '');
 
     const name = document.createElement('span');
     name.className = 'tab-name';
@@ -1534,7 +1214,7 @@ function renderTabs() {
 
     close.onclick = event => {
       event.stopPropagation();
-      closeTab(tab.id, button);
+      closeTab(tab.id);
     };
 
     button.append(name,close);
@@ -1546,7 +1226,6 @@ function renderTabs() {
   add.textContent = '+';
   add.title = 'New tab';
   add.onclick = () => newTab();
-
   bar.appendChild(add);
 }
 
@@ -1555,14 +1234,12 @@ function activateTab(id) {
   if (!tab) return;
 
   activeTab = id;
-
   $('browser').classList.add('active');
   $('homePage').style.display = 'none';
 
   const isNewTab = !tab.url || tab.url === 'about:blank';
 
   $('addressBar').value = isNewTab ? '' : tab.url;
-
   $('newTabPage').classList.toggle('active',isNewTab);
   $('browserFrame').style.display = isNewTab ? 'none' : 'block';
 
@@ -1578,7 +1255,7 @@ function activateTab(id) {
 function newTab(url = 'about:blank') {
   const tab = {
     id:nextTabId++,
-    url:url,
+    url,
     title:getTitle(url)
   };
 
@@ -1586,29 +1263,25 @@ function newTab(url = 'about:blank') {
   activateTab(tab.id);
 }
 
-function closeTab(id, element) {
-  if (element) element.classList.add('closing');
+function closeTab(id) {
+  const index = tabs.findIndex(t => t.id === id);
+  if (index === -1) return;
 
-  setTimeout(() => {
-    const index = tabs.findIndex(t => t.id === id);
-    if (index === -1) return;
+  const wasActive = activeTab === id;
+  tabs.splice(index,1);
 
-    const wasActive = activeTab === id;
-    tabs.splice(index,1);
+  if (tabs.length === 0) {
+    activeTab = null;
+    goHome();
+    return;
+  }
 
-    if (tabs.length === 0) {
-      activeTab = null;
-      goHome();
-      return;
-    }
-
-    if (wasActive) {
-      const next = tabs[Math.min(index,tabs.length - 1)];
-      activateTab(next.id);
-    } else {
-      renderTabs();
-    }
-  },180);
+  if (wasActive) {
+    const next = tabs[Math.min(index,tabs.length - 1)];
+    activateTab(next.id);
+  } else {
+    renderTabs();
+  }
 }
 
 /* navigation */
@@ -1627,7 +1300,6 @@ function navigate(value) {
   }
 
   const tab = tabs.find(t => t.id === activeTab);
-
   if (!tab) {
     newTab(destination);
     return;
@@ -1635,8 +1307,14 @@ function navigate(value) {
 
   tab.url = destination;
   tab.title = getTitle(destination);
-
   activateTab(tab.id);
+}
+
+/* games open inside the stars browser */
+
+function playGame(game) {
+  if (!game || !isSafeUrl(game.url)) return;
+  navigate(game.url);
 }
 
 function goAddress() {
@@ -1663,31 +1341,25 @@ function reloadPage() {
   }
 }
 
-let escapeCount = 0;
-let escapeTimer = null;
-let toastTimer = null;
-
 function goHome() {
   $('browserFrame').src = 'about:blank';
   $('browser').classList.remove('active','fullscreen');
   $('newTabPage').classList.remove('active');
   $('browserFrame').style.display = 'block';
-
   document.body.classList.remove('browser-fullscreen');
   $('fullscreenToast').classList.remove('show');
   $('homePage').style.display = 'block';
-
-  escapeCount = 0;
-  clearTimeout(escapeTimer);
-
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
 /* fullscreen */
 
+let escapeCount = 0;
+let escapeTimer = null;
+let toastTimer = null;
+
 function toggleFullscreen() {
   const browser = $('browser');
-
   if (!browser.classList.contains('active')) return;
 
   const enabled = browser.classList.toggle('fullscreen');
@@ -1695,14 +1367,10 @@ function toggleFullscreen() {
 
   if (enabled) {
     escapeCount = 0;
-
-    const toast = $('fullscreenToast');
-    toast.classList.add('show');
-
+    $('fullscreenToast').classList.add('show');
     clearTimeout(toastTimer);
-
     toastTimer = setTimeout(() => {
-      toast.classList.remove('show');
+      $('fullscreenToast').classList.remove('show');
     },3000);
   } else {
     $('fullscreenToast').classList.remove('show');
@@ -1711,14 +1379,11 @@ function toggleFullscreen() {
   }
 }
 
-/* double Escape to exit fullscreen */
-
 document.addEventListener('keydown',event => {
   if (event.key !== 'Escape') return;
   if (!$('browser').classList.contains('fullscreen')) return;
 
   event.preventDefault();
-
   escapeCount++;
   clearTimeout(escapeTimer);
 
@@ -1726,24 +1391,19 @@ document.addEventListener('keydown',event => {
     $('browser').classList.remove('fullscreen');
     document.body.classList.remove('browser-fullscreen');
     $('fullscreenToast').classList.remove('show');
-
     escapeCount = 0;
     clearTimeout(toastTimer);
   } else {
-    escapeTimer = setTimeout(() => {
-      escapeCount = 0;
-    },1000);
+    escapeTimer = setTimeout(() => escapeCount = 0,1000);
   }
 });
 
-/* homepage search */
+/* search forms */
 
 $('searchForm').addEventListener('submit',event => {
   event.preventDefault();
   navigate($('query').value);
 });
-
-/* address bar */
 
 $('addressBar').addEventListener('keydown',event => {
   if (event.key === 'Enter') {
@@ -1752,14 +1412,10 @@ $('addressBar').addEventListener('keydown',event => {
   }
 });
 
-/* new tab search */
-
 $('newTabSearchForm').addEventListener('submit',event => {
   event.preventDefault();
   navigate($('newTabSearch').value);
 });
-
-/* quick links */
 
 document.querySelectorAll('.quick-link').forEach(link => {
   link.addEventListener('click',event => {
@@ -1768,11 +1424,10 @@ document.querySelectorAll('.quick-link').forEach(link => {
   });
 });
 
-/* update tab titles */
+/* iframe title */
 
 $('browserFrame').addEventListener('load',() => {
   const tab = tabs.find(t => t.id === activeTab);
-
   if (tab && tab.url !== 'about:blank') {
     tab.title = getTitle(tab.url);
     renderTabs();
@@ -1795,7 +1450,7 @@ $('settingsModal').addEventListener('click',event => {
   if (event.target === $('settingsModal')) closeModal();
 });
 
-/* information popup */
+/* information modal */
 
 function openInfo() {
   $('infoModal').classList.add('open');
@@ -1811,7 +1466,7 @@ $('infoModal').addEventListener('click',event => {
   if (event.target === $('infoModal')) closeInfo();
 });
 
-/* bookmarks storage */
+/* bookmarks */
 
 function getBookmarks() {
   try {
@@ -1853,6 +1508,7 @@ function saveCurrentBookmark() {
 
   saveBookmarks(bookmarks);
   $('saveBookmarkBtn').textContent = '★';
+
   setTimeout(() => {
     $('saveBookmarkBtn').textContent = '☆';
   },1200);
@@ -1900,7 +1556,6 @@ function renderBookmarks() {
     actions.className = 'bookmark-actions';
 
     const open = document.createElement('button');
-    open.type = 'button';
     open.textContent = 'open';
     open.addEventListener('click',() => {
       closeBookmarks();
@@ -1908,7 +1563,6 @@ function renderBookmarks() {
     });
 
     const remove = document.createElement('button');
-    remove.type = 'button';
     remove.textContent = 'remove';
     remove.addEventListener('click',() => {
       const current = getBookmarks();
@@ -1963,7 +1617,15 @@ function renderGames() {
 
     const icon = document.createElement('div');
     icon.className = 'game-icon';
-    icon.textContent = game.icon;
+
+    if (game.icon === 'roblox') {
+      icon.classList.add('roblox');
+      const mark = document.createElement('span');
+      mark.className = 'roblox-mark';
+      icon.appendChild(mark);
+    } else {
+      icon.textContent = game.icon;
+    }
 
     const categoryLabel = document.createElement('span');
     categoryLabel.className = 'game-category';
@@ -1978,7 +1640,7 @@ function renderGames() {
     const play = document.createElement('button');
     play.type = 'button';
     play.textContent = 'play game ✦';
-    play.addEventListener('click',() => navigate(game.url));
+    play.addEventListener('click',() => playGame(game));
 
     card.append(icon,categoryLabel,title,description,play);
     grid.appendChild(card);
@@ -2003,14 +1665,8 @@ function showSelectedUpdate(version) {
   if (!update) return;
 
   document.querySelectorAll('.update-choice').forEach(button => {
-    button.classList.toggle(
-      'selected',
-      button.dataset.version === version
-    );
+    button.classList.toggle('selected',button.dataset.version === version);
   });
-
-  const entry = document.createElement('div');
-  entry.className = 'update-entry';
 
   const title = document.createElement('h3');
   title.textContent = update.title;
@@ -2018,8 +1674,7 @@ function showSelectedUpdate(version) {
   const description = document.createElement('p');
   description.textContent = update.description;
 
-  entry.append(title,description);
-  $('updateContent').replaceChildren(entry);
+  $('updateContent').replaceChildren(title,description);
 }
 
 function renderUpdateList() {
@@ -2028,16 +1683,12 @@ function renderUpdateList() {
 
   Object.keys(updates).forEach(version => {
     const button = document.createElement('button');
-
     button.type = 'button';
     button.className = 'update-choice';
     button.dataset.version = version;
     button.textContent = updates[version].title;
 
-    button.addEventListener('click',() => {
-      showSelectedUpdate(version);
-    });
-
+    button.addEventListener('click',() => showSelectedUpdate(version));
     list.appendChild(button);
   });
 
@@ -2046,22 +1697,13 @@ function renderUpdateList() {
 
 function refreshUpdateDot() {
   const seenVersion = localStorage.getItem('starsSeenUpdateVersion');
-
-  $('updateDot').classList.toggle(
-    'hidden',
-    seenVersion === CURRENT_UPDATE_VERSION
-  );
+  $('updateDot').classList.toggle('hidden',seenVersion === CURRENT_UPDATE_VERSION);
 }
 
 function openUpdateLog() {
   $('updateLogModal').classList.add('open');
   renderUpdateList();
-
-  localStorage.setItem(
-    'starsSeenUpdateVersion',
-    CURRENT_UPDATE_VERSION
-  );
-
+  localStorage.setItem('starsSeenUpdateVersion',CURRENT_UPDATE_VERSION);
   refreshUpdateDot();
 }
 
@@ -2072,9 +1714,7 @@ function closeUpdateLog() {
 $('updateLogBtn').addEventListener('click',openUpdateLog);
 
 $('updateLogModal').addEventListener('click',event => {
-  if (event.target === $('updateLogModal')) {
-    closeUpdateLog();
-  }
+  if (event.target === $('updateLogModal')) closeUpdateLog();
 });
 
 /* theme handling */
@@ -2082,17 +1722,9 @@ $('updateLogModal').addEventListener('click',event => {
 function applyTheme(theme) {
   document.body.classList.remove('light','halloween','custom');
 
-  if (theme === 'light') {
-    document.body.classList.add('light');
-  }
-
-  if (theme === 'halloween') {
-    document.body.classList.add('halloween');
-  }
-
-  if (theme === 'custom') {
-    document.body.classList.add('custom');
-  }
+  if (theme === 'light') document.body.classList.add('light');
+  if (theme === 'halloween') document.body.classList.add('halloween');
+  if (theme === 'custom') document.body.classList.add('custom');
 
   $('customThemeControls').classList.toggle('show',theme === 'custom');
 
@@ -2122,47 +1754,25 @@ function saveSettings() {
 
 function loadSettings() {
   try {
-    const settings = JSON.parse(
-      localStorage.getItem('starsSettings') || '{}'
-    );
+    const settings = JSON.parse(localStorage.getItem('starsSettings') || '{}');
 
     const allowedThemes = ['dark','light','halloween','custom'];
     const allowedEngines = ['duck','google','bing'];
 
-    $('themeSelect').value = allowedThemes.includes(settings.theme)
-      ? settings.theme
-      : 'dark';
-
-    $('engineSelect').value = allowedEngines.includes(settings.engine)
-      ? settings.engine
-      : 'duck';
-
+    $('themeSelect').value = allowedThemes.includes(settings.theme) ? settings.theme : 'dark';
+    $('engineSelect').value = allowedEngines.includes(settings.engine) ? settings.engine : 'duck';
     $('starsToggle').checked = settings.stars !== false;
 
-    $('customBg').value = /^#[0-9a-f]{6}$/i.test(settings.customBg || '')
-      ? settings.customBg
-      : '#101124';
-
-    $('customAccent').value = /^#[0-9a-f]{6}$/i.test(settings.customAccent || '')
-      ? settings.customAccent
-      : '#c5a6ff';
-
-    $('customAurora').value = /^#[0-9a-f]{6}$/i.test(settings.customAurora || '')
-      ? settings.customAurora
-      : '#7546d2';
+    $('customBg').value = /^#[0-9a-f]{6}$/i.test(settings.customBg || '') ? settings.customBg : '#101124';
+    $('customAccent').value = /^#[0-9a-f]{6}$/i.test(settings.customAccent || '') ? settings.customAccent : '#c5a6ff';
+    $('customAurora').value = /^#[0-9a-f]{6}$/i.test(settings.customAurora || '') ? settings.customAurora : '#7546d2';
 
     applyTheme($('themeSelect').value);
-
-    document.body.classList.toggle(
-      'no-stars',
-      settings.stars === false
-    );
+    document.body.classList.toggle('no-stars',settings.stars === false);
   } catch(e) {
     applyTheme('dark');
   }
 }
-
-/* theme setting events */
 
 $('themeSelect').addEventListener('change',() => {
   applyTheme($('themeSelect').value);
@@ -2171,9 +1781,7 @@ $('themeSelect').addEventListener('change',() => {
 
 ['customBg','customAccent','customAurora'].forEach(id => {
   $(id).addEventListener('input',() => {
-    if ($('themeSelect').value === 'custom') {
-      applyTheme('custom');
-    }
+    if ($('themeSelect').value === 'custom') applyTheme('custom');
     saveSettings();
   });
 });
@@ -2181,29 +1789,18 @@ $('themeSelect').addEventListener('change',() => {
 $('engineSelect').addEventListener('change',saveSettings);
 
 $('starsToggle').addEventListener('change',() => {
-  document.body.classList.toggle(
-    'no-stars',
-    !$('starsToggle').checked
-  );
-
+  document.body.classList.toggle('no-stars',!$('starsToggle').checked);
   saveSettings();
 });
 
-/* get complete HTML */
+/* export html */
 
 function getStarsHTML() {
   return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
 }
 
-/* download stars */
-
 $('downloadStarsBtn').addEventListener('click',() => {
-  const html = getStarsHTML();
-
-  const blob = new Blob([html], {
-    type:'text/html;charset=utf-8'
-  });
-
+  const blob = new Blob([getStarsHTML()],{type:'text/html;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
 
@@ -2217,46 +1814,31 @@ $('downloadStarsBtn').addEventListener('click',() => {
   setTimeout(() => URL.revokeObjectURL(url),1000);
 });
 
-/* copy HTML */
-
 $('copyStarsBtn').addEventListener('click',async () => {
-  const html = getStarsHTML();
   const button = $('copyStarsBtn');
 
   try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(html);
-    } else {
-      throw new Error('Clipboard unavailable');
-    }
+    await navigator.clipboard.writeText(getStarsHTML());
   } catch(error) {
-    try {
-      const textarea = document.createElement('textarea');
+    const textarea = document.createElement('textarea');
+    textarea.value = getStarsHTML();
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
 
-      textarea.value = html;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      textarea.style.pointerEvents = 'none';
+    document.body.appendChild(textarea);
+    textarea.select();
 
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
+    const copied = document.execCommand('copy');
+    textarea.remove();
 
-      const copied = document.execCommand('copy');
-      textarea.remove();
-
-      if (!copied) throw new Error('Copy failed');
-    } catch(copyError) {
+    if (!copied) {
       alert('Could not copy the HTML. Try the download button instead.');
       return;
     }
   }
 
   button.textContent = 'copied!';
-
-  setTimeout(() => {
-    button.textContent = 'copy html code';
-  },2000);
+  setTimeout(() => button.textContent = 'copy html code',2000);
 });
 
 /* initialize */
