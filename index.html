@@ -143,6 +143,8 @@ nav {
   display:flex;
   align-items:center;
   gap:9px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
 main {
@@ -465,7 +467,7 @@ footer {
   margin:10px 0;
 }
 
-/* games section */
+/* games library */
 
 .games-section {
   max-width:1064px;
@@ -488,11 +490,10 @@ footer {
 .games-content {
   display:none;
   margin-top:10px;
-  padding:30px 20px;
+  padding:25px 20px;
   border:1px solid var(--line);
   border-radius:17px;
   background:rgba(255,255,255,.055);
-  text-align:center;
   animation:pageAppear .25s ease both;
 }
 
@@ -502,12 +503,98 @@ footer {
   font:26px 'Pacifico',cursive;
   color:#e7d8ff;
   margin:0 0 8px;
+  text-align:center;
 }
 
-.games-content p {
+.games-intro {
   color:var(--muted);
   font-size:13px;
+  text-align:center;
+  margin:0 0 20px;
+}
+
+.game-tools {
+  display:flex;
+  gap:9px;
+  margin-bottom:18px;
+}
+
+.game-tools input {
+  flex:1;
+  min-width:0;
+  padding:11px 13px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:rgba(0,0,0,.15);
+  color:var(--text);
+  font:13px 'Quicksand';
+  outline:none;
+}
+
+.game-tools input:focus {border-color:var(--accent)}
+
+.game-tools select {
+  min-width:120px;
+}
+
+.game-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:12px;
+}
+
+.game-card {
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:9px;
+}
+
+.game-card .game-icon {
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:rgba(197,166,255,.15);
+  font-size:22px;
+}
+
+.game-card h3 {
+  font-size:15px;
   margin:0;
+}
+
+.game-card p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+  margin:0;
+  flex:1;
+}
+
+.game-category {
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.game-card button {
+  width:100%;
+  margin-top:5px;
+}
+
+.no-games {
+  grid-column:1/-1;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  padding:25px;
 }
 
 /* fullscreen */
@@ -665,6 +752,97 @@ select {
   max-width:100%;
 }
 
+/* custom theme controls */
+
+.custom-theme-controls {
+  display:none;
+  flex-direction:column;
+  gap:12px;
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.custom-theme-controls.show {display:flex}
+
+.color-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.color-row input[type="color"] {
+  width:48px;
+  height:34px;
+  padding:2px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:transparent;
+  cursor:pointer;
+}
+
+/* bookmarks */
+
+.bookmark-list {
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin-top:18px;
+}
+
+.bookmark-item {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:rgba(255,255,255,.045);
+}
+
+.bookmark-info {
+  flex:1;
+  min-width:0;
+}
+
+.bookmark-info strong {
+  display:block;
+  font-size:13px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.bookmark-info span {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  margin-top:4px;
+}
+
+.bookmark-actions {
+  display:flex;
+  gap:6px;
+  flex-shrink:0;
+}
+
+.bookmark-actions button {
+  padding:7px 9px;
+  font-size:11px;
+}
+
+.empty-bookmarks {
+  text-align:center;
+  padding:25px 10px;
+  color:var(--muted);
+  font-size:13px;
+}
+
 /* update log */
 
 #updateDot {
@@ -771,6 +949,7 @@ body.light .games-content h2 {color:#57427e}
 
 body.light .dialog p {color:#665e80}
 body.light select {background:white;color:#28223e}
+body.light .game-tools input {background:rgba(255,255,255,.7);color:#28223e}
 
 /* halloween theme */
 
@@ -826,7 +1005,8 @@ body.halloween .quick-link:hover {
   border-color:var(--accent);
 }
 
-body.halloween .quick-icon {
+body.halloween .quick-icon,
+body.halloween .game-card .game-icon {
   background:rgba(255,120,0,.17);
 }
 
@@ -845,7 +1025,8 @@ body.halloween .games-content h2 {
   color:#ffad58;
 }
 
-body.halloween select {
+body.halloween select,
+body.halloween .game-tools input {
   background:#28170d;
   color:#fff3e6;
   border-color:rgba(255,140,40,.3);
@@ -868,6 +1049,64 @@ body.halloween .games-toggle {
 body.halloween .fullscreen-toast {
   background:#241308;
   border-color:rgba(255,140,40,.35);
+}
+
+/* custom theme */
+
+body.custom {
+  background:var(--custom-bg);
+  --bg:var(--custom-bg);
+  --accent:var(--custom-accent);
+  --line:color-mix(in srgb,var(--custom-accent) 25%,transparent);
+  --panel:color-mix(in srgb,var(--custom-accent) 10%,transparent);
+  --panel2:color-mix(in srgb,var(--custom-accent) 18%,transparent);
+}
+
+body.custom .aurora-bg {opacity:.7}
+
+body.custom .aurora.one,
+body.custom .aurora.two,
+body.custom .aurora.three {
+  background:radial-gradient(ellipse,var(--custom-aurora),transparent 68%);
+}
+
+body.custom h1,
+body.custom .logo,
+body.custom .newtab-logo {
+  color:var(--custom-accent);
+  text-shadow:0 0 25px color-mix(in srgb,var(--custom-accent) 60%,transparent);
+}
+
+body.custom .dialog {
+  background:color-mix(in srgb,var(--custom-bg) 90%,white 10%);
+}
+
+body.custom .dialog h2,
+body.custom .dialog h3,
+body.custom .games-content h2 {
+  color:var(--custom-accent);
+}
+
+body.custom select {
+  background:var(--custom-bg);
+  color:var(--text);
+}
+
+body.custom .search-wrap button,
+body.custom .newtab-form button {
+  background:var(--custom-accent);
+  color:#fff;
+}
+
+body.custom .tab.active,
+body.custom .update-choice.selected {
+  background:color-mix(in srgb,var(--custom-accent) 20%,transparent);
+  border-color:var(--custom-accent);
+}
+
+body.custom .quick-icon,
+body.custom .game-card .game-icon {
+  background:color-mix(in srgb,var(--custom-accent) 20%,transparent);
 }
 
 @media(max-width:560px) {
@@ -899,13 +1138,15 @@ body.halloween .fullscreen-toast {
     grid-template-columns:1fr 1fr;
   }
   .update-display {min-height:130px}
+  .game-tools {flex-direction:column}
+  .game-tools select {width:100%}
+  .bookmark-item {align-items:flex-start;flex-wrap:wrap}
+  .bookmark-actions {width:100%}
+  .bookmark-actions button {flex:1}
 }
 
 @media(prefers-reduced-motion:reduce) {
-  .aurora {
-    animation:none !important;
-  }
-
+  .aurora {animation:none !important}
   *, *:before, *:after {
     transition-duration:.01ms !important;
   }
@@ -924,6 +1165,7 @@ body.halloween .fullscreen-toast {
 <header>
   <button class="logo" onclick="goHome()">✦ stars</button>
   <nav>
+    <button id="bookmarksBtn" type="button">☆ bookmarks</button>
     <button id="updateLogBtn" type="button">
       Update Log <span id="updateDot">●</span>
     </button>
@@ -955,6 +1197,7 @@ body.halloween .fullscreen-toast {
   <div class="browser-toolbar">
     <button onclick="goHome()" title="Home">⌂</button>
     <button onclick="reloadPage()" title="Refresh">↻</button>
+    <button id="saveBookmarkBtn" onclick="saveCurrentBookmark()" title="Bookmark this page">☆</button>
 
     <input class="address" id="addressBar"
       placeholder="enter a website or search..."
@@ -1014,6 +1257,8 @@ body.halloween .fullscreen-toast {
   </div>
 </section>
 
+<!-- games library -->
+
 <section class="games-section" id="gamesSection">
   <button class="games-toggle" id="gamesToggle" type="button" aria-expanded="false">
     <span>✦ Games</span>
@@ -1021,8 +1266,20 @@ body.halloween .fullscreen-toast {
   </button>
 
   <div class="games-content" id="gamesContent">
-    <h2>Games</h2>
-    <p>0/0 Games, come back soon!</p>
+    <h2>Games library</h2>
+    <p class="games-intro">find a game and jump right in ✦</p>
+
+    <div class="game-tools">
+      <input id="gameSearch" type="search" placeholder="search games...">
+      <select id="gameCategory" aria-label="Filter games">
+        <option value="all">all categories</option>
+        <option value="puzzle">puzzle</option>
+        <option value="strategy">strategy</option>
+        <option value="classic">classic</option>
+      </select>
+    </div>
+
+    <div class="game-grid" id="gameGrid"></div>
   </div>
 </section>
 
@@ -1045,7 +1302,25 @@ body.halloween .fullscreen-toast {
         <option value="dark">midnight sky</option>
         <option value="light">soft daylight</option>
         <option value="halloween">halloween</option>
+        <option value="custom">custom theme</option>
       </select>
+    </div>
+
+    <div class="custom-theme-controls" id="customThemeControls">
+      <div class="color-row">
+        <label for="customBg">background color</label>
+        <input id="customBg" type="color" value="#101124">
+      </div>
+
+      <div class="color-row">
+        <label for="customAccent">accent color</label>
+        <input id="customAccent" type="color" value="#c5a6ff">
+      </div>
+
+      <div class="color-row">
+        <label for="customAurora">aurora color</label>
+        <input id="customAurora" type="color" value="#7546d2">
+      </div>
     </div>
 
     <div class="setting-row">
@@ -1076,6 +1351,17 @@ body.halloween .fullscreen-toast {
     </div>
 
     <p>settings are saved in this browser on this device.</p>
+  </div>
+</div>
+
+<!-- bookmarks modal -->
+
+<div class="modal" id="bookmarksModal">
+  <div class="dialog">
+    <button class="close" onclick="closeBookmarks()">✕</button>
+    <h2>your bookmarks</h2>
+    <p>your favorite places around the internet</p>
+    <div class="bookmark-list" id="bookmarkList"></div>
   </div>
 </div>
 
@@ -1110,11 +1396,16 @@ const $ = id => document.getElementById(id);
 
 /* current update version */
 
-const CURRENT_UPDATE_VERSION = '1.20';
+const CURRENT_UPDATE_VERSION = '1.30';
 
 /* update history */
 
 const updates = {
+  '1.30': {
+    title:'V1.30, Additional buttons',
+    description:'There are now bookmarks, a games library, and custom themes to stars! your settings and saved bookmarks are stored locally.'
+  },
+
   '1.20': {
     title:'V1.20, Halloween!',
     description:"Halloween's here, and I wanted to add a new appearance to fit in! So, it's here, go check it out!"
@@ -1140,6 +1431,41 @@ let tabs = [];
 let activeTab = null;
 let nextTabId = 1;
 
+/* games data */
+
+const games = [
+  {
+    name:'2048',
+    category:'puzzle',
+    icon:'🔢',
+    description:'combine matching numbers and reach the 2048 tile.',
+    url:'https://play2048.co/'
+  },
+  {
+    name:'Sudoku',
+    category:'puzzle',
+    icon:'🧩',
+    description:'fill the grid using logic and number patterns.',
+    url:'https://sudoku.com/'
+  },
+  {
+    name:'Minesweeper',
+    category:'classic',
+    icon:'💣',
+    description:'use clues to find the safe squares.',
+    url:'https://minesweeper.online/'
+  },
+  {
+    name:'Chess',
+    category:'strategy',
+    icon:'♟️',
+    description:'play chess and practice your strategy.',
+    url:'https://lichess.org/'
+  }
+];
+
+/* URL helpers */
+
 function isWebsite(value) {
   return /^(https?:\/\/)?(localhost|(\w[\w-]*\.)+[a-z]{2,})(:\d+)?(\/.*)?$/i.test(value);
 }
@@ -1152,6 +1478,15 @@ function normalizeUrl(value) {
   }
 
   return value;
+}
+
+function isSafeUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' || url.protocol === 'http:';
+  } catch(e) {
+    return false;
+  }
 }
 
 function searchUrl(q) {
@@ -1444,7 +1779,7 @@ $('browserFrame').addEventListener('load',() => {
   }
 });
 
-/* settings */
+/* settings modal */
 
 function showModal() {
   $('settingsModal').classList.add('open');
@@ -1474,6 +1809,191 @@ $('infoBtn').addEventListener('click',openInfo);
 
 $('infoModal').addEventListener('click',event => {
   if (event.target === $('infoModal')) closeInfo();
+});
+
+/* bookmarks storage */
+
+function getBookmarks() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('starsBookmarks') || '[]');
+    return Array.isArray(saved) ? saved.filter(item =>
+      item &&
+      typeof item.title === 'string' &&
+      typeof item.url === 'string' &&
+      isSafeUrl(item.url)
+    ) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function saveBookmarks(bookmarks) {
+  localStorage.setItem('starsBookmarks',JSON.stringify(bookmarks));
+}
+
+function saveCurrentBookmark() {
+  const tab = tabs.find(t => t.id === activeTab);
+
+  if (!tab || !tab.url || tab.url === 'about:blank' || !isSafeUrl(tab.url)) {
+    alert('open a website first to bookmark it!');
+    return;
+  }
+
+  const bookmarks = getBookmarks();
+
+  if (bookmarks.some(item => item.url === tab.url)) {
+    alert('this page is already bookmarked!');
+    return;
+  }
+
+  bookmarks.push({
+    title:tab.title || getTitle(tab.url),
+    url:tab.url
+  });
+
+  saveBookmarks(bookmarks);
+  $('saveBookmarkBtn').textContent = '★';
+  setTimeout(() => {
+    $('saveBookmarkBtn').textContent = '☆';
+  },1200);
+}
+
+function openBookmarks() {
+  renderBookmarks();
+  $('bookmarksModal').classList.add('open');
+}
+
+function closeBookmarks() {
+  $('bookmarksModal').classList.remove('open');
+}
+
+function renderBookmarks() {
+  const list = $('bookmarkList');
+  list.replaceChildren();
+
+  const bookmarks = getBookmarks();
+
+  if (bookmarks.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-bookmarks';
+    empty.textContent = 'no bookmarks yet. save a page using the ☆ button!';
+    list.appendChild(empty);
+    return;
+  }
+
+  bookmarks.forEach((bookmark,index) => {
+    const item = document.createElement('div');
+    item.className = 'bookmark-item';
+
+    const info = document.createElement('div');
+    info.className = 'bookmark-info';
+
+    const title = document.createElement('strong');
+    title.textContent = bookmark.title;
+
+    const url = document.createElement('span');
+    url.textContent = bookmark.url;
+
+    info.append(title,url);
+
+    const actions = document.createElement('div');
+    actions.className = 'bookmark-actions';
+
+    const open = document.createElement('button');
+    open.type = 'button';
+    open.textContent = 'open';
+    open.addEventListener('click',() => {
+      closeBookmarks();
+      navigate(bookmark.url);
+    });
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.textContent = 'remove';
+    remove.addEventListener('click',() => {
+      const current = getBookmarks();
+      current.splice(index,1);
+      saveBookmarks(current);
+      renderBookmarks();
+    });
+
+    actions.append(open,remove);
+    item.append(info,actions);
+    list.appendChild(item);
+  });
+}
+
+$('bookmarksBtn').addEventListener('click',openBookmarks);
+
+$('bookmarksModal').addEventListener('click',event => {
+  if (event.target === $('bookmarksModal')) closeBookmarks();
+});
+
+/* games library */
+
+function renderGames() {
+  const grid = $('gameGrid');
+  grid.replaceChildren();
+
+  const search = $('gameSearch').value.trim().toLowerCase();
+  const category = $('gameCategory').value;
+
+  const filtered = games.filter(game => {
+    const matchesSearch =
+      game.name.toLowerCase().includes(search) ||
+      game.description.toLowerCase().includes(search);
+
+    const matchesCategory =
+      category === 'all' || game.category === category;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  if (filtered.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'no-games';
+    empty.textContent = 'no games found. try another search!';
+    grid.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach(game => {
+    const card = document.createElement('div');
+    card.className = 'game-card';
+
+    const icon = document.createElement('div');
+    icon.className = 'game-icon';
+    icon.textContent = game.icon;
+
+    const categoryLabel = document.createElement('span');
+    categoryLabel.className = 'game-category';
+    categoryLabel.textContent = game.category;
+
+    const title = document.createElement('h3');
+    title.textContent = game.name;
+
+    const description = document.createElement('p');
+    description.textContent = game.description;
+
+    const play = document.createElement('button');
+    play.type = 'button';
+    play.textContent = 'play game ✦';
+    play.addEventListener('click',() => navigate(game.url));
+
+    card.append(icon,categoryLabel,title,description,play);
+    grid.appendChild(card);
+  });
+}
+
+$('gameSearch').addEventListener('input',renderGames);
+$('gameCategory').addEventListener('change',renderGames);
+
+$('gamesToggle').addEventListener('click',() => {
+  const content = $('gamesContent');
+  const isOpen = content.classList.toggle('open');
+
+  $('gamesArrow').textContent = isOpen ? '⌃' : '⌄';
+  $('gamesToggle').setAttribute('aria-expanded',String(isOpen));
 });
 
 /* update log */
@@ -1557,20 +2077,10 @@ $('updateLogModal').addEventListener('click',event => {
   }
 });
 
-/* games section */
-
-$('gamesToggle').addEventListener('click',() => {
-  const content = $('gamesContent');
-  const isOpen = content.classList.toggle('open');
-
-  $('gamesArrow').textContent = isOpen ? '⌃' : '⌄';
-  $('gamesToggle').setAttribute('aria-expanded',String(isOpen));
-});
-
 /* theme handling */
 
 function applyTheme(theme) {
-  document.body.classList.remove('light','halloween');
+  document.body.classList.remove('light','halloween','custom');
 
   if (theme === 'light') {
     document.body.classList.add('light');
@@ -1578,6 +2088,22 @@ function applyTheme(theme) {
 
   if (theme === 'halloween') {
     document.body.classList.add('halloween');
+  }
+
+  if (theme === 'custom') {
+    document.body.classList.add('custom');
+  }
+
+  $('customThemeControls').classList.toggle('show',theme === 'custom');
+
+  if (theme === 'custom') {
+    document.body.style.setProperty('--custom-bg',$('customBg').value);
+    document.body.style.setProperty('--custom-accent',$('customAccent').value);
+    document.body.style.setProperty('--custom-aurora',$('customAurora').value);
+  } else {
+    document.body.style.removeProperty('--custom-bg');
+    document.body.style.removeProperty('--custom-accent');
+    document.body.style.removeProperty('--custom-aurora');
   }
 }
 
@@ -1587,7 +2113,10 @@ function saveSettings() {
   localStorage.setItem('starsSettings',JSON.stringify({
     theme:$('themeSelect').value,
     engine:$('engineSelect').value,
-    stars:$('starsToggle').checked
+    stars:$('starsToggle').checked,
+    customBg:$('customBg').value,
+    customAccent:$('customAccent').value,
+    customAurora:$('customAurora').value
   }));
 }
 
@@ -1597,14 +2126,30 @@ function loadSettings() {
       localStorage.getItem('starsSettings') || '{}'
     );
 
-    const allowedThemes = ['dark','light','halloween'];
+    const allowedThemes = ['dark','light','halloween','custom'];
+    const allowedEngines = ['duck','google','bing'];
 
     $('themeSelect').value = allowedThemes.includes(settings.theme)
       ? settings.theme
       : 'dark';
 
-    $('engineSelect').value = settings.engine || 'duck';
+    $('engineSelect').value = allowedEngines.includes(settings.engine)
+      ? settings.engine
+      : 'duck';
+
     $('starsToggle').checked = settings.stars !== false;
+
+    $('customBg').value = /^#[0-9a-f]{6}$/i.test(settings.customBg || '')
+      ? settings.customBg
+      : '#101124';
+
+    $('customAccent').value = /^#[0-9a-f]{6}$/i.test(settings.customAccent || '')
+      ? settings.customAccent
+      : '#c5a6ff';
+
+    $('customAurora').value = /^#[0-9a-f]{6}$/i.test(settings.customAurora || '')
+      ? settings.customAurora
+      : '#7546d2';
 
     applyTheme($('themeSelect').value);
 
@@ -1616,6 +2161,33 @@ function loadSettings() {
     applyTheme('dark');
   }
 }
+
+/* theme setting events */
+
+$('themeSelect').addEventListener('change',() => {
+  applyTheme($('themeSelect').value);
+  saveSettings();
+});
+
+['customBg','customAccent','customAurora'].forEach(id => {
+  $(id).addEventListener('input',() => {
+    if ($('themeSelect').value === 'custom') {
+      applyTheme('custom');
+    }
+    saveSettings();
+  });
+});
+
+$('engineSelect').addEventListener('change',saveSettings);
+
+$('starsToggle').addEventListener('change',() => {
+  document.body.classList.toggle(
+    'no-stars',
+    !$('starsToggle').checked
+  );
+
+  saveSettings();
+});
 
 /* get complete HTML */
 
@@ -1687,28 +2259,12 @@ $('copyStarsBtn').addEventListener('click',async () => {
   },2000);
 });
 
-/* settings changes */
-
-$('themeSelect').addEventListener('change',() => {
-  applyTheme($('themeSelect').value);
-  saveSettings();
-});
-
-$('engineSelect').addEventListener('change',saveSettings);
-
-$('starsToggle').addEventListener('change',() => {
-  document.body.classList.toggle(
-    'no-stars',
-    !$('starsToggle').checked
-  );
-
-  saveSettings();
-});
-
 /* initialize */
 
 loadSettings();
 refreshUpdateDot();
+renderGames();
+renderBookmarks();
 </script>
 
 </body>
