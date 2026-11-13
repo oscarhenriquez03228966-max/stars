@@ -19,7 +19,6 @@
   --accent:#c5a6ff;
   --line:rgba(255,255,255,.13);
   --shadow:0 18px 60px rgba(0,0,0,.25);
-  --custom-aurora:#7546d2;
 }
 
 * {box-sizing:border-box}
@@ -55,20 +54,20 @@ body {
 .aurora.one {
   top:5%;
   left:0;
-  background:radial-gradient(ellipse,var(--custom-aurora),transparent 68%);
+  background:radial-gradient(ellipse,rgba(117,70,210,.55),transparent 68%);
 }
 
 .aurora.two {
   top:25%;
   right:0;
-  background:radial-gradient(ellipse,color-mix(in srgb,var(--custom-aurora) 60%,#2378aa),transparent 68%);
+  background:radial-gradient(ellipse,rgba(35,120,170,.45),transparent 68%);
   animation-delay:-10s;
 }
 
 .aurora.three {
   bottom:0;
   left:20%;
-  background:radial-gradient(ellipse,color-mix(in srgb,var(--custom-aurora) 80%,#9b4bbe),transparent 68%);
+  background:radial-gradient(ellipse,rgba(155,75,190,.35),transparent 68%);
   animation-delay:-20s;
 }
 
@@ -502,7 +501,7 @@ footer {
   content:"";
   width:11px;
   height:11px;
-  background:var(--bg);
+  background:#101124;
 }
 
 .game-card h3 {
@@ -969,7 +968,7 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
 
-  <div class="browser-note">if sites says access denied, then try reloading.</div>
+  <div class="browser-note">✦ browsing inside stars · some websites block embedded viewing</div>
 </section>
 
 <section class="games-section" id="gamesSection">
@@ -987,7 +986,6 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
         <option value="all">all categories</option>
         <option value="strategy">strategy</option>
         <option value="classic">classic</option>
-        <option value="shooter">shooter</option>
       </select>
     </div>
 
@@ -1101,13 +1099,9 @@ const $ = id => document.getElementById(id);
 
 /* version */
 
-const CURRENT_UPDATE_VERSION = '1.32';
+const CURRENT_UPDATE_VERSION = '1.31';
 
 const updates = {
-  '1.32': {
-    title:'V1.32, One more game',
-    description:'I added one more game and a new catagory, so check it out!'
-  },
   '1.31': {
     title:'V1.31, Game addition',
     description:'We added and removed some games but they at least work!'
@@ -1154,13 +1148,6 @@ const games = [
     icon:'roblox',
     description:'jump into Roblox and explore experiences.',
     url:'https://98.ip.nowgg.fun/apps/a/19900/b.html'
-  },
-  {
-    name:'veck.io',
-    category:'shooter',
-    icon_img:'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150',
-    description:'jump into fast-paced multiplayer shooter action.',
-    url:'https://veck.io'
   }
 ];
 
@@ -1242,17 +1229,6 @@ function renderTabs() {
   bar.appendChild(add);
 }
 
-function updateBookmarkButtonState() {
-  const tab = tabs.find(t => t.id === activeTab);
-  if (!tab || !tab.url || tab.url === 'about:blank' || !isSafeUrl(tab.url)) {
-    $('saveBookmarkBtn').textContent = '☆';
-    return;
-  }
-  const bookmarks = getBookmarks();
-  const isBookmarked = bookmarks.some(item => item.url === tab.url);
-  $('saveBookmarkBtn').textContent = isBookmarked ? '★' : '☆';
-}
-
 function activateTab(id) {
   const tab = tabs.find(t => t.id === id);
   if (!tab) return;
@@ -1274,7 +1250,6 @@ function activateTab(id) {
   }
 
   renderTabs();
-  updateBookmarkButtonState();
 }
 
 function newTab(url = 'about:blank') {
@@ -1340,9 +1315,6 @@ function navigate(value) {
 function playGame(game) {
   if (!game || !isSafeUrl(game.url)) return;
   navigate(game.url);
-
-  // Smooth scroll down to the proxy browser section when any game is clicked
-  $('browser').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function goAddress() {
@@ -1370,9 +1342,6 @@ function reloadPage() {
 }
 
 function goHome() {
-  if (document.fullscreenElement) {
-    document.exitFullscreen().catch(() => {});
-  }
   $('browserFrame').src = 'about:blank';
   $('browser').classList.remove('active','fullscreen');
   $('newTabPage').classList.remove('active');
@@ -1389,9 +1358,11 @@ let escapeCount = 0;
 let escapeTimer = null;
 let toastTimer = null;
 
-function setFullscreenUI(enabled) {
+function toggleFullscreen() {
   const browser = $('browser');
-  browser.classList.toggle('fullscreen',enabled);
+  if (!browser.classList.contains('active')) return;
+
+  const enabled = browser.classList.toggle('fullscreen');
   document.body.classList.toggle('browser-fullscreen',enabled);
 
   if (enabled) {
@@ -1408,31 +1379,6 @@ function setFullscreenUI(enabled) {
   }
 }
 
-function toggleFullscreen() {
-  const browser = $('browser');
-  if (!browser.classList.contains('active')) return;
-
-  const isCurrentlyFullscreen = browser.classList.contains('fullscreen') || Boolean(document.fullscreenElement);
-
-  if (!isCurrentlyFullscreen) {
-    setFullscreenUI(true);
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    }
-  } else {
-    setFullscreenUI(false);
-    if (document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(() => {});
-    }
-  }
-}
-
-document.addEventListener('fullscreenchange',() => {
-  if (!document.fullscreenElement && $('browser').classList.contains('fullscreen')) {
-    setFullscreenUI(false);
-  }
-});
-
 document.addEventListener('keydown',event => {
   if (event.key !== 'Escape') return;
   if (!$('browser').classList.contains('fullscreen')) return;
@@ -1442,10 +1388,11 @@ document.addEventListener('keydown',event => {
   clearTimeout(escapeTimer);
 
   if (escapeCount >= 2) {
-    setFullscreenUI(false);
-    if (document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(() => {});
-    }
+    $('browser').classList.remove('fullscreen');
+    document.body.classList.remove('browser-fullscreen');
+    $('fullscreenToast').classList.remove('show');
+    escapeCount = 0;
+    clearTimeout(toastTimer);
   } else {
     escapeTimer = setTimeout(() => escapeCount = 0,1000);
   }
@@ -1548,22 +1495,23 @@ function saveCurrentBookmark() {
   }
 
   const bookmarks = getBookmarks();
-  const existingIndex = bookmarks.findIndex(item => item.url === tab.url);
 
-  if (existingIndex > -1) {
-    bookmarks.splice(existingIndex, 1);
-    saveBookmarks(bookmarks);
-    $('saveBookmarkBtn').textContent = '☆';
-  } else {
-    bookmarks.push({
-      title:tab.title || getTitle(tab.url),
-      url:tab.url
-    });
-    saveBookmarks(bookmarks);
-    $('saveBookmarkBtn').textContent = '★';
+  if (bookmarks.some(item => item.url === tab.url)) {
+    alert('this page is already bookmarked!');
+    return;
   }
 
-  renderBookmarks();
+  bookmarks.push({
+    title:tab.title || getTitle(tab.url),
+    url:tab.url
+  });
+
+  saveBookmarks(bookmarks);
+  $('saveBookmarkBtn').textContent = '★';
+
+  setTimeout(() => {
+    $('saveBookmarkBtn').textContent = '☆';
+  },1200);
 }
 
 function openBookmarks() {
@@ -1586,7 +1534,6 @@ function renderBookmarks() {
     empty.className = 'empty-bookmarks';
     empty.textContent = 'no bookmarks yet. save a page using the ☆ button!';
     list.appendChild(empty);
-    updateBookmarkButtonState();
     return;
   }
 
@@ -1622,15 +1569,12 @@ function renderBookmarks() {
       current.splice(index,1);
       saveBookmarks(current);
       renderBookmarks();
-      updateBookmarkButtonState();
     });
 
     actions.append(open,remove);
     item.append(info,actions);
     list.appendChild(item);
   });
-
-  updateBookmarkButtonState();
 }
 
 $('bookmarksBtn').addEventListener('click',openBookmarks);
@@ -1674,16 +1618,7 @@ function renderGames() {
     const icon = document.createElement('div');
     icon.className = 'game-icon';
 
-    if (game.icon_img) {
-      const img = document.createElement('img');
-      img.src = game.icon_img;
-      img.alt = `${game.name} logo`;
-      img.style.maxWidth = '100%';
-      img.style.maxHeight = '100%';
-      img.style.objectFit = 'contain';
-      img.style.borderRadius = '11px';
-      icon.appendChild(img);
-    } else if (game.icon === 'roblox') {
+    if (game.icon === 'roblox') {
       icon.classList.add('roblox');
       const mark = document.createElement('span');
       mark.className = 'roblox-mark';
@@ -1832,7 +1767,6 @@ function loadSettings() {
     $('customAccent').value = /^#[0-9a-f]{6}$/i.test(settings.customAccent || '') ? settings.customAccent : '#c5a6ff';
     $('customAurora').value = /^#[0-9a-f]{6}$/i.test(settings.customAurora || '') ? settings.customAurora : '#7546d2';
 
-    document.body.style.setProperty('--custom-aurora', $('customAurora').value);
     applyTheme($('themeSelect').value);
     document.body.classList.toggle('no-stars',settings.stars === false);
   } catch(e) {
@@ -1847,9 +1781,6 @@ $('themeSelect').addEventListener('change',() => {
 
 ['customBg','customAccent','customAurora'].forEach(id => {
   $(id).addEventListener('input',() => {
-    if (id === 'customAurora') {
-      document.body.style.setProperty('--custom-aurora', $('customAurora').value);
-    }
     if ($('themeSelect').value === 'custom') applyTheme('custom');
     saveSettings();
   });
