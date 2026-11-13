@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,32 +54,20 @@ body {
 .aurora.one {
   top:5%;
   left:0;
-  background:radial-gradient(
-    ellipse,
-    color-mix(in srgb,var(--aurora-color) 55%,transparent),
-    transparent 68%
-  );
+  background:radial-gradient(ellipse,color-mix(in srgb,var(--aurora-color) 55%,transparent),transparent 68%);
 }
 
 .aurora.two {
   top:25%;
   right:0;
-  background:radial-gradient(
-    ellipse,
-    color-mix(in srgb,var(--aurora-color) 45%,transparent),
-    transparent 68%
-  );
+  background:radial-gradient(ellipse,color-mix(in srgb,var(--aurora-color) 45%,transparent),transparent 68%);
   animation-delay:-10s;
 }
 
 .aurora.three {
   bottom:0;
   left:20%;
-  background:radial-gradient(
-    ellipse,
-    color-mix(in srgb,var(--aurora-color) 35%,transparent),
-    transparent 68%
-  );
+  background:radial-gradient(ellipse,color-mix(in srgb,var(--aurora-color) 35%,transparent),transparent 68%);
   animation-delay:-20s;
 }
 
@@ -809,6 +796,7 @@ body.halloween {
   --muted:#c4a58d;
   --accent:#ff861a;
   --line:rgba(255,140,40,.2);
+  --aurora-color:#ff7a18;
   background:#080808;
 }
 
@@ -1000,11 +988,6 @@ body.halloween .newtab-form button {
     </div>
 
     <div class="setting-row">
-      <span>aurora background color</span>
-      <input id="auroraColor" type="color" value="#7546d2">
-    </div>
-
-    <div class="setting-row">
       <span>search engine</span>
       <select id="engineSelect">
         <option value="duck">DuckDuckGo</option>
@@ -1076,9 +1059,14 @@ const $ = id => document.getElementById(id);
 
 /* version */
 
-const CURRENT_UPDATE_VERSION = '1.32';
+const CURRENT_UPDATE_VERSION = '1.33';
 
 const updates = {
+  '1.33': {
+    title:'V1.33, Bug fixes',
+    description:'A chat update is coming, and I wanna clean some things up before it comes! So be prepared!'
+  },
+
   '1.32': {
     title:'V1.32, Fixed bugs and optimization',
     description:'We had to downgrade stars to fix many bugs, but the Halloween theme is getting removed soon! But we fixed some bugs and stuff.'
@@ -1290,8 +1278,6 @@ function activateTab(id) {
   }
 
   renderTabs();
-
-  // Update bookmark star whenever switching tabs.
   updateBookmarkStar();
 }
 
@@ -1365,7 +1351,6 @@ function playGame(game) {
 
   navigate(game.url);
 
-  // Scroll to the browser after opening a game.
   requestAnimationFrame(() => {
     $('browser').scrollIntoView({
       behavior:'smooth',
@@ -1387,9 +1372,7 @@ function reloadPage() {
 
   if (tab.url === 'about:blank') {
     $('newTabPage').classList.remove('active');
-
     void $('newTabPage').offsetWidth;
-
     $('newTabPage').classList.add('active');
     return;
   }
@@ -1578,14 +1561,11 @@ function saveCurrentBookmark() {
   });
 
   saveBookmarks(bookmarks);
-
-  // Keep the star filled while this bookmarked website is active.
   updateBookmarkStar();
 }
 
 function openBookmarks() {
   renderBookmarks();
-
   $('bookmarksModal').classList.add('open');
 }
 
@@ -1604,41 +1584,32 @@ function renderBookmarks() {
     const empty = document.createElement('div');
 
     empty.className = 'empty-bookmarks';
-
     empty.textContent = 'no bookmarks yet. save a page using the ☆ button!';
 
     list.appendChild(empty);
-
     updateBookmarkStar();
-
     return;
   }
 
   bookmarks.forEach((bookmark,index) => {
     const item = document.createElement('div');
-
     item.className = 'bookmark-item';
 
     const info = document.createElement('div');
-
     info.className = 'bookmark-info';
 
     const title = document.createElement('strong');
-
     title.textContent = bookmark.title;
 
     const url = document.createElement('span');
-
     url.textContent = bookmark.url;
 
     info.append(title,url);
 
     const actions = document.createElement('div');
-
     actions.className = 'bookmark-actions';
 
     const open = document.createElement('button');
-
     open.textContent = 'open';
 
     open.addEventListener('click',() => {
@@ -1647,26 +1618,18 @@ function renderBookmarks() {
     });
 
     const remove = document.createElement('button');
-
     remove.textContent = 'remove';
 
     remove.addEventListener('click',() => {
       const current = getBookmarks();
-
       current.splice(index,1);
-
       saveBookmarks(current);
-
       renderBookmarks();
-
-      // If the current page was removed, empty its star.
       updateBookmarkStar();
     });
 
     actions.append(open,remove);
-
     item.append(info,actions);
-
     list.appendChild(item);
   });
 
@@ -1687,7 +1650,6 @@ function renderGames() {
   grid.replaceChildren();
 
   const search = $('gameSearch').value.trim().toLowerCase();
-
   const category = $('gameCategory').value;
 
   const filtered = games.filter(game => {
@@ -1703,77 +1665,57 @@ function renderGames() {
 
   if (filtered.length === 0) {
     const empty = document.createElement('div');
-
     empty.className = 'no-games';
-
     empty.textContent = 'no games found. try another search!';
-
     grid.appendChild(empty);
-
     return;
   }
 
   filtered.forEach(game => {
     const card = document.createElement('div');
-
     card.className = 'game-card';
 
     const icon = document.createElement('div');
-
     icon.className = 'game-icon';
 
     if (game.icon === 'roblox') {
       icon.classList.add('roblox');
 
       const mark = document.createElement('span');
-
       mark.className = 'roblox-mark';
-
       icon.appendChild(mark);
-
     } else {
       icon.textContent = game.icon;
     }
 
     const categoryLabel = document.createElement('span');
-
     categoryLabel.className = 'game-category';
-
     categoryLabel.textContent = game.category;
 
     const title = document.createElement('h3');
-
     title.textContent = game.name;
 
     const description = document.createElement('p');
-
     description.textContent = game.description;
 
     const play = document.createElement('button');
-
     play.type = 'button';
-
     play.textContent = 'play game ✦';
-
     play.addEventListener('click',() => playGame(game));
 
     card.append(icon,categoryLabel,title,description,play);
-
     grid.appendChild(card);
   });
 }
 
 $('gameSearch').addEventListener('input',renderGames);
-
 $('gameCategory').addEventListener('change',renderGames);
 
 $('gamesToggle').addEventListener('click',() => {
   const content = $('gamesContent');
-
   const isOpen = content.classList.toggle('open');
 
   $('gamesArrow').textContent = isOpen ? '⌃' : '⌄';
-
   $('gamesToggle').setAttribute('aria-expanded',String(isOpen));
 });
 
@@ -1792,11 +1734,9 @@ function showSelectedUpdate(version) {
   });
 
   const title = document.createElement('h3');
-
   title.textContent = update.title;
 
   const description = document.createElement('p');
-
   description.textContent = update.description;
 
   $('updateContent').replaceChildren(title,description);
@@ -1804,18 +1744,14 @@ function showSelectedUpdate(version) {
 
 function renderUpdateList() {
   const list = $('updateList');
-
   list.replaceChildren();
 
   Object.keys(updates).forEach(version => {
     const button = document.createElement('button');
 
     button.type = 'button';
-
     button.className = 'update-choice';
-
     button.dataset.version = version;
-
     button.textContent = updates[version].title;
 
     button.addEventListener('click',() => showSelectedUpdate(version));
@@ -1837,7 +1773,6 @@ function refreshUpdateDot() {
 
 function openUpdateLog() {
   $('updateLogModal').classList.add('open');
-
   renderUpdateList();
 
   localStorage.setItem('starsSeenUpdateVersion',CURRENT_UPDATE_VERSION);
@@ -1869,27 +1804,13 @@ function applyTheme(theme) {
   }
 }
 
-/* aurora color */
-
-function applyAuroraColor(color) {
-  if (!/^#[0-9a-f]{6}$/i.test(color)) {
-    color = '#7546d2';
-  }
-
-  document.documentElement.style.setProperty(
-    '--aurora-color',
-    color
-  );
-}
-
 /* settings storage */
 
 function saveSettings() {
   localStorage.setItem('starsSettings',JSON.stringify({
     theme:$('themeSelect').value,
     engine:$('engineSelect').value,
-    stars:$('starsToggle').checked,
-    auroraColor:$('auroraColor').value
+    stars:$('starsToggle').checked
   }));
 }
 
@@ -1900,7 +1821,6 @@ function loadSettings() {
     );
 
     const allowedThemes = ['dark','light','halloween'];
-
     const allowedEngines = ['duck','google','bing'];
 
     $('themeSelect').value = allowedThemes.includes(settings.theme)
@@ -1913,14 +1833,7 @@ function loadSettings() {
 
     $('starsToggle').checked = settings.stars !== false;
 
-    $('auroraColor').value =
-      /^#[0-9a-f]{6}$/i.test(settings.auroraColor || '')
-        ? settings.auroraColor
-        : '#7546d2';
-
     applyTheme($('themeSelect').value);
-
-    applyAuroraColor($('auroraColor').value);
 
     document.body.classList.toggle(
       'no-stars',
@@ -1929,20 +1842,11 @@ function loadSettings() {
 
   } catch(e) {
     applyTheme('dark');
-
-    applyAuroraColor('#7546d2');
   }
 }
 
 $('themeSelect').addEventListener('change',() => {
   applyTheme($('themeSelect').value);
-
-  saveSettings();
-});
-
-$('auroraColor').addEventListener('input',() => {
-  applyAuroraColor($('auroraColor').value);
-
   saveSettings();
 });
 
@@ -1972,15 +1876,11 @@ $('downloadStarsBtn').addEventListener('click',() => {
   const url = URL.createObjectURL(blob);
 
   const link = document.createElement('a');
-
   link.href = url;
-
   link.download = 'stars.html';
 
   document.body.appendChild(link);
-
   link.click();
-
   link.remove();
 
   setTimeout(() => URL.revokeObjectURL(url),1000);
@@ -1996,22 +1896,17 @@ $('copyStarsBtn').addEventListener('click',async () => {
     const textarea = document.createElement('textarea');
 
     textarea.value = getStarsHTML();
-
     textarea.style.position = 'fixed';
-
     textarea.style.opacity = '0';
 
     document.body.appendChild(textarea);
-
     textarea.select();
 
     const copied = document.execCommand('copy');
-
     textarea.remove();
 
     if (!copied) {
       alert('Could not copy the HTML. Try the download button instead.');
-
       return;
     }
   }
@@ -2026,11 +1921,8 @@ $('copyStarsBtn').addEventListener('click',async () => {
 /* initialize */
 
 loadSettings();
-
 refreshUpdateDot();
-
 renderGames();
-
 renderBookmarks();
 
 </script>
