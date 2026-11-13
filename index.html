@@ -19,6 +19,7 @@
   --accent:#c5a6ff;
   --line:rgba(255,255,255,.13);
   --shadow:0 18px 60px rgba(0,0,0,.25);
+  --aurora-color:#7546d2;
 }
 
 * {box-sizing:border-box}
@@ -54,20 +55,32 @@ body {
 .aurora.one {
   top:5%;
   left:0;
-  background:radial-gradient(ellipse,rgba(117,70,210,.55),transparent 68%);
+  background:radial-gradient(
+    ellipse,
+    color-mix(in srgb,var(--aurora-color) 55%,transparent),
+    transparent 68%
+  );
 }
 
 .aurora.two {
   top:25%;
   right:0;
-  background:radial-gradient(ellipse,rgba(35,120,170,.45),transparent 68%);
+  background:radial-gradient(
+    ellipse,
+    color-mix(in srgb,var(--aurora-color) 45%,transparent),
+    transparent 68%
+  );
   animation-delay:-10s;
 }
 
 .aurora.three {
   bottom:0;
   left:20%;
-  background:radial-gradient(ellipse,rgba(155,75,190,.35),transparent 68%);
+  background:radial-gradient(
+    ellipse,
+    color-mix(in srgb,var(--aurora-color) 35%,transparent),
+    transparent 68%
+  );
   animation-delay:-20s;
 }
 
@@ -453,9 +466,7 @@ footer {
   outline:none;
 }
 
-.game-tools select {
-  min-width:120px;
-}
+.game-tools select {min-width:120px}
 
 .game-grid {
   display:grid;
@@ -484,9 +495,7 @@ footer {
   font-size:25px;
 }
 
-.game-icon.roblox {
-  background:transparent;
-}
+.game-icon.roblox {background:transparent}
 
 .roblox-mark {
   width:31px;
@@ -650,33 +659,6 @@ select {
   flex-wrap:wrap;
 }
 
-.color-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  color:var(--muted);
-  font-size:13px;
-  padding:7px 0;
-}
-
-.custom-theme-controls {
-  display:none;
-  flex-direction:column;
-  padding:12px 0;
-}
-
-.custom-theme-controls.show {display:flex}
-
-.color-row input {
-  width:48px;
-  height:34px;
-  padding:2px;
-  border:1px solid var(--line);
-  border-radius:9px;
-  background:transparent;
-}
-
 /* bookmarks */
 
 .bookmark-list {
@@ -802,10 +784,19 @@ body.light {
   background:#eeeafa;
 }
 
-body.light h1,body.light .logo {color:#57427e;text-shadow:none}
+body.light h1,body.light .logo {
+  color:#57427e;
+  text-shadow:none;
+}
+
 body.light .newtab-logo {color:#57427e}
 body.light .dialog {background:#f5f0ff}
-body.light .dialog h2,body.light .games-content h2 {color:#57427e}
+
+body.light .dialog h2,
+body.light .games-content h2 {
+  color:#57427e;
+}
+
 body.light .update-display h3 {color:#57427e}
 body.light select {background:white;color:#28223e}
 body.light .game-tools input {background:white;color:#28223e}
@@ -821,34 +812,22 @@ body.halloween {
   background:#080808;
 }
 
-body.halloween h1,body.halloween .logo,body.halloween .newtab-logo {
+body.halloween h1,
+body.halloween .logo,
+body.halloween .newtab-logo {
   color:#ffb15c;
   text-shadow:0 0 25px rgba(255,105,0,.65);
 }
 
-body.halloween .games-content h2,body.halloween .dialog h2 {
+body.halloween .games-content h2,
+body.halloween .dialog h2 {
   color:#ffad58;
 }
 
-body.halloween .search-wrap button,body.halloween .newtab-form button {
+body.halloween .search-wrap button,
+body.halloween .newtab-form button {
   background:linear-gradient(120deg,#ff9a32,#d94b00);
 }
-
-body.custom {
-  background:var(--custom-bg);
-  --bg:var(--custom-bg);
-  --accent:var(--custom-accent);
-  --line:color-mix(in srgb,var(--custom-accent) 25%,transparent);
-  --panel:color-mix(in srgb,var(--custom-accent) 10%,transparent);
-  --panel2:color-mix(in srgb,var(--custom-accent) 18%,transparent);
-}
-
-body.custom h1,body.custom .logo,body.custom .newtab-logo {
-  color:var(--custom-accent);
-}
-
-body.custom .dialog {background:var(--custom-bg)}
-body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)}
 
 @media(max-width:560px) {
   header {padding:18px}
@@ -943,20 +922,25 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
     </form>
 
     <p class="quick-title">your quick links</p>
+
     <div class="quick-links">
       <a class="quick-link" href="https://www.google.com" data-url="https://www.google.com">
         <span class="quick-icon">G</span><span>Google</span>
       </a>
+
       <a class="quick-link" href="https://www.youtube.com" data-url="https://www.youtube.com">
         <span class="quick-icon">▶</span><span>YouTube</span>
       </a>
+
       <a class="quick-link" href="https://www.wikipedia.org" data-url="https://www.wikipedia.org">
         <span class="quick-icon">W</span><span>Wikipedia</span>
       </a>
+
       <a class="quick-link" href="https://github.com" data-url="https://github.com">
         <span class="quick-icon">⌘</span><span>GitHub</span>
       </a>
     </div>
+
     <div class="newtab-footer">✦ made of stardust · stars</div>
   </section>
 
@@ -982,6 +966,7 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
 
     <div class="game-tools">
       <input id="gameSearch" type="search" placeholder="search games...">
+
       <select id="gameCategory" aria-label="Filter games">
         <option value="all">all categories</option>
         <option value="strategy">strategy</option>
@@ -993,7 +978,9 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
   </div>
 </section>
 
-<div class="fullscreen-toast" id="fullscreenToast">Double tap escape to exit fullscreen.</div>
+<div class="fullscreen-toast" id="fullscreenToast">
+  Double tap escape to exit fullscreen.
+</div>
 
 <!-- settings -->
 
@@ -1009,23 +996,12 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
         <option value="dark">midnight sky</option>
         <option value="light">soft daylight</option>
         <option value="halloween">halloween</option>
-        <option value="custom">custom theme</option>
       </select>
     </div>
 
-    <div class="custom-theme-controls" id="customThemeControls">
-      <div class="color-row">
-        <label for="customBg">background color</label>
-        <input id="customBg" type="color" value="#101124">
-      </div>
-      <div class="color-row">
-        <label for="customAccent">accent color</label>
-        <input id="customAccent" type="color" value="#c5a6ff">
-      </div>
-      <div class="color-row">
-        <label for="customAurora">aurora color</label>
-        <input id="customAurora" type="color" value="#7546d2">
-      </div>
+    <div class="setting-row">
+      <span>aurora background color</span>
+      <input id="auroraColor" type="color" value="#7546d2">
     </div>
 
     <div class="setting-row">
@@ -1077,6 +1053,7 @@ body.custom .games-content h2,body.custom .dialog h2 {color:var(--custom-accent)
     <button class="close" onclick="closeUpdateLog()">✕</button>
     <h2>Update Log</h2>
     <p>select an update to see what changed</p>
+
     <div class="update-layout">
       <div class="update-list" id="updateList"></div>
       <div class="update-display" id="updateContent" aria-live="polite"></div>
@@ -1099,29 +1076,39 @@ const $ = id => document.getElementById(id);
 
 /* version */
 
-const CURRENT_UPDATE_VERSION = '1.31';
+const CURRENT_UPDATE_VERSION = '1.32';
 
 const updates = {
+  '1.32': {
+    title:'V1.32, Fixed bugs and optimization',
+    description:'We had to downgrade stars to fix many bugs, but the Halloween theme is getting removed soon! But we fixed some bugs and stuff.'
+  },
+
   '1.31': {
     title:'V1.31, Game addition',
     description:'We added and removed some games but they at least work!'
   },
+
   '1.30': {
     title:'V1.30, Additional buttons',
     description:'There are now bookmarks, a games library, and custom themes to stars! your settings and saved bookmarks are stored locally.'
   },
+
   '1.20': {
     title:'V1.20, Halloween!',
     description:"Halloween's here, and I wanted to add a new appearance to fit in! So, it's here, go check it out!"
   },
+
   '1.11': {
     title:'V1.11, Games tab',
     description:'We added a games tab at the bottom of the website, games will be added soon!'
   },
+
   '1.10': {
     title:'V1.10, Button shifting',
     description:'We move some buttons around and optimized stars.'
   },
+
   '1.00': {
     title:'V1.00, Release!',
     description:"Stars' out now, and is useable! Look out for new updates soon!"
@@ -1142,6 +1129,7 @@ const games = [
     description:'play chess and practice your strategy.',
     url:'https://chess.com'
   },
+
   {
     name:'Roblox',
     category:'classic',
@@ -1159,13 +1147,18 @@ function isWebsite(value) {
 
 function normalizeUrl(value) {
   value = value.trim();
-  if (!/^https?:\/\//i.test(value)) value = 'https://' + value;
+
+  if (!/^https?:\/\//i.test(value)) {
+    value = 'https://' + value;
+  }
+
   return value;
 }
 
 function isSafeUrl(value) {
   try {
     const url = new URL(value);
+
     return url.protocol === 'https:' || url.protocol === 'http:';
   } catch(e) {
     return false;
@@ -1174,21 +1167,62 @@ function isSafeUrl(value) {
 
 function searchUrl(q) {
   const engine = $('engineSelect').value;
+
   const urls = {
     duck:'https://duckduckgo.com/?q=',
     google:'https://www.google.com/search?q=',
     bing:'https://www.bing.com/search?q='
   };
+
   return urls[engine] + encodeURIComponent(q);
 }
 
 function getTitle(url) {
   try {
     if (!url || url === 'about:blank') return 'new tab';
+
     return new URL(url).hostname.replace(/^www\./,'');
   } catch(e) {
     return 'new tab';
   }
+}
+
+/* bookmarks storage */
+
+function getBookmarks() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('starsBookmarks') || '[]');
+
+    return Array.isArray(saved) ? saved.filter(item =>
+      item &&
+      typeof item.title === 'string' &&
+      typeof item.url === 'string' &&
+      isSafeUrl(item.url)
+    ) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function saveBookmarks(bookmarks) {
+  localStorage.setItem('starsBookmarks',JSON.stringify(bookmarks));
+}
+
+/* bookmark star */
+
+function updateBookmarkStar() {
+  const tab = tabs.find(t => t.id === activeTab);
+
+  if (!tab || !tab.url || tab.url === 'about:blank') {
+    $('saveBookmarkBtn').textContent = '☆';
+    return;
+  }
+
+  const bookmarks = getBookmarks();
+
+  const saved = bookmarks.some(item => item.url === tab.url);
+
+  $('saveBookmarkBtn').textContent = saved ? '★' : '☆';
 }
 
 /* browser tabs */
@@ -1199,6 +1233,7 @@ function renderTabs() {
 
   tabs.forEach(tab => {
     const button = document.createElement('div');
+
     button.className = 'tab' + (tab.id === activeTab ? ' active' : '');
 
     const name = document.createElement('span');
@@ -1222,24 +1257,29 @@ function renderTabs() {
   });
 
   const add = document.createElement('button');
+
   add.className = 'new-tab';
   add.textContent = '+';
   add.title = 'New tab';
   add.onclick = () => newTab();
+
   bar.appendChild(add);
 }
 
 function activateTab(id) {
   const tab = tabs.find(t => t.id === id);
+
   if (!tab) return;
 
   activeTab = id;
+
   $('browser').classList.add('active');
   $('homePage').style.display = 'none';
 
   const isNewTab = !tab.url || tab.url === 'about:blank';
 
   $('addressBar').value = isNewTab ? '' : tab.url;
+
   $('newTabPage').classList.toggle('active',isNewTab);
   $('browserFrame').style.display = isNewTab ? 'none' : 'block';
 
@@ -1250,6 +1290,9 @@ function activateTab(id) {
   }
 
   renderTabs();
+
+  // Update bookmark star whenever switching tabs.
+  updateBookmarkStar();
 }
 
 function newTab(url = 'about:blank') {
@@ -1265,9 +1308,11 @@ function newTab(url = 'about:blank') {
 
 function closeTab(id) {
   const index = tabs.findIndex(t => t.id === id);
+
   if (index === -1) return;
 
   const wasActive = activeTab === id;
+
   tabs.splice(index,1);
 
   if (tabs.length === 0) {
@@ -1288,6 +1333,7 @@ function closeTab(id) {
 
 function navigate(value) {
   value = value.trim();
+
   if (!value) return;
 
   const destination = isWebsite(value)
@@ -1300,6 +1346,7 @@ function navigate(value) {
   }
 
   const tab = tabs.find(t => t.id === activeTab);
+
   if (!tab) {
     newTab(destination);
     return;
@@ -1307,15 +1354,27 @@ function navigate(value) {
 
   tab.url = destination;
   tab.title = getTitle(destination);
+
   activateTab(tab.id);
 }
 
-/* games open inside the stars browser */
+/* games */
 
 function playGame(game) {
   if (!game || !isSafeUrl(game.url)) return;
+
   navigate(game.url);
+
+  // Scroll to the browser after opening a game.
+  requestAnimationFrame(() => {
+    $('browser').scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+  });
 }
+
+/* navigation controls */
 
 function goAddress() {
   navigate($('addressBar').value);
@@ -1323,11 +1382,14 @@ function goAddress() {
 
 function reloadPage() {
   const tab = tabs.find(t => t.id === activeTab);
+
   if (!tab) return;
 
   if (tab.url === 'about:blank') {
     $('newTabPage').classList.remove('active');
+
     void $('newTabPage').offsetWidth;
+
     $('newTabPage').classList.add('active');
     return;
   }
@@ -1343,13 +1405,22 @@ function reloadPage() {
 
 function goHome() {
   $('browserFrame').src = 'about:blank';
+
   $('browser').classList.remove('active','fullscreen');
   $('newTabPage').classList.remove('active');
+
   $('browserFrame').style.display = 'block';
+
   document.body.classList.remove('browser-fullscreen');
+
   $('fullscreenToast').classList.remove('show');
+
   $('homePage').style.display = 'block';
-  window.scrollTo({top:0,behavior:'smooth'});
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
 }
 
 /* fullscreen */
@@ -1360,39 +1431,55 @@ let toastTimer = null;
 
 function toggleFullscreen() {
   const browser = $('browser');
+
   if (!browser.classList.contains('active')) return;
 
   const enabled = browser.classList.toggle('fullscreen');
+
   document.body.classList.toggle('browser-fullscreen',enabled);
 
   if (enabled) {
     escapeCount = 0;
+
     $('fullscreenToast').classList.add('show');
+
     clearTimeout(toastTimer);
+
     toastTimer = setTimeout(() => {
       $('fullscreenToast').classList.remove('show');
     },3000);
+
   } else {
     $('fullscreenToast').classList.remove('show');
+
     clearTimeout(toastTimer);
+
     escapeCount = 0;
   }
 }
 
 document.addEventListener('keydown',event => {
   if (event.key !== 'Escape') return;
+
   if (!$('browser').classList.contains('fullscreen')) return;
 
   event.preventDefault();
+
   escapeCount++;
+
   clearTimeout(escapeTimer);
 
   if (escapeCount >= 2) {
     $('browser').classList.remove('fullscreen');
+
     document.body.classList.remove('browser-fullscreen');
+
     $('fullscreenToast').classList.remove('show');
+
     escapeCount = 0;
+
     clearTimeout(toastTimer);
+
   } else {
     escapeTimer = setTimeout(() => escapeCount = 0,1000);
   }
@@ -1428,6 +1515,7 @@ document.querySelectorAll('.quick-link').forEach(link => {
 
 $('browserFrame').addEventListener('load',() => {
   const tab = tabs.find(t => t.id === activeTab);
+
   if (tab && tab.url !== 'about:blank') {
     tab.title = getTitle(tab.url);
     renderTabs();
@@ -1468,24 +1556,6 @@ $('infoModal').addEventListener('click',event => {
 
 /* bookmarks */
 
-function getBookmarks() {
-  try {
-    const saved = JSON.parse(localStorage.getItem('starsBookmarks') || '[]');
-    return Array.isArray(saved) ? saved.filter(item =>
-      item &&
-      typeof item.title === 'string' &&
-      typeof item.url === 'string' &&
-      isSafeUrl(item.url)
-    ) : [];
-  } catch(e) {
-    return [];
-  }
-}
-
-function saveBookmarks(bookmarks) {
-  localStorage.setItem('starsBookmarks',JSON.stringify(bookmarks));
-}
-
 function saveCurrentBookmark() {
   const tab = tabs.find(t => t.id === activeTab);
 
@@ -1498,6 +1568,7 @@ function saveCurrentBookmark() {
 
   if (bookmarks.some(item => item.url === tab.url)) {
     alert('this page is already bookmarked!');
+    updateBookmarkStar();
     return;
   }
 
@@ -1507,15 +1578,14 @@ function saveCurrentBookmark() {
   });
 
   saveBookmarks(bookmarks);
-  $('saveBookmarkBtn').textContent = '★';
 
-  setTimeout(() => {
-    $('saveBookmarkBtn').textContent = '☆';
-  },1200);
+  // Keep the star filled while this bookmarked website is active.
+  updateBookmarkStar();
 }
 
 function openBookmarks() {
   renderBookmarks();
+
   $('bookmarksModal').classList.add('open');
 }
 
@@ -1525,56 +1595,82 @@ function closeBookmarks() {
 
 function renderBookmarks() {
   const list = $('bookmarkList');
+
   list.replaceChildren();
 
   const bookmarks = getBookmarks();
 
   if (bookmarks.length === 0) {
     const empty = document.createElement('div');
+
     empty.className = 'empty-bookmarks';
+
     empty.textContent = 'no bookmarks yet. save a page using the ☆ button!';
+
     list.appendChild(empty);
+
+    updateBookmarkStar();
+
     return;
   }
 
   bookmarks.forEach((bookmark,index) => {
     const item = document.createElement('div');
+
     item.className = 'bookmark-item';
 
     const info = document.createElement('div');
+
     info.className = 'bookmark-info';
 
     const title = document.createElement('strong');
+
     title.textContent = bookmark.title;
 
     const url = document.createElement('span');
+
     url.textContent = bookmark.url;
 
     info.append(title,url);
 
     const actions = document.createElement('div');
+
     actions.className = 'bookmark-actions';
 
     const open = document.createElement('button');
+
     open.textContent = 'open';
+
     open.addEventListener('click',() => {
       closeBookmarks();
       navigate(bookmark.url);
     });
 
     const remove = document.createElement('button');
+
     remove.textContent = 'remove';
+
     remove.addEventListener('click',() => {
       const current = getBookmarks();
+
       current.splice(index,1);
+
       saveBookmarks(current);
+
       renderBookmarks();
+
+      // If the current page was removed, empty its star.
+      updateBookmarkStar();
     });
 
     actions.append(open,remove);
+
     item.append(info,actions);
+
     list.appendChild(item);
   });
+
+  updateBookmarkStar();
 }
 
 $('bookmarksBtn').addEventListener('click',openBookmarks);
@@ -1587,9 +1683,11 @@ $('bookmarksModal').addEventListener('click',event => {
 
 function renderGames() {
   const grid = $('gameGrid');
+
   grid.replaceChildren();
 
   const search = $('gameSearch').value.trim().toLowerCase();
+
   const category = $('gameCategory').value;
 
   const filtered = games.filter(game => {
@@ -1605,56 +1703,77 @@ function renderGames() {
 
   if (filtered.length === 0) {
     const empty = document.createElement('div');
+
     empty.className = 'no-games';
+
     empty.textContent = 'no games found. try another search!';
+
     grid.appendChild(empty);
+
     return;
   }
 
   filtered.forEach(game => {
     const card = document.createElement('div');
+
     card.className = 'game-card';
 
     const icon = document.createElement('div');
+
     icon.className = 'game-icon';
 
     if (game.icon === 'roblox') {
       icon.classList.add('roblox');
+
       const mark = document.createElement('span');
+
       mark.className = 'roblox-mark';
+
       icon.appendChild(mark);
+
     } else {
       icon.textContent = game.icon;
     }
 
     const categoryLabel = document.createElement('span');
+
     categoryLabel.className = 'game-category';
+
     categoryLabel.textContent = game.category;
 
     const title = document.createElement('h3');
+
     title.textContent = game.name;
 
     const description = document.createElement('p');
+
     description.textContent = game.description;
 
     const play = document.createElement('button');
+
     play.type = 'button';
+
     play.textContent = 'play game ✦';
+
     play.addEventListener('click',() => playGame(game));
 
     card.append(icon,categoryLabel,title,description,play);
+
     grid.appendChild(card);
   });
 }
 
 $('gameSearch').addEventListener('input',renderGames);
+
 $('gameCategory').addEventListener('change',renderGames);
 
 $('gamesToggle').addEventListener('click',() => {
   const content = $('gamesContent');
+
   const isOpen = content.classList.toggle('open');
 
   $('gamesArrow').textContent = isOpen ? '⌃' : '⌄';
+
   $('gamesToggle').setAttribute('aria-expanded',String(isOpen));
 });
 
@@ -1662,16 +1781,22 @@ $('gamesToggle').addEventListener('click',() => {
 
 function showSelectedUpdate(version) {
   const update = updates[version];
+
   if (!update) return;
 
   document.querySelectorAll('.update-choice').forEach(button => {
-    button.classList.toggle('selected',button.dataset.version === version);
+    button.classList.toggle(
+      'selected',
+      button.dataset.version === version
+    );
   });
 
   const title = document.createElement('h3');
+
   title.textContent = update.title;
 
   const description = document.createElement('p');
+
   description.textContent = update.description;
 
   $('updateContent').replaceChildren(title,description);
@@ -1679,16 +1804,22 @@ function showSelectedUpdate(version) {
 
 function renderUpdateList() {
   const list = $('updateList');
+
   list.replaceChildren();
 
   Object.keys(updates).forEach(version => {
     const button = document.createElement('button');
+
     button.type = 'button';
+
     button.className = 'update-choice';
+
     button.dataset.version = version;
+
     button.textContent = updates[version].title;
 
     button.addEventListener('click',() => showSelectedUpdate(version));
+
     list.appendChild(button);
   });
 
@@ -1697,13 +1828,20 @@ function renderUpdateList() {
 
 function refreshUpdateDot() {
   const seenVersion = localStorage.getItem('starsSeenUpdateVersion');
-  $('updateDot').classList.toggle('hidden',seenVersion === CURRENT_UPDATE_VERSION);
+
+  $('updateDot').classList.toggle(
+    'hidden',
+    seenVersion === CURRENT_UPDATE_VERSION
+  );
 }
 
 function openUpdateLog() {
   $('updateLogModal').classList.add('open');
+
   renderUpdateList();
+
   localStorage.setItem('starsSeenUpdateVersion',CURRENT_UPDATE_VERSION);
+
   refreshUpdateDot();
 }
 
@@ -1720,23 +1858,28 @@ $('updateLogModal').addEventListener('click',event => {
 /* theme handling */
 
 function applyTheme(theme) {
-  document.body.classList.remove('light','halloween','custom');
+  document.body.classList.remove('light','halloween');
 
-  if (theme === 'light') document.body.classList.add('light');
-  if (theme === 'halloween') document.body.classList.add('halloween');
-  if (theme === 'custom') document.body.classList.add('custom');
-
-  $('customThemeControls').classList.toggle('show',theme === 'custom');
-
-  if (theme === 'custom') {
-    document.body.style.setProperty('--custom-bg',$('customBg').value);
-    document.body.style.setProperty('--custom-accent',$('customAccent').value);
-    document.body.style.setProperty('--custom-aurora',$('customAurora').value);
-  } else {
-    document.body.style.removeProperty('--custom-bg');
-    document.body.style.removeProperty('--custom-accent');
-    document.body.style.removeProperty('--custom-aurora');
+  if (theme === 'light') {
+    document.body.classList.add('light');
   }
+
+  if (theme === 'halloween') {
+    document.body.classList.add('halloween');
+  }
+}
+
+/* aurora color */
+
+function applyAuroraColor(color) {
+  if (!/^#[0-9a-f]{6}$/i.test(color)) {
+    color = '#7546d2';
+  }
+
+  document.documentElement.style.setProperty(
+    '--aurora-color',
+    color
+  );
 }
 
 /* settings storage */
@@ -1746,50 +1889,71 @@ function saveSettings() {
     theme:$('themeSelect').value,
     engine:$('engineSelect').value,
     stars:$('starsToggle').checked,
-    customBg:$('customBg').value,
-    customAccent:$('customAccent').value,
-    customAurora:$('customAurora').value
+    auroraColor:$('auroraColor').value
   }));
 }
 
 function loadSettings() {
   try {
-    const settings = JSON.parse(localStorage.getItem('starsSettings') || '{}');
+    const settings = JSON.parse(
+      localStorage.getItem('starsSettings') || '{}'
+    );
 
-    const allowedThemes = ['dark','light','halloween','custom'];
+    const allowedThemes = ['dark','light','halloween'];
+
     const allowedEngines = ['duck','google','bing'];
 
-    $('themeSelect').value = allowedThemes.includes(settings.theme) ? settings.theme : 'dark';
-    $('engineSelect').value = allowedEngines.includes(settings.engine) ? settings.engine : 'duck';
+    $('themeSelect').value = allowedThemes.includes(settings.theme)
+      ? settings.theme
+      : 'dark';
+
+    $('engineSelect').value = allowedEngines.includes(settings.engine)
+      ? settings.engine
+      : 'duck';
+
     $('starsToggle').checked = settings.stars !== false;
 
-    $('customBg').value = /^#[0-9a-f]{6}$/i.test(settings.customBg || '') ? settings.customBg : '#101124';
-    $('customAccent').value = /^#[0-9a-f]{6}$/i.test(settings.customAccent || '') ? settings.customAccent : '#c5a6ff';
-    $('customAurora').value = /^#[0-9a-f]{6}$/i.test(settings.customAurora || '') ? settings.customAurora : '#7546d2';
+    $('auroraColor').value =
+      /^#[0-9a-f]{6}$/i.test(settings.auroraColor || '')
+        ? settings.auroraColor
+        : '#7546d2';
 
     applyTheme($('themeSelect').value);
-    document.body.classList.toggle('no-stars',settings.stars === false);
+
+    applyAuroraColor($('auroraColor').value);
+
+    document.body.classList.toggle(
+      'no-stars',
+      settings.stars === false
+    );
+
   } catch(e) {
     applyTheme('dark');
+
+    applyAuroraColor('#7546d2');
   }
 }
 
 $('themeSelect').addEventListener('change',() => {
   applyTheme($('themeSelect').value);
+
   saveSettings();
 });
 
-['customBg','customAccent','customAurora'].forEach(id => {
-  $(id).addEventListener('input',() => {
-    if ($('themeSelect').value === 'custom') applyTheme('custom');
-    saveSettings();
-  });
+$('auroraColor').addEventListener('input',() => {
+  applyAuroraColor($('auroraColor').value);
+
+  saveSettings();
 });
 
 $('engineSelect').addEventListener('change',saveSettings);
 
 $('starsToggle').addEventListener('change',() => {
-  document.body.classList.toggle('no-stars',!$('starsToggle').checked);
+  document.body.classList.toggle(
+    'no-stars',
+    !$('starsToggle').checked
+  );
+
   saveSettings();
 });
 
@@ -1800,15 +1964,23 @@ function getStarsHTML() {
 }
 
 $('downloadStarsBtn').addEventListener('click',() => {
-  const blob = new Blob([getStarsHTML()],{type:'text/html;charset=utf-8'});
+  const blob = new Blob(
+    [getStarsHTML()],
+    {type:'text/html;charset=utf-8'}
+  );
+
   const url = URL.createObjectURL(blob);
+
   const link = document.createElement('a');
 
   link.href = url;
+
   link.download = 'stars.html';
 
   document.body.appendChild(link);
+
   link.click();
+
   link.remove();
 
   setTimeout(() => URL.revokeObjectURL(url),1000);
@@ -1819,34 +1991,48 @@ $('copyStarsBtn').addEventListener('click',async () => {
 
   try {
     await navigator.clipboard.writeText(getStarsHTML());
+
   } catch(error) {
     const textarea = document.createElement('textarea');
+
     textarea.value = getStarsHTML();
+
     textarea.style.position = 'fixed';
+
     textarea.style.opacity = '0';
 
     document.body.appendChild(textarea);
+
     textarea.select();
 
     const copied = document.execCommand('copy');
+
     textarea.remove();
 
     if (!copied) {
       alert('Could not copy the HTML. Try the download button instead.');
+
       return;
     }
   }
 
   button.textContent = 'copied!';
-  setTimeout(() => button.textContent = 'copy html code',2000);
+
+  setTimeout(() => {
+    button.textContent = 'copy html code';
+  },2000);
 });
 
 /* initialize */
 
 loadSettings();
+
 refreshUpdateDot();
+
 renderGames();
+
 renderBookmarks();
+
 </script>
 
 </body>
